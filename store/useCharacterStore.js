@@ -9,14 +9,14 @@ export const useCharacterStore = defineStore('character', {
   actions: {
     async loadCharacters() {
       try {
-        this.characters = await $fetch('/api/get-characters');
+        this.characters = await $fetch('https://fbcs-hsr.vercel.app/api/get-characters');
       } catch (error) {
         console.error('Error loading characters:', error);
       }
     },
     async saveCharactersToFile() {
       try {
-        const response = await $fetch('/api/update-characters', {
+        const response = await $fetch('https://fbcs-hsr.vercel.app/api/update-characters', {
           method: 'POST',
           body: { characters: this.characters }
         });
