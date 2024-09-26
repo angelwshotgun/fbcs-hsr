@@ -30,7 +30,7 @@ export const useCharacterStore = defineStore('character', {
     },
     async updateCharacterPoint(id, newPoints) {
       try {
-        const response = await $fetch('/api/update-character-point', {
+        const response = await $fetch('https://fbcs-hsr.vercel.app/api/update-character-point', {
           method: 'POST',
           body: { id, newPoints }
         });
@@ -45,14 +45,14 @@ export const useCharacterStore = defineStore('character', {
     },
     async loadLightCone() {
       try {
-        this.light_cones = await $fetch('/api/get-lightcones');
+        this.light_cones = await $fetch('https://fbcs-hsr.vercel.app/api/get-lightcones');
       } catch (error) {
         console.error('Error loading lightcones:', error);
       }
     },
     async saveLightconesToFile() {
       try {
-        const response = await $fetch('/api/update-lightcones', {
+        const response = await $fetch('https://fbcs-hsr.vercel.app/api/update-lightcones', {
           method: 'POST',
           body: { light_cones: this.light_cones }
         });
