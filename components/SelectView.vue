@@ -52,13 +52,13 @@
   const eiloidonSelect = ref([0,1,2,3,4,5,6])
   const superimpSelect = ref([1,2,3,4,5])
   
-  fetch("/api/characters")
+  fetch("https://fbcs-hsr.vercel.app/api/characters")
     .then((res) => res.json())
     .then((data) => {
       characters.value = Object.values(data);
     });
   
-  fetch("/api/light_cones")
+  fetch("https://fbcs-hsr.vercel.app/api/light_cones")
     .then((res) => res.json())
     .then((data) => {
       light_cones.value = Object.values(data);
