@@ -1,17 +1,25 @@
-// server/api/get-characters.get.js
-import fs from 'fs/promises';
-import path from 'path';
-
 export default defineEventHandler(async (event) => {
+  // URL to the remote JSON file
+  const url = 'https://raw.githubusercontent.com/angelwshotgun/fbcs-hsr/refs/heads/main/data/characters.json';
+
   try {
-    const filePath = path.resolve('data/characters.json');
-    const data = await fs.readFile(filePath, 'utf-8');
-    return JSON.parse(data);
+    const response = await fetch(url);
+
+    // Check if the response is OK (status code 200)
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
+    }
+
+    const data = await response.json();
+    return {
+      success: true,
+      data, // Return the fetched data
+    };
   } catch (error) {
     return {
       success: false,
-      message: 'Error reading characters.',
-      error
+      message: 'Error fetching characters.',
+      error: error.message, // Return the error message
     };
   }
 });
