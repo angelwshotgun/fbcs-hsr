@@ -19,5 +19,8 @@ export default defineNuxtConfig({
         preset: Aura
       }
     }
-  }
+  },
+  runtimeConfig: {
+    githubToken: process.env.GITHUB_TOKEN,
+  },
 })

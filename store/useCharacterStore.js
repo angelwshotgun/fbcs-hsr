@@ -30,7 +30,7 @@ export const useCharacterStore = defineStore('character', {
     },
     async updateCharacterPoint(id, newPoints) {
       try {
-        const response = await $fetch('https://fbcs-hsr.vercel.app/api/update-character-point', {
+        const response = await $fetch('/api/update-character-point', {
           method: 'POST',
           body: { id, newPoints }
         });

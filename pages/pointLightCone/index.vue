@@ -21,7 +21,7 @@
   const characterStore = useCharacterStore();
   await characterStore.loadLightCone();
   
-  const light_cones = characterStore.light_cones;
+  const light_cones = characterStore.light_cones.data;
   
   const newPoints = ref([]);
   newPoints.value = Object.values(light_cones).map((light_cone) => light_cone.point);

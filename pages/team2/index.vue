@@ -28,14 +28,7 @@
 import { useStore } from "~/store/useStore";
 
 const store = useStore();
-const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
-const { data } = await useFetch("/api/characters");
-const characters = ref();
-characters.value = Object.values(data.value);
 onMounted(() => {
   store.initializeRealtimeListeners();
 });
-const char = ref();
-const state = computed(() => store.$state.state.index);
-const team = computed(() => store.$state.state.team);
 </script>

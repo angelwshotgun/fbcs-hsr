@@ -21,7 +21,7 @@ import { useCharacterStore } from '~/store/useCharacterStore';
 const characterStore = useCharacterStore();
 await characterStore.loadCharacters();
 
-const characters = characterStore.characters;
+const characters = characterStore.characters.data;
 const newPoints = ref([]);
 newPoints.value = Object.values(characters).map((character) => character.point);
 const updateCharacterPoint = () => {

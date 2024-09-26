@@ -15,6 +15,7 @@
     "@primevue/nuxt-module": "^4.0.7",
     "@primevue/themes": "^4.0.7",
     "@vueuse/firebase": "^11.0.3",
+    "dotenv": "^16.4.5",
     "firebase": "^10.13.1",
     "nuxt": "^3.13.0",
     "nuxt-vuefire": "^1.0.4",
