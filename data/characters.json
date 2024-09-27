@@ -26,15 +26,7 @@
     "rarity": 4,
     "path": "Rogue",
     "element": "Wind",
-    "point": [
-      0,
-      0,
-      0,
-      0,
-      0.5,
-      0.5,
-      0.5
-    ],
+    "point": "2,0,0,0,0.5,0.5,0.5",
     "icon": "icon/character/1002.png",
     "preview": "image/character_preview/1002.png",
     "portrait": "image/character_portrait/1002.png"
