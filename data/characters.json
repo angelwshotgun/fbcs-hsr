@@ -47,13 +47,13 @@
     "path": "Mage",
     "element": "Fire",
     "point": [
-      0,
-      0,
-      0,
-      0,
       0.5,
       0.5,
-      0.5
+      1,
+      1,
+      1,
+      1,
+      2
     ],
     "icon": "icon/character/1003.png",
     "preview": "image/character_preview/1003.png",
@@ -170,12 +170,12 @@
     "preview": "image/character_preview/1013.png",
     "portrait": "image/character_portrait/1013.png",
     "point": [
+      -2,
+      -1,
+      -1,
       0,
       0,
       0,
-      0,
-      0.5,
-      0.5,
       0.5
     ]
   },
@@ -234,9 +234,9 @@
       0,
       0,
       0,
-      0.5,
-      0.5,
-      0.5
+      0,
+      0,
+      0.25
     ]
   },
   "1104": {
@@ -430,13 +430,13 @@
     "preview": "image/character_preview/1201.png",
     "portrait": "image/character_portrait/1201.png",
     "point": [
-      0,
-      0,
-      0,
-      0,
-      0.5,
-      0.5,
-      0.5
+      -2,
+      -2,
+      -2,
+      1,
+      1,
+      1,
+      2
     ]
   },
   "1202": {
@@ -490,13 +490,13 @@
     "preview": "image/character_preview/1204.png",
     "portrait": "image/character_portrait/1204.png",
     "point": [
-      0,
-      0,
-      0,
-      0,
-      0.5,
-      0.5,
-      0.5
+      1.5,
+      1.5,
+      2,
+      2,
+      3,
+      4,
+      6
     ]
   },
   "1205": {
@@ -890,13 +890,13 @@
     "preview": "image/character_preview/1302.png",
     "portrait": "image/character_portrait/1302.png",
     "point": [
-      0,
-      0,
-      0,
-      0,
-      0.5,
-      0.5,
-      0.5
+      3,
+      3.5,
+      3.5,
+      3.5,
+      5.5,
+      6,
+      9
     ]
   },
   "1303": {
@@ -1090,13 +1090,13 @@
     "preview": "image/character_preview/1314.png",
     "portrait": "image/character_portrait/1314.png",
     "point": [
-      0,
-      0,
-      0,
-      0,
-      0.5,
-      0.5,
-      0.5
+      1.5,
+      3.5,
+      3.5,
+      3.5,
+      5.5,
+      6,
+      9
     ]
   },
   "1315": {
