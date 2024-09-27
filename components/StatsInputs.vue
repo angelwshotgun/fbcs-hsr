@@ -1,40 +1,162 @@
 <template>
-    <div class="flex justify-center my-3 rounded-lg">
-      <div class="layout-point flex justify-center flex-gap-1 bg-primary w-fit">
-        <div class="box1 stats flex flex-col m-2" v-for="team in ['Blue', 'Red']" :key="team">
-          <label class="text-white">{{ team }} Team</label>
-          <input v-for="(placeholder, index) in inputs" :key="index" type="text" :placeholder="placeholder" class="input1"/>
-        </div>
+  <div class="flex justify-center my-3 rounded-lg">
+    <div class="layout-point flex justify-center flex-gap-1 bg-primary w-fit">
+      <div class="box1 stats flex flex-col m-2">
+        <label class="text-white">Blue Team</label>
+        <input
+          v-model="bluecc1"
+          placeholder="Phase 1 Cycles"
+          type="text"
+          class="input1 text-center"
+        />
+        <input
+          v-model="bluecc2"
+          placeholder="Phase 2 Cycles"
+          type="text"
+          class="input1 text-center"
+        />
+        <input
+          v-model="bluedeath"
+          placeholder="Deaths"
+          type="text"
+          class="input1 text-center"
+        />
+        <label placeholder="Point" type="text" class="input1">{{
+          bluepoint
+        }}</label>
+      </div>
+      <div class="box1 stats flex flex-col m-2">
+        <label class="text-white">Red Team</label>
+        <input
+          v-model="redcc1"
+          placeholder="Phase 1 Cycles"
+          type="text"
+          class="input1 text-center"
+        />
+        <input
+          v-model="redcc2"
+          placeholder="Phase 2 Cycles"
+          type="text"
+          class="input1 text-center"
+        />
+        <input
+          v-model="reddeath"
+          placeholder="Deaths"
+          type="text"
+          class="input1 text-center"
+        />
+        <label placeholder="Point" type="text" class="input1">{{
+          redpoint
+        }}</label>
       </div>
     </div>
-  </template>
-  
-  <script setup>
-  const inputs = [
-    "Phase 1 Cycles",
-    "Phase 2 Cycles",
-    "Deaths",
-    "Point"
-  ];
-  </script>
-  
-  <style scoped>
-  .box1 {
-    background-color: #48305f;
-    color: white;
-    text-align: center;
+  </div>
+</template>
+
+<script setup>
+import { useStore } from "~/store/useStore";
+
+const store = useStore();
+
+const bluecc1 = ref(0);
+const bluecc2 = ref(0);
+const bluedeath = ref(0);
+const redcc1 = ref(0);
+const redcc2 = ref(0);
+const reddeath = ref(0);
+
+const bluetotal = computed(() => {
+  return (
+    store.$state.state.point.bluep.char[0] +
+    store.$state.state.point.bluep.char[1] +
+    store.$state.state.point.bluep.char[2] +
+    store.$state.state.point.bluep.char[3] +
+    store.$state.state.point.bluep.char[4] +
+    store.$state.state.point.bluep.char[5] +
+    store.$state.state.point.bluep.char[6] +
+    store.$state.state.point.bluep.char[7] +
+    store.$state.state.point.bluep.lc[0] +
+    store.$state.state.point.bluep.lc[1] +
+    store.$state.state.point.bluep.lc[2] +
+    store.$state.state.point.bluep.lc[3] +
+    store.$state.state.point.bluep.lc[4] +
+    store.$state.state.point.bluep.lc[5] +
+    store.$state.state.point.bluep.lc[6] +
+    store.$state.state.point.bluep.lc[7]
+  );
+});
+
+const redtotal = computed(() => {
+  return (
+    store.$state.state.point.redp.char[0] +
+    store.$state.state.point.redp.char[1] +
+    store.$state.state.point.redp.char[2] +
+    store.$state.state.point.redp.char[3] +
+    store.$state.state.point.redp.char[4] +
+    store.$state.state.point.redp.char[5] +
+    store.$state.state.point.redp.char[6] +
+    store.$state.state.point.redp.char[7] +
+    store.$state.state.point.redp.lc[0] +
+    store.$state.state.point.redp.lc[1] +
+    store.$state.state.point.redp.lc[2] +
+    store.$state.state.point.redp.lc[3] +
+    store.$state.state.point.redp.lc[4] +
+    store.$state.state.point.redp.lc[5] +
+    store.$state.state.point.redp.lc[6] +
+    store.$state.state.point.redp.lc[7]
+  );
+});
+
+const bluepoint = computed(() => {
+  const totalValue = Number(bluetotal.value);
+  let adjustedTotal;
+  if (totalValue <= 30) {
+    adjustedTotal = totalValue / 4;
+  } else {
+    adjustedTotal = 30 / 4 + (totalValue - 30) / 6;
   }
-  .stats {
-    background-color: #48305f;
-    color: #e0aaff;
-    text-align: center;
+  return (
+    Number(bluecc1.value) +
+    Number(bluecc2.value) +
+    Number(bluedeath.value) +
+    adjustedTotal
+  );
+});
+
+const redpoint = computed(() => {
+  const totalValue = Number(redtotal.value);
+  let adjustedTotal;
+  if (totalValue <= 30) {
+    adjustedTotal = totalValue / 4;
+  } else {
+    adjustedTotal = 30 / 4 + (totalValue - 30) / 6;
   }
-  .input1 {
-    background-color: #614b78;
-    border: none;
-    margin: .1em;
-    padding: .5em;
-    border-radius: .3em;
-    color: #fff;
-  }
-  </style>
+  return (
+    Number(redcc1.value) +
+    Number(redcc2.value) +
+    Number(reddeath.value) +
+    adjustedTotal
+  );
+});
+</script>
+
+<style scoped>
+.box1 {
+  background-color: #48305f;
+  color: white;
+  text-align: center;
+}
+.stats {
+  background-color: #48305f;
+  color: #e0aaff;
+  text-align: center;
+}
+.input1 {
+  background-color: #614b78;
+  border: none;
+  margin: 0.1em;
+  padding: 0.5em;
+  border-radius: 0.3em;
+  color: #fff;
+}
+</style>

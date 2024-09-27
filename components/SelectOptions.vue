@@ -28,6 +28,7 @@
         option-value="value"
         filter
         class="col-span-1"
+        @change="changeEiloidon()"
       />
       <Select
         v-model="lc"
@@ -36,6 +37,7 @@
         filter
         placeholder="Chọn nón ánh sáng"
         class="col-span-4"
+        @change="selectLightcone()"
       />
       <Select
         v-model="superimp"
@@ -44,6 +46,7 @@
         option-value="value"
         filter
         class="col-span-1"
+        @change="changeLightcone()"
       />
     </div>
   </div>
@@ -226,6 +229,15 @@ const selectCharacter = () => {
   store.updateGameData(`character/${props.state}/point/6`, char.value.point[6]);
   store.updateGameData(`state/point/${props.team}p/char/${props.index}`, char.value.point[eiloidon.value]);
 };
+const changeEiloidon = () => {
+  store.updateGameData(`state/point/${props.team}p/char/${props.index}`, char.value.point[eiloidon.value]);
+};
+const selectLightcone = () => {
+  store.updateGameData(`state/point/${props.team}p/lc/${props.index}`, lc.value.point[superimp.value]);
+}
+const changeLightcone = () => {
+  store.updateGameData(`state/point/${props.team}p/lc/${props.index}`, lc.value.point[superimp.value]);
+}
 const banCharacter = () => {
   store.updateGameData(`ban/${props.state}/img`, char.value.icon);
   store.updateGameData(`ban/${props.state}/name`, char.value.name);
