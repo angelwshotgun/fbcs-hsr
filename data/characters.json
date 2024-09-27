@@ -148,12 +148,12 @@
     "element": "Fire",
     "point": [
       0,
-      0,
-      0,
-      0,
       0.5,
       0.5,
-      0.5
+      0.5,
+      1,
+      1,
+      1.5
     ],
     "icon": "icon/character/1009.png",
     "preview": "image/character_preview/1009.png",
@@ -190,13 +190,13 @@
     "preview": "image/character_preview/1101.png",
     "portrait": "image/character_portrait/1101.png",
     "point": [
-      0,
-      0,
-      0,
-      0,
-      0.5,
-      0.5,
-      0.5
+      2,
+      3,
+      4,
+      4,
+      8.5,
+      8.5,
+      9
     ]
   },
   "1102": {
@@ -450,13 +450,13 @@
     "preview": "image/character_preview/1202.png",
     "portrait": "image/character_portrait/1202.png",
     "point": [
-      0,
-      0,
-      0,
-      0,
-      0.5,
-      0.5,
-      0.5
+      3,
+      3,
+      3.75,
+      3.75,
+      3.75,
+      3.75,
+      4
     ]
   },
   "1203": {
@@ -552,11 +552,11 @@
     "point": [
       0,
       0,
-      0,
-      0,
-      0.5,
-      0.5,
-      0.5
+      1,
+      1,
+      1,
+      1,
+      2
     ]
   },
   "1208": {
@@ -710,13 +710,13 @@
     "preview": "image/character_preview/1215.png",
     "portrait": "image/character_portrait/1215.png",
     "point": [
-      0,
-      0,
-      0,
-      0,
-      0.5,
-      0.5,
-      0.5
+      2,
+      2,
+      2,
+      2,
+      2.5,
+      2.5,
+      2.5
     ]
   },
   "1217": {
@@ -910,13 +910,13 @@
     "preview": "image/character_preview/1303.png",
     "portrait": "image/character_portrait/1303.png",
     "point": [
-      0,
-      0,
-      0,
-      0,
-      0.5,
-      0.5,
-      0.5
+      6.5,
+      8.5,
+      9.5,
+      10,
+      11,
+      11,
+      16
     ]
   },
   "1304": {
@@ -970,13 +970,13 @@
     "preview": "image/character_preview/1306.png",
     "portrait": "image/character_portrait/1306.png",
     "point": [
-      0,
-      0,
-      0,
-      0,
-      0.5,
-      0.5,
-      0.5
+      5.5,
+      6,
+      11,
+      11,
+      11,
+      11.5,
+      14
     ]
   },
   "1307": {
@@ -1030,13 +1030,13 @@
     "preview": "image/character_preview/1309.png",
     "portrait": "image/character_portrait/1309.png",
     "point": [
-      0,
-      0,
-      0,
-      0,
-      0.5,
-      0.5,
-      0.5
+      6.5,
+      11,
+      13,
+      13,
+      14,
+      14,
+      18
     ]
   },
   "1310": {
@@ -1170,13 +1170,13 @@
     "preview": "image/character_preview/8006.png",
     "portrait": "image/character_portrait/8006.png",
     "point": [
-      0,
-      0,
-      0,
-      0,
-      0.5,
-      0.5,
-      0.5
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
     ]
   }
 }
