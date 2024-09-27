@@ -33,9 +33,9 @@
                 :key="index"
                 type="number"
                 v-model.number="fileContent[id].point[index]"
-                step="0.1"
-                min="0"
-                max="1"
+                step="0.25"
+                min="-10"
+                max="30"
               />
             </div>
           </div>

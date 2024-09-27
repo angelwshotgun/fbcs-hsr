@@ -73,7 +73,7 @@ async function readFile() {
   try {
     const content = await $github.readFile(
       "angelwshotgun",
-      "fbcs-hsr",
+      "DataStore",
       "data/characters.json"
     );
     fileContent.value = JSON.parse(content);
@@ -86,7 +86,7 @@ async function writeFile() {
   try {
     await $github.writeFile(
       "angelwshotgun",
-      "fbcs-hsr",
+      "DataStore",
       "data/characters.json",
       JSON.stringify(fileContent.value, null, 2),
       "Update file"
