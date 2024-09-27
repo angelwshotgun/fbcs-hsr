@@ -21,6 +21,11 @@ export default defineNuxtConfig({
     }
   },
   runtimeConfig: {
-    githubToken: process.env.GITHUB_TOKEN,
-  },
+    // Server-side environment variables
+    GITHUB_TOKEN: process.env.GITHUB_TOKEN,
+    public: {
+      // Client-side environment variables
+      GITHUB_TOKEN: process.env.GITHUB_TOKEN
+    }
+  }
 })
