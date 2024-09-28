@@ -2,52 +2,73 @@
   <div class="flex justify-center my-3 rounded-lg">
     <div class="layout-point flex justify-center flex-gap-1 bg-primary w-fit">
       <div class="box1 stats flex flex-col m-2">
-        <label class="text-white">Blue Team</label>
-        <input
+        <label class="text-blue font-bold text-lg">Blue Team</label>
+        <div class="flex">
+          <label class="flex w-3/4 items-center justify-center">Phase 1 Cycles</label>
+          <input
           v-model="bluecc1"
-          placeholder="Phase 1 Cycles"
           type="text"
-          class="input1 text-center"
+          class="input1 text-center w-1/4"
         />
-        <input
+        </div>
+        <div class="flex">
+          <label class="flex w-3/4 items-center justify-center">Phase 2 Cycles</label>
+          <input
           v-model="bluecc2"
-          placeholder="Phase 2 Cycles"
           type="text"
-          class="input1 text-center"
+          class="input1 text-center w-1/4"
         />
-        <input
+        </div>
+        <div class="flex">
+          <label class="flex w-3/4 items-center justify-center">Deaths</label>
+          <input
           v-model="bluedeath"
-          placeholder="Deaths"
           type="text"
-          class="input1 text-center"
+          class="input1 text-center w-1/4"
         />
-        <label placeholder="Point" type="text" class="input1">{{
-          bluepoint
-        }}</label>
+        </div>
+        <div class="flex">
+          <label class="flex w-3/4 items-center justify-center">Point</label>
+          <label type="text" class="input1 w-1/4">{{
+            bluepoint
+          }}</label>
+        </div>
       </div>
       <div class="box1 stats flex flex-col m-2">
-        <label class="text-white">Red Team</label>
-        <input
+        <label class="text-red font-bold text-lg">Red Team</label>
+        <div class="flex">
+          <input
           v-model="redcc1"
           placeholder="Phase 1 Cycles"
           type="text"
-          class="input1 text-center"
+          class="input1 text-center w-1/4"
         />
-        <input
+        <label class="flex w-3/4 items-center justify-center">Phase 1 Cycles</label>
+        </div>
+        <div class="flex">
+          <input
           v-model="redcc2"
           placeholder="Phase 2 Cycles"
           type="text"
-          class="input1 text-center"
+          class="input1 text-center w-1/4"
         />
-        <input
+          <label class="flex w-3/4 items-center justify-center">Phase 2 Cycles</label>
+        </div>
+        <div class="flex">
+          <input
           v-model="reddeath"
           placeholder="Deaths"
           type="text"
-          class="input1 text-center"
+          class="input1 text-center w-1/4"
         />
-        <label placeholder="Point" type="text" class="input1">{{
-          redpoint
-        }}</label>
+          <label class="flex w-3/4 items-center justify-center">Deaths</label>
+        </div>
+        <div class="flex">
+          <label placeholder="Point" type="text" class="input1 w-1/4">{{
+            redpoint
+          }}</label>
+          <label class="flex w-3/4 items-center justify-center">Point</label>
+        </div>
       </div>
     </div>
   </div>

@@ -1,16 +1,10 @@
 <template>
   <div>
-    <div class="flex justify-center">
-      <StatsInputs />
-      <div>
-        <Button label="Reset" @click="resetData()" />
-      </div>
-    </div>
-    <div class="flex justify-between">
-      <div class="w-2/5 flex flex-col gap-2">
-        <div class="flex justify-between bg-blue">
-          <label>Blue Team</label>
-          <label>{{
+    <div class="flex justify-between gap-1">
+      <div class="w-2/5 flex flex-col gap-1">
+        <div class="flex justify-between items-center bg-blue h-10 rounded-md">
+          <label class="pl-2 text-white text-xl">Blue Team</label>
+          <label class="pr-2 text-white text-xl">{{
             store.$state.state.point.bluep.char[0] +
             store.$state.state.point.bluep.char[1] +
             store.$state.state.point.bluep.char[2] +
@@ -30,7 +24,7 @@
           }}</label>
         </div>
         <SelectView :is-light-cone="false" :is-ban="true" :state="'bc1'" />
-        <div class="flex">
+        <div class="flex gap-1">
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
@@ -46,7 +40,7 @@
         </div>
         <SelectView :is-light-cone="false" :is-ban="true" :state="'bc2'" />
         <SelectView :is-light-cone="true" :is-ban="true" :state="'bl1'" />
-        <div class="flex">
+        <div class="flex gap-1">
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
@@ -60,7 +54,7 @@
             :lcstate="'l4'"
           />
         </div>
-        <div class="flex">
+        <div class="flex gap-1">
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
@@ -74,7 +68,7 @@
             :lcstate="'l6'"
           />
         </div>
-        <div class="flex">
+        <div class="flex gap-1">
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
@@ -89,10 +83,18 @@
           />
         </div>
       </div>
-      <div class="w-2/5 flex flex-col gap-2">
-        <div class="flex justify-between bg-red">
-          <label>Red Team</label>
-          <label>{{
+      <div class="flex flex-col justify-center">
+        <div>
+          <StatsInputs />
+        </div>
+        <div class="flex justify-center">
+          <Button label="Reset" @click="resetData()" />
+        </div>
+      </div>
+      <div class="w-2/5 flex flex-col gap-1">
+        <div class="flex justify-between items-center bg-red h-10 rounded-md">
+          <label class="pl-2 text-white text-xl">Red Team</label>
+          <label class="pr-2 text-white text-xl">{{
             store.$state.state.point.redp.char[0] +
             store.$state.state.point.redp.char[1] +
             store.$state.state.point.redp.char[2] +
@@ -112,7 +114,7 @@
           }}</label>
         </div>
         <SelectView :is-light-cone="false" :is-ban="true" :state="'bc3'" />
-        <div class="flex">
+        <div class="flex gap-1">
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
@@ -128,7 +130,7 @@
         </div>
         <SelectView :is-light-cone="false" :is-ban="true" :state="'bc4'" />
         <SelectView :is-ban="true" :is-light-cone="true" :state="'bl2'" />
-        <div class="flex">
+        <div class="flex gap-1">
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
@@ -142,7 +144,7 @@
             :lcstate="'l12'"
           />
         </div>
-        <div class="flex">
+        <div class="flex gap-1">
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
@@ -156,7 +158,7 @@
             :lcstate="'l14'"
           />
         </div>
-        <div class="flex">
+        <div class="flex gap-1">
           <SelectView
             :is-light-cone="false"
             :is-ban="false"

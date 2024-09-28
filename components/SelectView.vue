@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!props.isLightCone" class="w-full flex flex-col">
+  <div v-if="!props.isLightCone" class="w-full flex flex-col bg-primary rounded-md">
     <div class="relative w-full h-[100px] flex flex-col justify-center items-center overflow-hidden">
       <div v-if="model?.img == '' && isBan">Banning...</div>
       <div v-else-if="model?.img == '' && !isBan">Picking...</div>
@@ -10,7 +10,7 @@
         class="object-contain w-30% h-auto"
         @click="char = null"
       />
-      <label v-if="!props.isBan && model?.img" class="absolute top-0 right-0 m-2 bg-white bg-opacity-75 px-2 py-1 rounded text-sm">{{ "+ " + (model1?.point[eiloidon] + (lc?.point[superimp] || 0)) }}</label>
+      <label v-if="!props.isBan && model?.img" class="absolute top-0 right-0 m-2 bg-black text-white font-bold text-xl bg-opacity-35 px-1 py-1 rounded text-sm w-12 text-center">{{ "+" + (model1?.point[eiloidon] + (lc?.point[superimp] || 0)) }}</label>
     </div>
     <div v-if="!props.isBan" class="grid grid-cols-6 w-full">
       <label
@@ -24,7 +24,7 @@
       >{{ model2?.path }}</label>
     </div>
   </div>
-  <div v-else class="w-full flex flex-col">
+  <div v-else class="w-full flex flex-col bg-primary rounded-md">
     <div class="w-full h-[100px] flex flex-col justify-center items-center overflow-hidden">
       <div v-if="model?.img == '' && isBan">Banning...</div>
       <NuxtImg

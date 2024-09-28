@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@nuxt/image": "^1.8.0",
+    "@nuxtjs/color-mode": "^3.5.1",
     "@octokit/rest": "^21.0.2",
     "@pinia/nuxt": "^0.5.4",
     "@primevue/nuxt-module": "^4.0.7",
@@ -22,6 +23,7 @@
     "nuxt": "^3.13.0",
     "nuxt-vuefire": "^1.0.4",
     "pinia": "^2.2.2",
+    "primeicons": "^7.0.0",
     "primevue": "^4.0.7",
     "starrail.js": "^1.7.1",
     "util": "^0.12.5",
@@ -32,6 +34,7 @@
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "devDependencies": {
     "@unocss/nuxt": "^0.62.3",
+    "sass-embedded": "^1.79.3",
     "unocss": "^0.62.3"
   }
 }
