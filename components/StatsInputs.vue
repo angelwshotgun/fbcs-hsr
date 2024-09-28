@@ -1,6 +1,6 @@
 <template>
-  <div class="flex justify-center my-3 rounded-lg">
-    <div class="layout-point flex justify-center flex-gap-1 bg-primary w-fit">
+  <div class="flex justify-center my-3">
+    <div class="layout-point flex justify-center flex-gap-1 bg-primary w-fit rounded-md">
       <div class="box1 stats flex flex-col m-2">
         <label class="text-blue font-bold text-lg">Blue Team</label>
         <div class="flex">

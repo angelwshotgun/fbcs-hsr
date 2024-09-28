@@ -85,6 +85,9 @@
       </div>
       <div class="flex flex-col justify-center">
         <div>
+          <RollButton />
+        </div>
+        <div>
           <StatsInputs />
         </div>
         <div class="flex justify-center">

@@ -63,8 +63,9 @@ const defaultState = {
         char: [0,0,0,0,0,0,0,0],
         lc: [0,0,0,0,0,0,0,0]
       }
-    }
+    },
   },
+  timer: 90,
 };
 
 export const useStore = defineStore("store", {
@@ -81,6 +82,7 @@ export const useStore = defineStore("store", {
           this.character = data.character || this.character
           this.lightcone = data.lightcone || this.lightcone
           this.state = data.state || this.state
+          this.timer = data.timer !== undefined ? data.timer : this.timer;
         }
       })
     },
@@ -100,5 +102,20 @@ export const useStore = defineStore("store", {
           console.error("Error resetting game data:", error)
         })
     },
+    startTimer() {
+      if (this.timerInterval) {
+        clearInterval(this.timerInterval);
+      }
+      this.timer = 90;
+      this.timerInterval = setInterval(() => {
+        if (this.timer > 0) {
+          this.timer--;
+          this.updateGameData('timer', this.timer); // Sync timer to Firebase
+        } else {
+          clearInterval(this.timerInterval);
+        }
+      }, 1000);
+    }
+    
   },
 });
