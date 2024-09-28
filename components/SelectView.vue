@@ -1,6 +1,6 @@
 <template>
   <div v-if="!props.isLightCone" class="w-full flex flex-col bg-primary rounded-md">
-    <div :class="['relative', 'w-full', props.isBan ? 'h-[100px]' : 'h-[200px]', 'flex', 'justify-center', 'items-center', 'overflow-hidden']" >
+    <div :class="['relative', 'w-full', props.isBan ? 'h-[100px]' : 'h-[180px]', 'flex', 'justify-center', 'items-center', 'overflow-hidden']" >
       <div v-if="model?.img == '' && isBan">Banning...</div>
       <div v-else-if="model?.img == '' && !isBan">Picking...</div>
       <NuxtImg
@@ -18,8 +18,8 @@
         @click="char = null"
       />
       <label v-if="!props.isBan && model?.img" class="absolute top-0 right-0 m-2 bg-black text-white font-bold text-xl bg-opacity-35 px-1 py-1 rounded text-sm w-12 text-center">{{ "+" + (model1?.point[eiloidon] + (lc?.point[superimp] || 0)) }}</label>
-      <label v-if="!props.isBan && model?.img" class="absolute top-36 left-0 m-2 text-white font-bold text-xl px-1 py-1 rounded text-sm w-36 text-center">{{ model1?.name + " e" + model1?.e }}</label>
-      <label v-if="!props.isBan && model?.img" class="absolute top-32 right-5 m-2 text-white font-bold text-sm px-1 py-1 rounded text-sm w-36 text-center">{{ model2?.name + " s" + model2?.s }}</label>
+      <label v-if="!props.isBan && model?.img" class="absolute top-32 left-0 m-2 text-white font-bold text-xl px-1 py-1 rounded text-sm w-36 text-center">{{ model1?.name + " e" + model1?.e }}</label>
+      <label v-if="!props.isBan && model?.img" class="absolute top-32 right-6 m-2 text-white font-bold text-sm px-1 py-1 rounded text-sm w-36 text-center">{{ model2?.name + " s" + (Number(model2?.s)+1) }}</label>
     </div>
   </div>
   <div v-else class="w-full flex flex-col bg-primary rounded-md">
