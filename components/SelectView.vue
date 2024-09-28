@@ -1,27 +1,25 @@
 <template>
   <div v-if="!props.isLightCone" class="w-full flex flex-col bg-primary rounded-md">
-    <div class="relative w-full h-[100px] flex flex-col justify-center items-center overflow-hidden">
+    <div :class="['relative', 'w-full', props.isBan ? 'h-[100px]' : 'h-[200px]', 'flex', 'justify-center', 'items-center', 'overflow-hidden']" >
       <div v-if="model?.img == '' && isBan">Banning...</div>
       <div v-else-if="model?.img == '' && !isBan">Picking...</div>
       <NuxtImg
-        v-else
+        v-if="model?.img !== ''"
         :src="link + model?.img"
         :style="props.isBan ? 'filter: grayscale(100%);' : ''"
-        class="object-contain w-30% h-auto"
+        :class="['object-contain', props.isBan ? 'w-60%' : 'w-40%', 'h-auto', props.isBan ? '' : 'mr-8', props.isBan ? '' : 'mb-8']"
+        @click="char = null"
+      />
+      <NuxtImg
+        v-if="!isBan && model2?.img !== ''"
+        :src="link + model2?.img"
+        :style="props.isBan ? 'filter: grayscale(100%);' : ''"
+        :class="['object-contain', props.isBan ? 'w-60%' : 'w-30%', 'h-auto', 'mr-12', 'mb-4']"
         @click="char = null"
       />
       <label v-if="!props.isBan && model?.img" class="absolute top-0 right-0 m-2 bg-black text-white font-bold text-xl bg-opacity-35 px-1 py-1 rounded text-sm w-12 text-center">{{ "+" + (model1?.point[eiloidon] + (lc?.point[superimp] || 0)) }}</label>
-    </div>
-    <div v-if="!props.isBan" class="grid grid-cols-6 w-full">
-      <label
-        class="col-span-1"
-      >{{ model2?.path }}</label>
-      <label
-        class="col-span-4"
-      >{{ model2?.name }}</label>
-      <label
-        class="col-span-1"
-      >{{ model2?.path }}</label>
+      <label v-if="!props.isBan && model?.img" class="absolute top-36 left-0 m-2 text-white font-bold text-xl px-1 py-1 rounded text-sm w-36 text-center">{{ model1?.name + " e" + model1?.e }}</label>
+      <label v-if="!props.isBan && model?.img" class="absolute top-32 right-5 m-2 text-white font-bold text-sm px-1 py-1 rounded text-sm w-36 text-center">{{ model2?.name + " s" + model2?.s }}</label>
     </div>
   </div>
   <div v-else class="w-full flex flex-col bg-primary rounded-md">
@@ -31,7 +29,7 @@
         v-else
         :src="link + model?.img"  
         :style="props.isBan ? 'filter: grayscale(100%);' : ''"
-        class="object-contain w-20% h-auto"
+        class="object-contain w-60% h-auto"
       />
     </div>
   </div>

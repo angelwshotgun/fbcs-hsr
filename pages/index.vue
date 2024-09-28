@@ -23,7 +23,11 @@
             store.$state.state.point.bluep.lc[7]
           }}</label>
         </div>
-        <SelectView :is-light-cone="false" :is-ban="true" :state="'bc1'" />
+        <div class="flex gap-1 w-1/2">
+          <SelectView :is-light-cone="false" :is-ban="true" :state="'bc1'" />
+          <SelectView :is-light-cone="false" :is-ban="true" :state="'bc2'" />
+          <SelectView :is-light-cone="true" :is-ban="true" :state="'bl1'" />
+        </div>
         <div class="flex gap-1">
           <SelectView
             :is-light-cone="false"
@@ -38,8 +42,6 @@
             :lcstate="'l2'"
           />
         </div>
-        <SelectView :is-light-cone="false" :is-ban="true" :state="'bc2'" />
-        <SelectView :is-light-cone="true" :is-ban="true" :state="'bl1'" />
         <div class="flex gap-1">
           <SelectView
             :is-light-cone="false"

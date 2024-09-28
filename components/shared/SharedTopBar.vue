@@ -19,7 +19,7 @@ import { computed } from 'vue';
 const colorMode = useColorMode();
 
 onMounted(() => {
-  colorMode.preference = 'dark'
+  colorMode.preference = 'system';
 })
 
 const isDark = computed(() => colorMode.value === 'dark');

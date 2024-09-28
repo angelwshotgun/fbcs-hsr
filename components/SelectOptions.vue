@@ -228,12 +228,17 @@ const selectCharacter = () => {
   store.updateGameData(`character/${props.state}/point/5`, char.value.point[5]);
   store.updateGameData(`character/${props.state}/point/6`, char.value.point[6]);
   store.updateGameData(`state/point/${props.team}p/char/${props.index}`, char.value.point[eiloidon.value]);
+  store.updateGameData(`character/${props.lcstate}/e`, eiloidon.value);
 };
 const changeEiloidon = () => {
   store.updateGameData(`state/point/${props.team}p/char/${props.index}`, char.value.point[eiloidon.value]);
 };
 const selectLightcone = () => {
+  store.updateGameData(`lightcone/${props.lcstate}/img`, lc.value.icon);
+  store.updateGameData(`lightcone/${props.lcstate}/name`, lc.value.name);
+  store.updateGameData(`lightcone${props.lcstate}/path`, lc.value.path);
   store.updateGameData(`state/point/${props.team}p/lc/${props.index}`, lc.value.point[superimp.value]);
+  store.updateGameData(`lightcone/${props.lcstate}/s`, superimp.value);
 }
 const changeLightcone = () => {
   store.updateGameData(`state/point/${props.team}p/lc/${props.index}`, lc.value.point[superimp.value]);
