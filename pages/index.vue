@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="flex justify-between gap-1">
-      <div class="w-2/5 flex flex-col gap-1">
-        <div class="flex justify-between items-center bg-blue h-10 rounded-md">
+    <div class="flex flex-col md:flex-row justify-between gap-1 p-4">
+      <div class="w-800px flex flex-col gap-1">
+        <div class="flex justify-between items-center bg-blue-500 h-10 rounded-md">
           <label class="pl-2 text-white text-xl">Blue Team</label>
           <label class="pr-2 text-white text-xl">{{
             store.$state.state.point.bluep.char[0] +
@@ -23,12 +23,12 @@
             store.$state.state.point.bluep.lc[7]
           }}</label>
         </div>
-        <div class="flex gap-1">
+        <div class="grid grid-cols-3 gap-1">
           <SelectView :is-light-cone="false" :is-ban="true" :state="'bc1'" />
           <SelectView :is-light-cone="false" :is-ban="true" :state="'bc2'" />
           <SelectView :is-light-cone="true" :is-ban="true" :state="'bl1'" />
         </div>
-        <div class="flex gap-1">
+        <div class="grid grid-cols-2 gap-1">
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
@@ -42,7 +42,7 @@
             :lcstate="'l2'"
           />
         </div>
-        <div class="flex gap-1">
+        <div class="grid grid-cols-2 gap-1">
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
@@ -56,7 +56,7 @@
             :lcstate="'l4'"
           />
         </div>
-        <div class="flex gap-1">
+        <div class="grid grid-cols-2 gap-1">
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
@@ -70,7 +70,7 @@
             :lcstate="'l6'"
           />
         </div>
-        <div class="flex gap-1">
+        <div class="grid grid-cols-2 gap-1">
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
@@ -85,7 +85,7 @@
           />
         </div>
       </div>
-      <div class="flex flex-col justify-center">
+      <div class="flex flex-col justify-center gap-4">
         <div>
           <RollButton />
         </div>
@@ -96,8 +96,8 @@
           <Button label="Reset" @click="resetData()" />
         </div>
       </div>
-      <div class="w-2/5 flex flex-col gap-1">
-        <div class="flex justify-between items-center bg-red h-10 rounded-md">
+      <div class="w-800px flex flex-col gap-1">
+        <div class="flex justify-between items-center bg-red-500 h-10 rounded-md">
           <label class="pl-2 text-white text-xl">Red Team</label>
           <label class="pr-2 text-white text-xl">{{
             store.$state.state.point.redp.char[0] +
@@ -118,8 +118,12 @@
             store.$state.state.point.redp.lc[7]
           }}</label>
         </div>
-        <SelectView :is-light-cone="false" :is-ban="true" :state="'bc3'" />
-        <div class="flex gap-1">
+        <div class="grid grid-cols-3 gap-1">
+          <SelectView :is-light-cone="false" :is-ban="true" :state="'bc3'" />
+        <SelectView :is-light-cone="false" :is-ban="true" :state="'bc4'" />
+        <SelectView :is-ban="true" :is-light-cone="true" :state="'bl2'" />
+        </div>
+        <div class="grid grid-cols-2 gap-1">
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
@@ -132,10 +136,8 @@
             :state="'c10'"
             :lcstate="'l10'"
           />
-        </div>
-        <SelectView :is-light-cone="false" :is-ban="true" :state="'bc4'" />
-        <SelectView :is-ban="true" :is-light-cone="true" :state="'bl2'" />
-        <div class="flex gap-1">
+        </div>        
+        <div class="grid grid-cols-2 gap-1">
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
@@ -149,7 +151,7 @@
             :lcstate="'l12'"
           />
         </div>
-        <div class="flex gap-1">
+        <div class="grid grid-cols-2 gap-1">
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
@@ -163,7 +165,7 @@
             :lcstate="'l14'"
           />
         </div>
-        <div class="flex gap-1">
+        <div class="grid grid-cols-2 gap-1">
           <SelectView
             :is-light-cone="false"
             :is-ban="false"

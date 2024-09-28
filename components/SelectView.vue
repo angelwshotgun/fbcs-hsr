@@ -3,23 +3,34 @@
     <div :class="['relative', 'w-full', props.isBan ? 'h-[100px]' : 'h-[180px]', 'flex', 'justify-center', 'items-center', 'overflow-hidden']" >
       <div v-if="model?.img == '' && isBan">Banning...</div>
       <div v-else-if="model?.img == '' && !isBan">Picking...</div>
-      <NuxtImg
+      <div :class="['flex', 'flex-col', 'h-100%']">
+        <NuxtImg
         v-if="model?.img !== ''"
         :src="link + model?.img"
         :style="props.isBan ? 'filter: grayscale(100%);' : ''"
-        :class="['object-contain', props.isBan ? 'w-60%' : 'w-40%', 'h-auto', props.isBan ? '' : 'mr-8', props.isBan ? '' : 'mb-8']"
+        :class="[props.isBan ? 'h-100%' : 'h-80%', 'object-contain', 'w-auto', props.isBan ? '' : 'pr-24',props.isBan ? '' : 'pt-6']"
         @click="char = null"
       />
+      <label v-if="!props.isBan && model?.img" class="text-white font-bold text-xl text-sm text-center pr-24">{{ model1?.name + " e" + model1?.e + "s" + (model2?.s+1) }}</label>
+      </div>
       <NuxtImg
         v-if="!isBan && model2?.img !== ''"
         :src="link + model2?.img"
         :style="props.isBan ? 'filter: grayscale(100%);' : ''"
-        :class="['object-contain', props.isBan ? 'w-60%' : 'w-30%', 'h-auto', 'mr-12', 'mb-4']"
+        :class="[
+          'absolute',
+          'bottom-3',
+          'right-3',
+          'object-contain',
+          'h-1/2',
+          'w-auto',
+          'max-w-1/3',
+          'pr-2',
+          'pb-1',
+        ]"
         @click="char = null"
       />
       <label v-if="!props.isBan && model?.img" class="absolute top-0 right-0 m-2 bg-black text-white font-bold text-xl bg-opacity-35 px-1 py-1 rounded text-sm w-12 text-center">{{ "+" + (model1?.point[eiloidon] + (lc?.point[superimp] || 0)) }}</label>
-      <label v-if="!props.isBan && model?.img" class="absolute top-32 left-0 m-2 text-white font-bold text-xl px-1 py-1 rounded text-sm w-36 text-center">{{ model1?.name + " e" + model1?.e }}</label>
-      <label v-if="!props.isBan && model?.img" class="absolute top-32 right-6 m-2 text-white font-bold text-sm px-1 py-1 rounded text-sm w-36 text-center">{{ model2?.name + " s" + (Number(model2?.s)+1) }}</label>
     </div>
   </div>
   <div v-else class="w-full flex flex-col bg-primary rounded-md">
@@ -29,7 +40,7 @@
         v-else
         :src="link + model?.img"  
         :style="props.isBan ? 'filter: grayscale(100%);' : ''"
-        class="object-contain w-60% h-auto"
+        class="object-contain h-100% w-auto"
       />
     </div>
   </div>
