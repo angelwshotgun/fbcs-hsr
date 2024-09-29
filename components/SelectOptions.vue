@@ -84,7 +84,7 @@ const light_cones = ref();
 const char = ref()
 const lc = ref()
 const eiloidon = ref<number>(0);
-const superimp = ref<number>(1); 
+const superimp = ref<number>(0); 
 const eiloidonSelect = ref(
   [
     { label: 'e0', value: 0 },
