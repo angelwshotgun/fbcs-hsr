@@ -84,16 +84,16 @@ const light_cones = ref();
 const char = ref()
 const lc = ref()
 const eiloidon = ref<number>(0);
-const superimp = ref<number>(0); 
+const superimp = ref<number>(1); 
 const eiloidonSelect = ref(
   [
-    { label: 'c0', value: 0 },
-    { label: 'c1', value: 1 },
-    { label: 'c2', value: 2 },
-    { label: 'c3', value: 3 },
-    { label: 'c4', value: 4 },
-    { label: 'c5', value: 5 },
-    { label: 'c6', value: 6 },
+    { label: 'e0', value: 0 },
+    { label: 'e1', value: 1 },
+    { label: 'e2', value: 2 },
+    { label: 'e3', value: 3 },
+    { label: 'e4', value: 4 },
+    { label: 'e5', value: 5 },
+    { label: 'e6', value: 6 },
   ]
 )
 const superimpSelect = ref(
@@ -232,6 +232,7 @@ const selectCharacter = () => {
 };
 const changeEiloidon = () => {
   store.updateGameData(`state/point/${props.team}p/char/${props.index}`, char.value.point[eiloidon.value]);
+  store.updateGameData(`character/${props.state}/e`, eiloidon.value);
 };
 const selectLightcone = () => {
   store.updateGameData(`lightcone/${props.lcstate}/img`, lc.value.icon);
@@ -242,6 +243,7 @@ const selectLightcone = () => {
 }
 const changeLightcone = () => {
   store.updateGameData(`state/point/${props.team}p/lc/${props.index}`, lc.value.point[superimp.value]);
+  store.updateGameData(`lightcone/${props.lcstate}/s`, superimp.value);
 }
 const banCharacter = () => {
   store.updateGameData(`ban/${props.state}/img`, char.value.icon);

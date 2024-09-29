@@ -11,7 +11,6 @@
       <div class="layout-main">
         <NuxtPage />
       </div>
-      <SharedFootBar />
     </div>
     <div class="layout-mask animate-fadein" />
     <Toast />
