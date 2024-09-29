@@ -34,12 +34,14 @@
             :is-ban="false"
             :state="'c1'"
             :lcstate="'l1'"
+            :index="0" :team="'blue'"
           />
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
             :state="'c2'"
             :lcstate="'l2'"
+            :index="1" :team="'blue'"
           />
         </div>
         <div class="grid grid-cols-2 gap-1">
@@ -48,12 +50,14 @@
             :is-ban="false"
             :state="'c3'"
             :lcstate="'l3'"
+            :index="2" :team="'blue'"
           />
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
             :state="'c4'"
             :lcstate="'l4'"
+            :index="3" :team="'blue'"
           />
         </div>
         <div class="grid grid-cols-2 gap-1">
@@ -62,12 +66,14 @@
             :is-ban="false"
             :state="'c5'"
             :lcstate="'l5'"
+            :index="4" :team="'blue'"
           />
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
             :state="'c6'"
             :lcstate="'l6'"
+            :index="5" :team="'blue'"
           />
         </div>
         <div class="grid grid-cols-2 gap-1">
@@ -76,12 +82,14 @@
             :is-ban="false"
             :state="'c7'"
             :lcstate="'l7'"
+            :index="6" :team="'blue'"
           />
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
             :state="'c8'"
             :lcstate="'l8'"
+            :index="7" :team="'blue'"
           />
         </div>
       </div>
@@ -129,12 +137,15 @@
             :is-ban="false"
             :state="'c9'"
             :lcstate="'l9'"
+            :index="0" :team="'red'"
           />
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
             :state="'c10'"
             :lcstate="'l10'"
+            :index="1" :team="'red'"
+
           />
         </div>        
         <div class="grid grid-cols-2 gap-1">
@@ -143,12 +154,14 @@
             :is-ban="false"
             :state="'c11'"
             :lcstate="'l11'"
+            :index="2" :team="'red'"
           />
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
             :state="'c12'"
             :lcstate="'l12'"
+            :index="3" :team="'red'"
           />
         </div>
         <div class="grid grid-cols-2 gap-1">
@@ -157,12 +170,14 @@
             :is-ban="false"
             :state="'c13'"
             :lcstate="'l13'"
+            :index="4" :team="'red'"
           />
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
             :state="'c14'"
             :lcstate="'l14'"
+            :index="5" :team="'red'"
           />
         </div>
         <div class="grid grid-cols-2 gap-1">
@@ -171,12 +186,14 @@
             :is-ban="false"
             :state="'c15'"
             :lcstate="'l15'"
+            :index="6" :team="'red'"
           />
           <SelectView
             :is-light-cone="false"
             :is-ban="false"
             :state="'c16'"
             :lcstate="'l16'"
+            :index="7" :team="'red'"
           />
         </div>
       </div>

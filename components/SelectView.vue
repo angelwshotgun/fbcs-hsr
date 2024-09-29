@@ -30,7 +30,7 @@
         ]"
         @click="char = null"
       />
-      <label v-if="!props.isBan && model?.img" class="absolute top-0 right-0 m-2 bg-black text-white font-bold text-xl bg-opacity-35 px-1 py-1 rounded text-sm w-12 text-center">{{ "+" + (model1?.point[eiloidon] + (lc?.point[superimp] || 0)) }}</label>
+      <label v-if="!props.isBan && model?.img" class="absolute top-0 right-0 m-2 bg-black text-white font-bold text-xl bg-opacity-35 px-1 py-1 rounded text-sm w-16 text-center">{{ "+" + (model3?.char[props.index] + model3?.lc[props.index])}}</label>
     </div>
   </div>
   <div v-else class="w-full flex flex-col bg-primary rounded-md">
@@ -58,8 +58,6 @@
   const lc = ref()
   const eiloidon = ref();
   const superimp = ref();
-  const eiloidonSelect = ref([0,1,2,3,4,5,6])
-  const superimpSelect = ref([1,2,3,4,5])
   
   onMounted(() => {
     store.initializeRealtimeListeners();
@@ -73,6 +71,8 @@
     state: String,
     bp: String,
     lcstate: String,
+    index: Number,
+    team: String
   })
   
   const model = computed(() => {
@@ -197,6 +197,16 @@
         return store.$state.lightcone.l15;
       case "l16":
         return store.$state.lightcone.l16;
+      default:
+        return null;
+    }
+  })
+  const model3 = computed(() => {
+    switch(props.team) {
+      case "blue":
+        return store.$state.state.point.bluep;
+      case "red":
+        return store.$state.state.point.redp;
       default:
         return null;
     }
