@@ -1,72 +1,93 @@
 <template>
   <div class="flex justify-center my-3">
-    <div class="layout-point flex justify-center flex-gap-1 bg-primary w-fit rounded-md">
+    <div
+      class="layout-point flex justify-center flex-gap-1 bg-primary w-fit rounded-md"
+    >
       <div class="box1 stats flex flex-col m-2">
-        <label class="text-blue font-bold text-lg">Blue Team</label>
         <div class="flex">
-          <label class="flex w-3/4 items-center justify-center">Phase 1 Cycles</label>
-          <input
-          v-model="bluecc1"
-          type="text"
-          class="input1 text-center w-1/4"
-        />
+          <label class="text-blue font-bold text-lg w-3/4">Blue Team</label>
         </div>
         <div class="flex">
-          <label class="flex w-3/4 items-center justify-center">Phase 2 Cycles</label>
+          <label class="flex w-3/4 items-center justify-center"
+            >Phase 1 Cycles</label
+          >
           <input
-          v-model="bluecc2"
-          type="text"
-          class="input1 text-center w-1/4"
-        />
+            v-model="bluecc1"
+            type="text"
+            class="input1 text-center w-1/4"
+          />
+        </div>
+        <div class="flex">
+          <label class="flex w-3/4 items-center justify-center"
+            >Phase 2 Cycles</label
+          >
+          <input
+            v-model="bluecc2"
+            type="text"
+            class="input1 text-center w-1/4"
+          />
         </div>
         <div class="flex">
           <label class="flex w-3/4 items-center justify-center">Deaths</label>
           <input
-          v-model="bluedeath"
-          type="text"
-          class="input1 text-center w-1/4"
-        />
+            v-model="bluedeath"
+            type="text"
+            class="input1 text-center w-1/4"
+          />
         </div>
         <div class="flex">
           <label class="flex w-3/4 items-center justify-center">Point</label>
-          <label type="text" class="input1 w-1/4">{{
-            bluepoint
-          }}</label>
+          <input
+            v-model="bluepoint"
+            type="text"
+            disabled
+            class="input1 text-center w-1/4"
+          />
         </div>
       </div>
       <div class="box1 stats flex flex-col m-2">
-        <label class="text-red font-bold text-lg">Red Team</label>
-        <div class="flex">
-          <input
-          v-model="redcc1"
-          placeholder="Phase 1 Cycles"
-          type="text"
-          class="input1 text-center w-1/4"
-        />
-        <label class="flex w-3/4 items-center justify-center">Phase 1 Cycles</label>
+        <div class="flex justify-end">
+          <label class="text-red font-bold text-lg w-3/4">Red Team</label>
         </div>
         <div class="flex">
           <input
-          v-model="redcc2"
-          placeholder="Phase 2 Cycles"
-          type="text"
-          class="input1 text-center w-1/4"
-        />
-          <label class="flex w-3/4 items-center justify-center">Phase 2 Cycles</label>
+            v-model="redcc1"
+            placeholder="Phase 1 Cycles"
+            type="text"
+            class="input1 text-center w-1/4"
+          />
+          <label class="flex w-3/4 items-center justify-center"
+            >Phase 1 Cycles</label
+          >
         </div>
         <div class="flex">
           <input
-          v-model="reddeath"
-          placeholder="Deaths"
-          type="text"
-          class="input1 text-center w-1/4"
-        />
+            v-model="redcc2"
+            placeholder="Phase 2 Cycles"
+            type="text"
+            class="input1 text-center w-1/4"
+          />
+          <label class="flex w-3/4 items-center justify-center"
+            >Phase 2 Cycles</label
+          >
+        </div>
+        <div class="flex">
+          <input
+            v-model="reddeath"
+            placeholder="Deaths"
+            type="text"
+            class="input1 text-center w-1/4"
+          />
           <label class="flex w-3/4 items-center justify-center">Deaths</label>
         </div>
         <div class="flex">
-          <label placeholder="Point" type="text" class="input1 w-1/4">{{
-            redpoint
-          }}</label>
+          <input
+            v-model="redpoint"
+            placeholder="Deaths"
+            type="text"
+            disabled
+            class="input1 text-center w-1/4"
+          />
           <label class="flex w-3/4 items-center justify-center">Point</label>
         </div>
       </div>

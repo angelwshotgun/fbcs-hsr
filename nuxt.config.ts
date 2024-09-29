@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@primevue/nuxt-module',
     '@nuxtjs/color-mode',
+    '@nuxtjs/google-fonts'
   ],
   unocss: {
     configFile: '../uno.config.ts',
@@ -22,6 +23,12 @@ export default defineNuxtConfig({
         preset: Aura
       }
     }
+  },
+  googleFonts: {
+    families: {
+      Exo: true,
+    },
+    preload: true,
   },
   runtimeConfig: {
     // Server-side environment variables
