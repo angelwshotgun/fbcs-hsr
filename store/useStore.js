@@ -65,7 +65,9 @@ const defaultState = {
       }
     },
   },
+  team: 1,
   timer: 90,
+  banpick: 0,
 };
 
 export const useStore = defineStore("store", {
@@ -83,6 +85,8 @@ export const useStore = defineStore("store", {
           this.lightcone = data.lightcone || this.lightcone
           this.state = data.state || this.state
           this.timer = data.timer !== undefined ? data.timer : this.timer;
+          this.banpick = data.banpick || this.banpick;
+          this.team = data.team || this.team;
         }
       })
     },
