@@ -124,22 +124,27 @@
           <label>{{ banpick }}</label>
         </div>
       </div>
-      <InputText placeholder="Tìm kiếm..." class="w-full mb-1" />
-      <div class="grid grid-cols-6 gap-1">
-        <div
-          v-for="item in characters"
-          :key="item.id"
-          class="flex flex-col items-center bg-primary rounded overflow-hidden"
-        >
-          <div class="w-full pb-[100%] relative">
-            <NuxtImg
-              :src="link + item.preview"
-              :alt="item.name"
-              class="absolute top-0 left-1/2 -translate-x-1/2 w-[150%] h-[150%] object-cover"
-              @click="selectCharacter(item)"
-            />
+      <InputText v-model="search" placeholder="Tìm kiếm..." class="w-full mb-1" />
+      <div class="overflow-y-auto h-[65vh]"> <!-- Add a wrapper for scroll -->
+        <div class="grid grid-cols-6 gap-1">
+          <div
+            v-for="item in filterCharacters"
+            :key="item.id"
+            class="flex flex-col items-center bg-primary rounded overflow-hidden"
+          >
+            <div class="w-full pb-[100%] relative">
+              <NuxtImg
+                :src="link + item.preview"
+                :alt="item.name"
+                class="absolute top-0 left-1/2 -translate-x-1/2 w-[150%] h-[150%] object-cover"
+                @click="selectCharacter(item)"
+              />
+            </div>
           </div>
         </div>
+      </div>
+      <div class="flex justify-center mt-5">
+        <Button label="Khóa" class="w-1/4" @click="lockCharacter" />
       </div>
     </div>
     <div class="w-1/3 flex flex-col gap-2">
@@ -255,7 +260,9 @@ import { Model} from "~/models/model"
 const store = useStore();
 const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
 
+const search = ref();
 const characters = ref();
+const filterCharacters = ref();
 const light_cones = ref();
 
 const data = ref()
@@ -263,6 +270,7 @@ fetch("api/characters")
   .then((res) => res.json())
   .then((data) => {
     characters.value = Object.values(data);
+    filterCharacters.value = Object.values(data);
   });
 
 fetch("api/light_cones")
@@ -287,12 +295,17 @@ const banpick = computed(() => {
 const team = computed(() => {
   return store.$state.team;
 });
+watch(search , (newValue) => {
+  filterCharacters.value = characters.value.filter((item) => {
+    return item.name.toLowerCase().includes(newValue.toLowerCase());
+  })
+})
 const selectCharacter = (item) => {
-  data.value = item;
   if (team.value === 1) {
-    console.log(data.value);
-    console.log(banpick.value);
-    store.updateGameData("banpick", banpick.value + 1);
+    data.value = item;
   }
+}
+const lockCharacter = () => {
+  store.updateGameData("banpick", banpick.value + 1);
 }
 </script>

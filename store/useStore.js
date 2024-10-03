@@ -67,7 +67,7 @@ const defaultState = {
   },
   team: 1,
   timer: 90,
-  banpick: 0,
+  banpick: 1,
 };
 
 export const useStore = defineStore("store", {

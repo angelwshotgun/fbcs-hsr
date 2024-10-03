@@ -139,7 +139,12 @@ const props = defineProps({
 const banpick = computed(() => {
   return store.$state.banpick;
 });
-
+watch(banpick, (newValue, oldValue) => {
+  const team = [1, 2, 1, 2, 2, 1, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2];
+  if (banpick.value >= 1 && banpick.value <= 22) {
+    store.updateGameData('team', team[banpick.value - 1]);
+  }
+});
 watch(
   () => props.data,
   (newValue, oldValue) => {
@@ -289,7 +294,6 @@ const selectCharacter = () => {
     char.value.point[eiloidon.value]
   );
   store.updateGameData(`character/${props.lcstate}/e`, eiloidon.value);
-  store.updateGameData(`team`, props.team?.toString());
 };
 const changeEiloidon = () => {
   store.updateGameData(
@@ -312,7 +316,6 @@ const selectLightcone = () => {
     lc.value.point[superimp.value]
   );
   store.updateGameData(`lightcone/${props.lcstate}/s`, superimp.value);
-  store.updateGameData(`team`, props.team?.toString());
 };
 const changeLightcone = () => {
   store.updateGameData(
@@ -325,12 +328,10 @@ const banCharacter = () => {
   store.updateGameData(`ban/${props.state}/img`, char.value.icon);
   store.updateGameData(`ban/${props.state}/name`, char.value.name);
   store.updateGameData(`ban/${props.state}/path`, char.value.path);
-  store.updateGameData('team', 2);
 };
 const banLightcone = () => {
   store.updateGameData(`ban/${props.state}/img`, lc.value.preview);
   store.updateGameData(`ban/${props.state}/name`, lc.value.name);
   store.updateGameData(`ban/${props.state}/path`, lc.value.path);
-  store.updateGameData(`team`, props.team?.toString());
 };
 </script>
