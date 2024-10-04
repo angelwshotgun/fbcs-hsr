@@ -120,6 +120,5 @@ export const useStore = defineStore("store", {
         }
       }, 1000);
     }
-    
   },
 });

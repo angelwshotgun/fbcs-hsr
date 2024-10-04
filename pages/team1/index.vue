@@ -117,15 +117,14 @@
       </div>
     </div>
     <div class="w-1/3">
-      <div class="rounded flex flex-col justify-center items-center p-2 w-full">
-        <div class="bg-primary rounded px-5 py-2 flex flex-col">
-          <label>Timer</label>
-          <label>{{ timer }}</label>
-          <label>{{ banpick }}</label>
-        </div>
+      <div>
+        <BanPickLabel />
+      </div>
+      <div>
+        <RollButton />
       </div>
       <InputText v-model="search" placeholder="Tìm kiếm..." class="w-full mb-1" />
-      <div class="overflow-y-auto h-[65vh]"> <!-- Add a wrapper for scroll -->
+      <div class="overflow-y-auto h-[60vh]"> <!-- Add a wrapper for scroll -->
         <div class="grid grid-cols-6 gap-1">
           <div
             v-for="item in filterCharacters"
@@ -267,14 +266,14 @@ const characters = ref();
 const filterCharacters = ref();
 const light_cones = ref();
 const data = ref()
-fetch("api/characters")
+fetch("https://fbcs-hsr.vercel.app/api/characters")
   .then((res) => res.json())
   .then((data) => {
     characters.value = Object.values(data);
     filterCharacters.value = Object.values(data);
   });
 
-fetch("api/light_cones")
+fetch("https://fbcs-hsr.vercel.app/api/light_cones")
   .then((res) => res.json())
   .then((data) => {
     light_cones.value = Object.values(data);

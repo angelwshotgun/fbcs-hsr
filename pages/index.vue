@@ -93,7 +93,10 @@
           />
         </div>
       </div>
-      <div class="flex flex-col justify-center gap-4">
+      <div class="flex flex-col gap-4">
+        <div>
+          <BanPickLabel />
+        </div>
         <div>
           <RollButton />
         </div>
@@ -212,5 +215,11 @@ const resetData = () => {
 
 onMounted(() => {
   store.initializeRealtimeListeners();
+});
+const banpick = computed(() => {
+  return store.$state.banpick;
+});
+watch(banpick, (newValue, oldValue) => {
+  store.startTimer();
 });
 </script>

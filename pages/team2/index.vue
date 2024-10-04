@@ -95,15 +95,14 @@
       </div>
     </div>
     <div class="w-1/3">
-      <div class="rounded flex flex-col justify-center items-center p-2 w-full">
-        <div class="bg-primary rounded px-5 py-2 flex flex-col">
-          <label>Timer</label>
-          <label>{{ timer }}</label>
-          <label>{{ banpick }}</label>
-        </div>
+      <div>
+        <BanPickLabel />
+      </div>
+      <div>
+        <RollButton />
       </div>
       <InputText v-model="search" placeholder="Tìm kiếm..." class="w-full mb-1" />
-      <div class="overflow-y-auto h-[65vh]"> <!-- Add a wrapper for scroll -->
+      <div class="overflow-y-auto h-[60vh]"> <!-- Add a wrapper for scroll -->
         <div class="grid grid-cols-6 gap-1">
           <div
             v-for="item in filterCharacters"
@@ -130,22 +129,22 @@
     <div class="w-1/3 flex flex-col gap-2">
       <SelectOptions :is-light-cone="false" :is-ban="true" :state="'bc3'" :index="0" :team="'red'" :data="data" :stt="2"/>
       <div class="flex">
-        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c9'" :lcstate="'l9'" :index="1" :team="'red'" :data="data" :stt="4"/>
+        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c9'" :lcstate="'l9'" :index="0" :team="'red'" :data="data" :stt="4"/>
         <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c10'" :lcstate="'l10'" :data="data" :stt="5"/>
       </div>
-      <SelectOptions :is-light-cone="false" :is-ban="true" :state="'bc4'" :index="2" :team="'red'" :data="data" :stt="7"/>
-      <SelectOptions :is-light-cone="true" :is-ban="true"  :state="'bl2'" :index="3" :team="'red'" :data="data" :stt="10"/>
+      <SelectOptions :is-light-cone="false" :is-ban="true" :state="'bc4'" :index="1" :team="'red'" :data="data" :stt="7"/>
+      <SelectOptions :is-light-cone="true" :is-ban="true"  :state="'bl2'" :index="2" :team="'red'" :data="data" :stt="10"/>
       <div class="flex">
-        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c11'" :lcstate="'l11'" :index="4" :team="'red'" :data="data" :stt="11"/>
-        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c12'" :lcstate="'l12'" :index="5" :team="'red'" :data="data" :stt="14"/>
+        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c11'" :lcstate="'l11'" :index="3" :team="'red'" :data="data" :stt="11"/>
+        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c12'" :lcstate="'l12'" :index="4" :team="'red'" :data="data" :stt="14"/>
       </div>
       <div class="flex">
-        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c13'" :lcstate="'l13'" :index="6" :team="'red'" :data="data" :stt="15"/>
+        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c13'" :lcstate="'l13'" :index="5" :team="'red'" :data="data" :stt="15"/>
         <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c14'" :lcstate="'l14'" :data="data" :stt="18"/>
       </div>
       <div class="flex">
-        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c15'" :lcstate="'l15'" :index="7" :team="'red'" :data="data" :stt="19"/>
-        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c16'" :lcstate="'l16'" :index="8" :team="'red'" :data="data" :stt="22"/>
+        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c15'" :lcstate="'l15'" :index="6" :team="'red'" :data="data" :stt="19"/>
+        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c16'" :lcstate="'l16'" :index="7" :team="'red'" :data="data" :stt="22"/>
       </div>
     </div>
   </div>
@@ -161,14 +160,14 @@ const search = ref();
 const characters = ref();
 const filterCharacters = ref();
 const light_cones = ref();
-fetch("api/characters")
+fetch("https://fbcs-hsr.vercel.app/api/characters")
   .then((res) => res.json())
   .then((data) => {
     characters.value = Object.values(data);
     filterCharacters.value = Object.values(data);
   });
 
-fetch("api/light_cones")
+fetch("https://fbcs-hsr.vercel.app/api/light_cones")
   .then((res) => res.json())
   .then((data) => {
     light_cones.value = Object.values(data);
