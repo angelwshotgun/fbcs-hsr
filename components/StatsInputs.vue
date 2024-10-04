@@ -157,12 +157,11 @@ const bluepoint = computed(() => {
   } else {
     adjustedTotal = 30 / 4 + (totalValue - 30) / 6;
   }
-  return (
-    Number(bluecc1.value) +
+  const result = Number(bluecc1.value) +
     Number(bluecc2.value) +
     Number(bluedeath.value) +
-    adjustedTotal
-  );
+    adjustedTotal -5;
+  return Number(result.toFixed(2));
 });
 
 const redpoint = computed(() => {
@@ -173,12 +172,11 @@ const redpoint = computed(() => {
   } else {
     adjustedTotal = 30 / 4 + (totalValue - 30) / 6;
   }
-  return (
-    Number(redcc1.value) +
+  const result = Number(redcc1.value) +
     Number(redcc2.value) +
     Number(reddeath.value) +
-    adjustedTotal
-  );
+    adjustedTotal -5;
+  return Number(result.toFixed(2));
 });
 </script>
 

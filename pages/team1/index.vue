@@ -118,10 +118,10 @@
     </div>
     <div class="w-1/3">
       <div>
-        <BanPickLabel />
-      </div>
-      <div>
         <RollButton />
+      </div>
+      <div class="pb-1">
+        <BanPickLabel />
       </div>
       <InputText v-model="search" placeholder="Tìm kiếm..." class="w-full mb-1" />
       <div class="overflow-y-auto h-[60vh]"> <!-- Add a wrapper for scroll -->

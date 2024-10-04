@@ -95,10 +95,10 @@
       </div>
       <div class="flex flex-col gap-4">
         <div>
-          <BanPickLabel />
-        </div>
-        <div>
           <RollButton />
+        </div>
+        <div class="pb-1">
+          <BanPickLabel />
         </div>
         <div>
           <StatsInputs />
