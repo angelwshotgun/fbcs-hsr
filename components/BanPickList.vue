@@ -37,13 +37,13 @@ const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
 const characters = ref();
 const light_cones = ref();
 
-fetch("api/characters")
+fetch("https://fbcs-hsr.vercel.app/api/characters")
   .then((res) => res.json())
   .then((data) => {
     characters.value = Object.values(data);
   });
 
-fetch("api/light_cones")
+fetch("https://fbcs-hsr.vercel.app/api/light_cones")
   .then((res) => res.json())
   .then((data) => {
     light_cones.value = Object.values(data);
