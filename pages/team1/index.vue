@@ -136,8 +136,10 @@
               <NuxtImg
                 :src="link + item.preview"
                 :alt="item.name"
-                class="absolute top-0 left-1/2 -translate-x-1/2 w-[150%] h-[150%] object-cover"
+                class="absolute top-0 left-1/2 -translate-x-1/2 w-[150%] h-[150%] object-cover transition-transform duration-200 ease-in-out"
                 @click="selectCharacter(item)"
+                @mouseenter="$event.target.classList.add('scale-110')"
+                @mouseleave="$event.target.classList.remove('scale-110')"
               />
             </div>
           </div>
@@ -264,7 +266,6 @@ const search = ref();
 const characters = ref();
 const filterCharacters = ref();
 const light_cones = ref();
-
 const data = ref()
 fetch("api/characters")
   .then((res) => res.json())
@@ -295,11 +296,30 @@ const banpick = computed(() => {
 const team = computed(() => {
   return store.$state.team;
 });
-watch(search , (newValue) => {
-  filterCharacters.value = characters.value.filter((item) => {
-    return item.name.toLowerCase().includes(newValue.toLowerCase());
-  })
-})
+
+watch(banpick, (newVal) => {
+  if (newVal === 9) {
+    filterCharacters.value = light_cones.value.filter((item) =>
+      item.name.toLowerCase().includes(search.value?.toLowerCase() || "")
+    );
+  } else {
+    filterCharacters.value = characters.value.filter((item) =>
+      item.name.toLowerCase().includes(search.value?.toLowerCase() || "")
+    );
+  }
+});
+
+watch(search, (newValue) => {
+  if (banpick.value === 9) {
+    filterCharacters.value = light_cones.value.filter((item) =>
+      item.name.toLowerCase().includes(newValue.toLowerCase())
+    );
+  } else {
+    filterCharacters.value = characters.value.filter((item) =>
+      item.name.toLowerCase().includes(newValue.toLowerCase())
+    );
+  }
+});
 const selectCharacter = (item) => {
   if (team.value === 1) {
     data.value = item;
