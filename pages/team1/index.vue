@@ -41,7 +41,7 @@
           :is-ban="false"
           :state="'c2'"
           :lcstate="'l2'"
-          :index="6"
+          :index="1"
           :team="'blue'"
           :data="data"
           :stt="6"
