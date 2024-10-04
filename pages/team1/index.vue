@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col md:flex-row justify-between gap-1 p-4">
-    <div class="w-1/3 flex flex-col gap-2">
+  <div class="flex flex-col md:flex-row justify-between gap-1">
+    <div class="w-1/3 flex flex-col gap-1">
       <div
         class="flex justify-between items-center bg-blue-500 h-10 rounded-md"
       >
@@ -25,7 +25,7 @@
         }}</label>
       </div>
       <SelectOptions :is-light-cone="false" :is-ban="true" :state="'bc1'" :data="data" :stt="1"/>
-      <div class="flex">
+      <div class="flex gap-1">
         <SelectOptions
           :is-light-cone="false"
           :is-ban="false"
@@ -49,7 +49,7 @@
       </div>
       <SelectOptions :is-light-cone="false" :is-ban="true" :state="'bc2'" :data="data" :index="3" :stt="8"/>
       <SelectOptions :is-light-cone="true" :is-ban="true" :state="'bl1'" :data="data" :stt="9"/>
-      <div class="flex">
+      <div class="flex gap-1">
         <SelectOptions
           :is-light-cone="false"
           :is-ban="false"
@@ -71,7 +71,7 @@
           :stt="13"
         />
       </div>
-      <div class="flex">
+      <div class="flex gap-1">
         <SelectOptions
           :is-light-cone="false"
           :is-ban="false"
@@ -93,7 +93,7 @@
           :stt="17"
         />
       </div>
-      <div class="flex">
+      <div class="flex gap-1">
         <SelectOptions
           :is-light-cone="false"
           :is-ban="false"

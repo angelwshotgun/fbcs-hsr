@@ -11,7 +11,7 @@
         :class="[props.isBan ? 'h-100%' : 'h-80%', 'object-contain', 'w-auto', props.isBan ? '' : 'pr-24',props.isBan ? '' : 'pt-6']"
         @click="char = null"
       />
-      <label v-if="!props.isBan && model?.img" class="text-white font-bold text-xl text-sm text-center pr-24">{{ model1?.name + " e" + model1?.e + "s" + (model2?.s+1) }}</label>
+      <label v-if="!props.isBan && model?.img" class="text-white font-bold text-xl text-sm text-center pr-24">{{ model1?.name + " e" + model1?.e + "s" + ((model2?.s ?? -1) + 1 >= 0 ? " +" + ((model2?.s ?? -1) + 1) : "") }}</label>
       </div>
       <NuxtImg
         v-if="!isBan && model2?.img !== ''"

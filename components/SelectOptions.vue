@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!props.isLightCone" class="w-full flex flex-col">
+  <div v-if="!props.isLightCone" class="w-full flex flex-col bg-primary rounded">
     <div
       class="relative w-full h-[100px] flex flex-col justify-center items-center overflow-hidden"
     >
@@ -22,13 +22,15 @@
       />
       <label
         v-if="!props.isBan"
-        class="absolute top-0 right-0 m-2 bg-white bg-opacity-75 px-2 py-1 rounded text-sm"
+        class="absolute top-0 right-0 m-2 bg-black text-white font-bold text-xl bg-opacity-35 py-1 rounded text-xs w-12 text-center"
         >{{
-          "+ " + (model1?.point[eiloidon] + (lc?.point[superimp] || 0))
+          (model1?.point[eiloidon] + (lc?.point[superimp] || 0)) >= 0
+            ? "+ " + (model1?.point[eiloidon] + (lc?.point[superimp] || 0))
+            : (model1?.point[eiloidon] + (lc?.point[superimp] || 0))
         }}</label
       >
     </div>
-    <div v-if="!props.isBan" class="grid grid-cols-6 w-full">
+    <div v-if="!props.isBan" class="grid grid-cols-6 w-full gap-1">
       <Select
         v-model="eiloidon"
         :options="eiloidonSelect"
@@ -58,7 +60,7 @@
       />
     </div>
   </div>
-  <div v-else class="w-full flex flex-col">
+  <div v-else class="w-full flex flex-col bg-primary">
     <div
       class="w-full h-[100px] flex flex-col justify-center items-center overflow-hidden"
     >
@@ -85,7 +87,6 @@
 
 <script setup lang="ts">
 import { useStore } from "~/store/useStore";
-import { Model } from "~/models/model";
 
 const store = useStore();
 const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
@@ -335,3 +336,42 @@ const banLightcone = () => {
   store.updateGameData(`ban/${props.state}/path`, lc.value.path);
 };
 </script>
+
+<style scoped>
+.p-select {
+  background-color: #56406d;
+  font-size: 16px;
+  border: #767676 1px solid;
+  border-radius: 0.3em;
+  text-align: center;
+  height: 30px;
+}
+:deep(.p-select-label.p-placeholder) {
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  padding-top: 4px;
+}
+:deep(.p-select-item) {
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  padding-top: 4px;
+}
+:deep(.p-select-label) {
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  padding-top: 4px;
+}
+:deep(.p-select-dropdown) {
+  display: none;
+  text-align: center;
+}
+.p-select-item:hover {
+  background-color: #57436c;
+}
+.p-select-item.p-highlight {
+  background-color: #57436c;
+}
+</style>
