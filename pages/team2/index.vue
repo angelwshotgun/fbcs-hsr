@@ -130,17 +130,17 @@
       <SelectOptions :is-light-cone="false" :is-ban="true" :state="'bc3'" :index="0" :team="'red'" :data="data" :stt="2"/>
       <div class="flex">
         <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c9'" :lcstate="'l9'" :index="0" :team="'red'" :data="data" :stt="4"/>
-        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c10'" :lcstate="'l10'" :data="data" :stt="5"/>
+        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c10'" :lcstate="'l10'" :index="1" :team="'red'" :data="data" :stt="5"/>
       </div>
-      <SelectOptions :is-light-cone="false" :is-ban="true" :state="'bc4'" :index="1" :team="'red'" :data="data" :stt="7"/>
-      <SelectOptions :is-light-cone="true" :is-ban="true"  :state="'bl2'" :index="2" :team="'red'" :data="data" :stt="10"/>
+      <SelectOptions :is-light-cone="false" :is-ban="true" :state="'bc4'" :data="data" :stt="7"/>
+      <SelectOptions :is-light-cone="true" :is-ban="true"  :state="'bl2'" :data="data" :stt="10"/>
       <div class="flex">
-        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c11'" :lcstate="'l11'" :index="3" :team="'red'" :data="data" :stt="11"/>
-        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c12'" :lcstate="'l12'" :index="4" :team="'red'" :data="data" :stt="14"/>
+        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c11'" :lcstate="'l11'" :index="2" :team="'red'" :data="data" :stt="11"/>
+        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c12'" :lcstate="'l12'" :index="3" :team="'red'" :data="data" :stt="14"/>
       </div>
       <div class="flex">
-        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c13'" :lcstate="'l13'" :index="5" :team="'red'" :data="data" :stt="15"/>
-        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c14'" :lcstate="'l14'" :data="data" :stt="18"/>
+        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c13'" :lcstate="'l13'" :index="4" :team="'red'" :data="data" :stt="15"/>
+        <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c14'" :lcstate="'l14'" :index="5" :team="'red'" :data="data" :stt="18"/>
       </div>
       <div class="flex">
         <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c15'" :lcstate="'l15'" :index="6" :team="'red'" :data="data" :stt="19"/>
