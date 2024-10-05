@@ -217,6 +217,8 @@ const selectCharacter = (item) => {
   }
 }
 const lockCharacter = () => {
-  store.updateGameData("banpick", banpick.value + 1);
+  if (team.value === 2) {
+    store.updateGameData("banpick", banpick.value + 1);
+  }
 }
 </script>

@@ -216,10 +216,5 @@ const resetData = () => {
 onMounted(() => {
   store.initializeRealtimeListeners();
 });
-const banpick = computed(() => {
-  return store.$state.banpick;
-});
-watch(banpick, (newValue, oldValue) => {
-  store.startTimer();
-});
+
 </script>

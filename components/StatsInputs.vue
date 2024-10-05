@@ -9,7 +9,7 @@
         </div>
         <div class="flex">
           <label class="flex w-3/4 items-center justify-center"
-            >Phase 1 Cycles</label
+            >Node 1</label
           >
           <input
             v-model="bluecc1"
@@ -19,7 +19,7 @@
         </div>
         <div class="flex">
           <label class="flex w-3/4 items-center justify-center"
-            >Phase 2 Cycles</label
+            >Node 2</label
           >
           <input
             v-model="bluecc2"
@@ -28,7 +28,7 @@
           />
         </div>
         <div class="flex">
-          <label class="flex w-3/4 items-center justify-center">Deaths</label>
+          <label class="flex w-3/4 items-center justify-center">Penalties</label>
           <input
             v-model="bluedeath"
             type="text"
@@ -52,12 +52,11 @@
         <div class="flex">
           <input
             v-model="redcc1"
-            placeholder="Phase 1 Cycles"
             type="text"
             class="input1 text-center w-1/4"
           />
           <label class="flex w-3/4 items-center justify-center"
-            >Phase 1 Cycles</label
+            >Node 1</label
           >
         </div>
         <div class="flex">
@@ -68,22 +67,20 @@
             class="input1 text-center w-1/4"
           />
           <label class="flex w-3/4 items-center justify-center"
-            >Phase 2 Cycles</label
+            >Node 2</label
           >
         </div>
         <div class="flex">
           <input
             v-model="reddeath"
-            placeholder="Deaths"
             type="text"
             class="input1 text-center w-1/4"
           />
-          <label class="flex w-3/4 items-center justify-center">Deaths</label>
+          <label class="flex w-3/4 items-center justify-center">Penalties</label>
         </div>
         <div class="flex">
           <input
             v-model="redpoint"
-            placeholder="Deaths"
             type="text"
             disabled
             class="input1 text-center w-1/4"
