@@ -4,11 +4,10 @@
       class="relative w-full h-[100px] flex flex-col justify-center items-center overflow-hidden"
     >
       <NuxtImg
-        v-if="char"
+        v-if="model?.img !== ''"
         :src="link + model?.img"
         :style="props.isBan ? 'filter: grayscale(100%);' : ''"
         class="object-contain w-30% h-auto"
-        @click="char = null"
       />
       <Select
         v-else
