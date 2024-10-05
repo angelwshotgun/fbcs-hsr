@@ -327,6 +327,7 @@ const selectCharacter = (item) => {
 const lockCharacter = () => {
   if (team.value === 1) {
     store.updateGameData("banpick", banpick.value + 1);
+    store.startTimer();
   }
 }
 </script>

@@ -294,7 +294,6 @@ const selectCharacter = () => {
     char.value.point[eiloidon.value]
   );
   store.updateGameData(`character/${props.lcstate}/e`, eiloidon.value);
-  store.startTimer();
 };
 const changeEiloidon = () => {
   store.updateGameData(
@@ -329,13 +328,11 @@ const banCharacter = () => {
   store.updateGameData(`ban/${props.state}/img`, char.value.icon);
   store.updateGameData(`ban/${props.state}/name`, char.value.name);
   store.updateGameData(`ban/${props.state}/path`, char.value.path);
-  store.startTimer();
 };
 const banLightcone = () => {
   store.updateGameData(`ban/${props.state}/img`, lc.value.preview);
   store.updateGameData(`ban/${props.state}/name`, lc.value.name);
   store.updateGameData(`ban/${props.state}/path`, lc.value.path);
-  store.startTimer();
 };
 </script>
 

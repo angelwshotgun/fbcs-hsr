@@ -211,6 +211,7 @@ const store = useStore();
 
 const resetData = () => {
   store.resetGameData();
+  store.startTimer();
 };
 
 onMounted(() => {
