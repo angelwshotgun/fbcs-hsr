@@ -26,9 +26,9 @@
           }}</label>
         </div>
         <div class="grid grid-cols-3 gap-1">
-          <SelectView :is-light-cone="false" :is-ban="true" :state="'bc1'" />
-          <SelectView :is-light-cone="false" :is-ban="true" :state="'bc2'" />
-          <SelectView :is-light-cone="true" :is-ban="true" :state="'bl1'" />
+          <SelectView :is-light-cone="false" :is-ban="true" :state="'bc1'" :stt="1" />
+          <SelectView :is-light-cone="false" :is-ban="true" :state="'bc2'" :stt="8"/>
+          <SelectView :is-light-cone="true" :is-ban="true" :state="'bl1'" :stt="9"/>
         </div>
         <div class="grid grid-cols-2 gap-1">
           <SelectView
@@ -38,6 +38,7 @@
             :lcstate="'l1'"
             :index="0"
             :team="'blue'"
+            :stt="3"
           />
           <SelectView
             :is-light-cone="false"
@@ -46,6 +47,7 @@
             :lcstate="'l2'"
             :index="1"
             :team="'blue'"
+            :stt="6"
           />
         </div>
         <div class="grid grid-cols-2 gap-1">
@@ -56,6 +58,7 @@
             :lcstate="'l3'"
             :index="2"
             :team="'blue'"
+            :stt="12"
           />
           <SelectView
             :is-light-cone="false"
@@ -64,6 +67,7 @@
             :lcstate="'l4'"
             :index="3"
             :team="'blue'"
+            :stt="13"
           />
         </div>
         <div class="grid grid-cols-2 gap-1">
@@ -74,6 +78,7 @@
             :lcstate="'l5'"
             :index="4"
             :team="'blue'"
+            :stt="16"
           />
           <SelectView
             :is-light-cone="false"
@@ -82,6 +87,7 @@
             :lcstate="'l6'"
             :index="5"
             :team="'blue'"
+            :stt="17"
           />
         </div>
         <div class="grid grid-cols-2 gap-1">
@@ -92,6 +98,7 @@
             :lcstate="'l7'"
             :index="6"
             :team="'blue'"
+            :stt="20"
           />
           <SelectView
             :is-light-cone="false"
@@ -100,6 +107,7 @@
             :lcstate="'l8'"
             :index="7"
             :team="'blue'"
+            :stt="21"
           />
         </div>
       </div>
@@ -149,9 +157,9 @@
           }}</label>
         </div>
         <div class="grid grid-cols-3 gap-1">
-          <SelectView :is-light-cone="false" :is-ban="true" :state="'bc3'" />
-          <SelectView :is-light-cone="false" :is-ban="true" :state="'bc4'" />
-          <SelectView :is-ban="true" :is-light-cone="true" :state="'bl2'" />
+          <SelectView :is-light-cone="false" :is-ban="true" :state="'bc3'" :stt="2" />
+          <SelectView :is-light-cone="false" :is-ban="true" :state="'bc4'" :stt="7"/>
+          <SelectView :is-ban="true" :is-light-cone="true" :state="'bl2'" :stt="10" />
         </div>
         <div class="grid grid-cols-2 gap-1">
           <SelectView
@@ -161,6 +169,7 @@
             :lcstate="'l9'"
             :index="0"
             :team="'red'"
+            :stt="4"
           />
           <SelectView
             :is-light-cone="false"
@@ -169,6 +178,7 @@
             :lcstate="'l10'"
             :index="1"
             :team="'red'"
+            :stt="5"
           />
         </div>
         <div class="grid grid-cols-2 gap-1">
@@ -179,6 +189,7 @@
             :lcstate="'l11'"
             :index="2"
             :team="'red'"
+            :stt="11"
           />
           <SelectView
             :is-light-cone="false"
@@ -187,6 +198,7 @@
             :lcstate="'l12'"
             :index="3"
             :team="'red'"
+            :stt="14"
           />
         </div>
         <div class="grid grid-cols-2 gap-1">
@@ -197,6 +209,7 @@
             :lcstate="'l13'"
             :index="4"
             :team="'red'"
+            :stt="15"
           />
           <SelectView
             :is-light-cone="false"
@@ -205,6 +218,7 @@
             :lcstate="'l14'"
             :index="5"
             :team="'red'"
+            :stt="18"
           />
         </div>
         <div class="grid grid-cols-2 gap-1">
@@ -215,6 +229,7 @@
             :lcstate="'l15'"
             :index="6"
             :team="'red'"
+            :stt="19"
           />
           <SelectView
             :is-light-cone="false"
@@ -223,6 +238,7 @@
             :lcstate="'l16'"
             :index="7"
             :team="'red'"
+            :stt="22"
           />
         </div>
       </div>
