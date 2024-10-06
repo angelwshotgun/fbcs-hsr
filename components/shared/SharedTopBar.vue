@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between items-center px-4" style="height: 50px">
-    <h1 class="flex items-center">Font-Bard Championship Series</h1>
+    <h1 class="flex items-center justify-center flex-grow">Font-Bard Championship Series</h1>
     <div class="flex items-center mr-12">
       <Button
         :icon="isDark ? 'pi pi-sun' : 'pi pi-moon'"

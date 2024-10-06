@@ -136,8 +136,7 @@
         <div
           class="flex justify-between items-center bg-red-500 h-10 rounded-md"
         >
-          <label class="pl-2 text-white text-xl">Red Team</label>
-          <label class="pr-2 text-white text-xl">{{
+          <label class="pl-2 text-white text-xl">{{
             store.$state.state.point.redp.char[0] +
             store.$state.state.point.redp.char[1] +
             store.$state.state.point.redp.char[2] +
@@ -155,6 +154,7 @@
             store.$state.state.point.redp.lc[6] +
             store.$state.state.point.redp.lc[7]
           }}</label>
+          <label class="pr-2 text-white text-xl">Red Team</label>
         </div>
         <div class="grid grid-cols-3 gap-1">
           <SelectView :is-light-cone="false" :is-ban="true" :state="'bc3'" :stt="2" />
