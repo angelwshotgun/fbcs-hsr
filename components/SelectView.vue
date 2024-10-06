@@ -1,8 +1,8 @@
 <template>
   <div v-if="!props.isLightCone" class="w-full flex flex-col bg-primary rounded-md">
     <div :class="['relative', 'w-full', props.isBan ? 'h-[100px]' : 'h-[180px]', 'flex', 'justify-center', 'items-center', 'overflow-hidden']" >
-      <div v-if="model?.img == '' && isBan">Banning...</div>
-      <div v-else-if="model?.img == '' && !isBan">Picking...</div>
+      <div v-if="model?.img == '' && props.isBan">Banning...</div>
+      <div v-else-if="model?.img == '' && !props.isBan">Picking...</div>
       <div :class="['flex', 'flex-col', 'h-100%']">
         <NuxtImg
         v-if="model?.img !== ''"
@@ -14,7 +14,7 @@
       <label v-if="!props.isBan && model?.img" class="text-white font-bold text-xl text-sm text-center pr-24">{{ model1?.name + " e" + model1?.e + "s" + (model2?.s +1) }}</label>
       </div>
       <NuxtImg
-        v-if="!isBan && model2?.img !== ''"
+        v-if="!props.isBan && model2?.img !== ''"
         :src="link + model2?.img"
         :style="props.isBan ? 'filter: grayscale(100%);' : ''"
         :class="[
@@ -30,9 +30,8 @@
         ]"
         @click="char = null"
       />
-      <label v-if="!props.isBan && model?.img" class="absolute top-0 right-0 m-2 bg-black text-white font-bold text-xl bg-opacity-35 px-1 py-1 rounded text-sm w-16 text-center">{{ (model3?.char[props.index] + model3?.lc[props.index]) >= 0 ? "+" + (model3?.char[props.index] + model3?.lc[props.index]) : (model3?.char[props.index] + model3?.lc[props.index]) }}</label>
-    </div>
-  </div>
+      <label v-if="!props.isBan && model?.img" class="absolute top-0 right-0 m-2 bg-black text-white font-bold text-xl bg-opacity-35 px-1 py-1 rounded text-sm w-16 text-center">{{ (model3?.char && model3?.lc && props.index !== undefined) ? ((model3.char[props.index] + model3.lc[props.index]) >= 0 ? "+" + (model3.char[props.index] + model3.lc[props.index]) : (model3.char[props.index] + model3.lc[props.index])) : '' }}</label>
+    </div>  </div>
   <div v-else class="w-full flex flex-col bg-primary rounded-md">
     <div class="w-full h-[100px] flex flex-col justify-center items-center overflow-hidden">
       <div v-if="model?.img == '' && isBan">Banning...</div>
@@ -52,17 +51,10 @@
   const store = useStore();
   const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
   
-  const characters = ref();
-  const light_cones = ref();
   const char = ref()
-  const lc = ref()
-  const eiloidon = ref();
-  const superimp = ref();
   
   onMounted(() => {
     store.initializeRealtimeListeners();
-    eiloidon.value = "0";
-    superimp.value = 1;
   });
   
   const props = defineProps({

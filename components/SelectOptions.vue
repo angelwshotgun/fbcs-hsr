@@ -96,6 +96,9 @@ const char = ref();
 const lc = ref();
 const eiloidon = ref<number>(0);
 const superimp = ref<number>(0);
+const selectedStage = computed(() => {
+  return store.$state.stage;
+});
 const eiloidonSelect = ref([
   { label: "e0", value: 0 },
   { label: "e1", value: 1 },
@@ -113,17 +116,50 @@ const superimpSelect = ref([
   { label: "s5", value: 4 },
 ]);
 
-fetch("https://fbcs-hsr.vercel.app/api/characters")
-  .then((res) => res.json())
-  .then((data) => {
-    characters.value = Object.values(data);
-  });
+async function fetchCharacters() {
+  try {
+    const response = await $fetch('/api/github/readCharacters', {
+      method: 'POST',
+      body: {
+        action: 'readFile',
+        owner: "angelwshotgun",
+        repo: "DataStore",
+        path: `data/characters${selectedStage.value === "11" ? "11" : ""}.json`
+      }
+    });
+    if (response.error) {
+      throw new Error(response.error);
+    }
+    characters.value = Object.values(response.content);
+  } catch (err) {
+    console.error("Error reading file:", err);
+  }
+}
 
-fetch("https://fbcs-hsr.vercel.app/api/light_cones")
-  .then((res) => res.json())
-  .then((data) => {
-    light_cones.value = Object.values(data);
-  });
+async function fetchLightcones() {
+  try {
+    const response = await $fetch('/api/github/readCharacters', {
+      method: 'POST',
+      body: {
+        action: 'readFile',
+        owner: "angelwshotgun",
+        repo: "DataStore",
+        path: `data/light_cones${selectedStage.value === "11" ? "11" : ""}.json`
+      }
+    });
+    if (response.error) {
+      throw new Error(response.error);
+    }
+    light_cones.value = Object.values(response.content).filter(item => item.rarity === 5);
+  } catch (err) {
+    console.error("Error reading file:", err);
+  }
+}
+
+const loadData = async () => {
+  await fetchCharacters();
+  await fetchLightcones();
+};
 
 const props = defineProps({
   isBan: Boolean,
@@ -139,7 +175,7 @@ const props = defineProps({
 const banpick = computed(() => {
   return store.$state.banpick;
 });
-watch(banpick, (newValue, oldValue) => {
+watch(banpick, () => {
   const team = [1, 2, 1, 2, 2, 1, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2];
   if (banpick.value >= 1 && banpick.value <= 22) {
     store.updateGameData('team', team[banpick.value - 1]);
@@ -147,7 +183,7 @@ watch(banpick, (newValue, oldValue) => {
 });
 watch(
   () => props.data,
-  (newValue, oldValue) => {
+  () => {
     if (banpick.value == props.stt) {
       if (props.isBan && props.isLightCone) {
         if (props.isLightCone) {
@@ -178,8 +214,9 @@ watch(
   },
   { deep: true }
 );
-onMounted(() => {
+onMounted(async () => {
   store.initializeRealtimeListeners();
+  await loadData();
 });
 const model = computed(() => {
   switch (props.state) {

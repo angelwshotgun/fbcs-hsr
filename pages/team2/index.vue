@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col md:flex-row justify-between gap-1 p-4">
+  <div class="flex flex-col md:flex-row justify-between gap-1">
     <div class="w-1/3 flex flex-col gap-2">
       <div class="w-auto flex flex-col gap-1">
         <div class="flex justify-between items-center bg-blue-500 h-10 rounded-md">
@@ -126,7 +126,30 @@
         <Button label="Khóa" class="w-1/4" @click="lockCharacter" />
       </div>
     </div>
-    <div class="w-1/3 flex flex-col gap-2">
+    <div class="w-1/3 flex flex-col gap-1">
+      <div
+          class="flex justify-between items-center bg-red-500 h-10 rounded-md"
+        >
+          <label class="pl-2 text-white text-xl">Red Team</label>
+          <label class="pr-2 text-white text-xl">{{
+            store.$state.state.point.redp.char[0] +
+            store.$state.state.point.redp.char[1] +
+            store.$state.state.point.redp.char[2] +
+            store.$state.state.point.redp.char[3] +
+            store.$state.state.point.redp.char[4] +
+            store.$state.state.point.redp.char[5] +
+            store.$state.state.point.redp.char[6] +
+            store.$state.state.point.redp.char[7] +
+            store.$state.state.point.redp.lc[0] +
+            store.$state.state.point.redp.lc[1] +
+            store.$state.state.point.redp.lc[2] +
+            store.$state.state.point.redp.lc[3] +
+            store.$state.state.point.redp.lc[4] +
+            store.$state.state.point.redp.lc[5] +
+            store.$state.state.point.redp.lc[6] +
+            store.$state.state.point.redp.lc[7]
+          }}</label>
+        </div>
       <SelectOptions :is-light-cone="false" :is-ban="true" :state="'bc3'" :index="0" :team="'red'" :data="data" :stt="2"/>
       <div class="flex">
         <SelectOptions :is-light-cone="false" :is-ban="false" :state="'c9'" :lcstate="'l9'" :index="0" :team="'red'" :data="data" :stt="4"/>
@@ -152,7 +175,7 @@
 
 <script setup>
 import { useStore } from "~/store/useStore";
-const data=ref()
+
 const store = useStore();
 const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
 
@@ -160,34 +183,70 @@ const search = ref();
 const characters = ref();
 const filterCharacters = ref();
 const light_cones = ref();
-fetch("https://fbcs-hsr.vercel.app/api/characters")
-  .then((res) => res.json())
-  .then((data) => {
-    characters.value = Object.values(data);
-    filterCharacters.value = Object.values(data);
-  });
+const data = ref(null);
+const selectedStage = computed(() => {
+  return store.$state.stage;
+});
+async function fetchCharacters() {
+  try {
+    const response = await $fetch('/api/github/readCharacters', {
+      method: 'POST',
+      body: {
+        action: 'readFile',
+        owner: "angelwshotgun",
+        repo: "DataStore",
+        path: `data/characters${selectedStage.value === "11" ? "11" : ""}.json`
+      }
+    });
+    if (response.error) {
+      throw new Error(response.error);
+    }
+    characters.value = Object.values(response.content);
+    filterCharacters.value = Object.values(response.content);
+  } catch (err) {
+    console.error("Error reading file:", err);
+  }
+}
 
-fetch("https://fbcs-hsr.vercel.app/api/light_cones")
-  .then((res) => res.json())
-  .then((data) => {
-    light_cones.value = Object.values(data);
-  });
-onMounted(() => {
+async function fetchLightcones() {
+  try {
+    const response = await $fetch('/api/github/readCharacters', {
+      method: 'POST',
+      body: {
+        action: 'readFile',
+        owner: "angelwshotgun",
+        repo: "DataStore",
+        path: `data/light_cones${selectedStage.value === "11" ? "11" : ""}.json`
+      }
+    });
+    if (response.error) {
+      throw new Error(response.error);
+    }
+    light_cones.value = Object.values(response.content).filter(item => item.rarity === 5);
+  } catch (err) {
+    console.error("Error reading file:", err);
+  }
+}
+const loadData = async () => {
+  await fetchCharacters();
+  await fetchLightcones();
+};
+onMounted(async () => {
   store.initializeRealtimeListeners();
+  await loadData();
 });
-const timer = computed(() => {
-  const minutes = Math.floor(store.$state.timer / 60)
-    .toString()
-    .padStart(2, "0");
-  const seconds = (store.$state.timer % 60).toString().padStart(2, "0");
-  return `${minutes}:${seconds}`;
-});
+
 const banpick = computed(() => {
   return store.$state.banpick;
 });
 const team = computed(() => {
   return store.$state.team;
 });
+
+watch(selectedStage, () => {
+  loadData();
+});
+
 watch(banpick, (newVal) => {
   if (newVal === 10) {
     filterCharacters.value = light_cones.value.filter((item) =>
@@ -219,7 +278,7 @@ const selectCharacter = (item) => {
 const lockCharacter = () => {
   if (team.value === 2) {
     store.updateGameData("banpick", banpick.value + 1);
-    store.startTimer();
+    store.restartTimer();
   }
 }
 </script>

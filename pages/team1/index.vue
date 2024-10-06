@@ -133,6 +133,7 @@
           >
             <div class="w-full pb-[100%] relative">
               <NuxtImg
+                v-if="item.preview !== ''"
                 :src="link + item.preview"
                 :alt="item.name"
                 class="absolute top-0 left-1/2 -translate-x-1/2 w-[150%] h-[150%] object-cover transition-transform duration-200 ease-in-out"
@@ -257,7 +258,7 @@
 
 <script setup>
 import { useStore } from "~/store/useStore";
-import { Model} from "~/models/model"
+
 const store = useStore();
 const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
 
@@ -265,35 +266,69 @@ const search = ref();
 const characters = ref();
 const filterCharacters = ref();
 const light_cones = ref();
-const data = ref()
-fetch("https://fbcs-hsr.vercel.app/api/characters")
-  .then((res) => res.json())
-  .then((data) => {
-    characters.value = Object.values(data);
-    filterCharacters.value = Object.values(data);
-  });
+const data = ref(null);
+const selectedStage = computed(() => {
+  return store.$state.stage;
+});
+async function fetchCharacters() {
+  try {
+    const response = await $fetch('/api/github/readCharacters', {
+      method: 'POST',
+      body: {
+        action: 'readFile',
+        owner: "angelwshotgun",
+        repo: "DataStore",
+        path: `data/characters${selectedStage.value === "11" ? "11" : ""}.json`
+      }
+    });
+    if (response.error) {
+      throw new Error(response.error);
+    }
+    characters.value = Object.values(response.content);
+    filterCharacters.value = Object.values(response.content);
+  } catch (err) {
+    console.error("Error reading file:", err);
+  }
+}
 
-fetch("https://fbcs-hsr.vercel.app/api/light_cones")
-  .then((res) => res.json())
-  .then((data) => {
-    light_cones.value = Object.values(data);
-  });
 
-onMounted(() => {
+async function fetchLightcones() {
+  try {
+    const response = await $fetch('/api/github/readCharacters', {
+      method: 'POST',
+      body: {
+        action: 'readFile',
+        owner: "angelwshotgun",
+        repo: "DataStore",
+        path: `data/light_cones${selectedStage.value === "11" ? "11" : ""}.json`
+      }
+    });
+    if (response.error) {
+      throw new Error(response.error);
+    }
+    light_cones.value = Object.values(response.content).filter(item => item.rarity === 5);
+  } catch (err) {
+    console.error("Error reading file:", err);
+  }
+}
+const loadData = async () => {
+  await fetchCharacters();
+  await fetchLightcones();
+};
+onMounted(async () => {
   store.initializeRealtimeListeners();
+  await loadData();
 });
-const timer = computed(() => {
-  const minutes = Math.floor(store.$state.timer / 60)
-    .toString()
-    .padStart(2, "0");
-  const seconds = (store.$state.timer % 60).toString().padStart(2, "0");
-  return `${minutes}:${seconds}`;
-});
+
 const banpick = computed(() => {
   return store.$state.banpick;
 });
 const team = computed(() => {
   return store.$state.team;
+});
+
+watch(selectedStage, () => {
+  loadData();
 });
 
 watch(banpick, (newVal) => {
@@ -327,7 +362,7 @@ const selectCharacter = (item) => {
 const lockCharacter = () => {
   if (team.value === 1) {
     store.updateGameData("banpick", banpick.value + 1);
-    store.startTimer();
+    store.restartTimer();
   }
 }
 </script>
