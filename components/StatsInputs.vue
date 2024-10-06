@@ -150,14 +150,14 @@ const bluepoint = computed(() => {
   const totalValue = Number(bluetotal.value);
   let adjustedTotal;
   if (totalValue <= 30) {
-    adjustedTotal = totalValue / 4;
+    adjustedTotal = (totalValue - 30) / 6;
   } else {
-    adjustedTotal = 30 / 4 + (totalValue - 30) / 6;
+    adjustedTotal = (totalValue - 30) / 4;
   }
   const result = Number(bluecc1.value) +
     Number(bluecc2.value) +
     Number(bluedeath.value) +
-    adjustedTotal -5;
+    adjustedTotal;
   return Number(result.toFixed(2));
 });
 
@@ -165,14 +165,14 @@ const redpoint = computed(() => {
   const totalValue = Number(redtotal.value);
   let adjustedTotal;
   if (totalValue <= 30) {
-    adjustedTotal = totalValue / 4;
+    adjustedTotal = (totalValue - 30) / 6;
   } else {
-    adjustedTotal = 30 / 4 + (totalValue - 30) / 6;
+    adjustedTotal = (totalValue - 30) / 4;
   }
   const result = Number(redcc1.value) +
     Number(redcc2.value) +
     Number(reddeath.value) +
-    adjustedTotal -5;
+    adjustedTotal;
   return Number(result.toFixed(2));
 });
 </script>
