@@ -66,7 +66,6 @@ const defaultState = {
     },
   },
   team: 1,
-  timer: 90,
   banpick: 1,
   stage: 12,
 };
@@ -108,32 +107,5 @@ export const useStore = defineStore("store", {
           console.error("Error resetting game data:", error)
         })
     },
-    startTimer() {
-      if (this.timerInterval) {
-        clearInterval(this.timerInterval);
-      }
-      this.timer = 90;
-      this.updateGameData('timer', this.timer); // Sync initial timer value to Firebase
-      this.timerInterval = setInterval(() => {
-        if (this.timer > 0) {
-          this.timer--;
-          this.updateGameData('timer', this.timer); // Sync timer to Firebase
-        } else {
-          clearInterval(this.timerInterval);
-          this.timerInterval = null;
-        }
-      }, 1000);
-    },
-
-    stopTimer() {
-      if (this.timerInterval) {
-        clearInterval(this.timerInterval);
-        this.timerInterval = null;
-      }
-    },
-    restartTimer() {
-      this.stopTimer();
-      this.startTimer();
-    }
   },
 });

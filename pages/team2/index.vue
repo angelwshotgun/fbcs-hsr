@@ -184,6 +184,7 @@ const characters = ref();
 const filterCharacters = ref();
 const light_cones = ref();
 const data = ref(null);
+const isSelected = ref(false);
 const selectedStage = computed(() => {
   return store.$state.stage;
 });
@@ -273,12 +274,13 @@ watch(search, (newValue) => {
 const selectCharacter = (item) => {
   if (team.value === 2) {
     data.value = item;
+    isSelected.value = true;
   }
 }
 const lockCharacter = () => {
-  if (team.value === 2) {
+  if (team.value === 2 && isSelected.value == true) {
     store.updateGameData("banpick", banpick.value + 1);
-    store.restartTimer();
+    isSelected.value = false;
   }
 }
 </script>

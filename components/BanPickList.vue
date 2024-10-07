@@ -52,13 +52,7 @@ fetch("https://fbcs-hsr.vercel.app/api/light_cones")
 onMounted(() => {
   store.initializeRealtimeListeners();
 });
-const timer = computed(() => {
-  const minutes = Math.floor(store.$state.timer / 60)
-    .toString()
-    .padStart(2, "0");
-  const seconds = (store.$state.timer % 60).toString().padStart(2, "0");
-  return `${minutes}:${seconds}`;
-});
+
 const banpick = computed(() => {
   return store.$state.banpick;
 });
