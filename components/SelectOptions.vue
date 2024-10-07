@@ -149,7 +149,7 @@ async function fetchLightcones() {
     if (response.error) {
       throw new Error(response.error);
     }
-    light_cones.value = Object.values(response.content).filter(item => item.rarity === 5);
+    light_cones.value = Object.values(response.content);
   } catch (err) {
     console.error("Error reading file:", err);
   }

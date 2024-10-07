@@ -1,7 +1,7 @@
 <template>
-  <div class="flex justify-between items-center px-4" style="height: 50px">
-    <h1 class="flex items-center justify-center flex-grow">Font-Bard Championship Series</h1>
-    <div class="flex items-center mr-12">
+  <div class="flex justify-between items-center px-4 relative" style="height: 50px">
+    <h1 class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 m-0">Font-Bard Championship Series</h1>
+    <div class="flex items-center mr-12 ml-auto">
       <Button
         :icon="isDark ? 'pi pi-sun' : 'pi pi-moon'"
         @click="toggleDarkMode"
