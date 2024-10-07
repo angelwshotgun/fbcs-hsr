@@ -2,7 +2,7 @@
   <div class="flex justify-center">
     <div
       class="box1 flex flex-col items-center justify-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-#64477c duration-300 bg-primary"
-    >
+      >
       <label>{{ timer }}</label>
     </div>
   </div>

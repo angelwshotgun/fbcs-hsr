@@ -84,7 +84,6 @@ export const useStore = defineStore("store", {
           this.character = data.character || this.character
           this.lightcone = data.lightcone || this.lightcone
           this.state = data.state || this.state
-          this.timer = data.timer !== undefined ? data.timer : this.timer;
           this.banpick = data.banpick || this.banpick;
           this.team = data.team || this.team;
           this.stage = data.stage || this.stage;
