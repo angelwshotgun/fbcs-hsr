@@ -9,7 +9,7 @@
         :style="props.isBan ? 'filter: grayscale(100%);' : ''"
         class="object-contain w-30% h-auto"
       />
-      <Select
+      <!-- <Select
         v-else
         v-model="char"
         :options="characters"
@@ -18,7 +18,7 @@
         placeholder="Chọn nhân vật"
         class="w-1/2"
         @change="props.isBan ? banCharacter() : selectCharacter()"
-      />
+      /> -->
       <label
         v-if="!props.isBan"
         class="absolute top-0 right-0 m-2 bg-black text-white font-bold text-xl bg-opacity-35 py-1 rounded text-xs w-12 text-center"
@@ -64,13 +64,12 @@
       class="w-full h-[100px] flex flex-col justify-center items-center overflow-hidden"
     >
       <NuxtImg
-        v-if="lc"
-        :src="link + lc.preview"
+        v-if="model?.img !== ''"
+        :src="link + model?.img"
         :style="props.isBan ? 'filter: grayscale(100%);' : ''"
         class="object-contain w-20% h-auto"
-        @click="lc = null"
       />
-      <Select
+      <!-- <Select
         v-else
         v-model="lc"
         :options="light_cones"
@@ -79,7 +78,7 @@
         placeholder="Chọn nón ánh sáng"
         class="w-1/2"
         @change="banLightcone()"
-      />
+      /> -->
     </div>
   </div>
 </template>

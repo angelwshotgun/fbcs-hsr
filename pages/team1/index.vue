@@ -6,22 +6,22 @@
       >
         <label class="pl-2 text-white text-xl">Blue Team</label>
         <label class="pr-2 text-white text-xl">{{
-          store.$state.state.point.redp.char[0] +
-          store.$state.state.point.redp.char[1] +
-          store.$state.state.point.redp.char[2] +
-          store.$state.state.point.redp.char[3] +
-          store.$state.state.point.redp.char[4] +
-          store.$state.state.point.redp.char[5] +
-          store.$state.state.point.redp.char[6] +
-          store.$state.state.point.redp.char[7] +
-          store.$state.state.point.redp.lc[0] +
-          store.$state.state.point.redp.lc[1] +
-          store.$state.state.point.redp.lc[2] +
-          store.$state.state.point.redp.lc[3] +
-          store.$state.state.point.redp.lc[4] +
-          store.$state.state.point.redp.lc[5] +
-          store.$state.state.point.redp.lc[6] +
-          store.$state.state.point.redp.lc[7]
+          store.$state.state.point.bluep.char[0] +
+          store.$state.state.point.bluep.char[1] +
+          store.$state.state.point.bluep.char[2] +
+          store.$state.state.point.bluep.char[3] +
+          store.$state.state.point.bluep.char[4] +
+          store.$state.state.point.bluep.char[5] +
+          store.$state.state.point.bluep.char[6] +
+          store.$state.state.point.bluep.char[7] +
+          store.$state.state.point.bluep.lc[0] +
+          store.$state.state.point.bluep.lc[1] +
+          store.$state.state.point.bluep.lc[2] +
+          store.$state.state.point.bluep.lc[3] +
+          store.$state.state.point.bluep.lc[4] +
+          store.$state.state.point.bluep.lc[5] +
+          store.$state.state.point.bluep.lc[6] +
+          store.$state.state.point.bluep.lc[7]
         }}</label>
       </div>
       <SelectOptions :is-light-cone="false" :is-ban="true" :state="'bc1'" :data="data" :stt="1"/>
