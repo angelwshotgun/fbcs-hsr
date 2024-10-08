@@ -13,6 +13,7 @@
           >
           <input
             v-model="bluecc1"
+            placeholder="0"
             type="text"
             class="input1 text-center w-1/4"
           />
@@ -23,6 +24,7 @@
           >
           <input
             v-model="bluecc2"
+            placeholder="0"
             type="text"
             class="input1 text-center w-1/4"
           />
@@ -31,6 +33,7 @@
           <label class="flex w-3/4 items-center justify-center">Penalties</label>
           <input
             v-model="bluedeath"
+            placeholder="0"
             type="text"
             class="input1 text-center w-1/4"
           />
@@ -39,6 +42,7 @@
           <label class="flex w-3/4 items-center justify-center">Point</label>
           <input
             v-model="bluepoint"
+            placeholder="0"
             type="text"
             disabled
             class="input1 text-center w-1/4"
@@ -52,6 +56,7 @@
         <div class="flex">
           <input
             v-model="redcc1"
+            placeholder="0"
             type="text"
             class="input1 text-center w-1/4"
           />
@@ -62,7 +67,7 @@
         <div class="flex">
           <input
             v-model="redcc2"
-            placeholder="Phase 2 Cycles"
+            placeholder="0"
             type="text"
             class="input1 text-center w-1/4"
           />
@@ -73,6 +78,7 @@
         <div class="flex">
           <input
             v-model="reddeath"
+            placeholder="0"
             type="text"
             class="input1 text-center w-1/4"
           />
@@ -81,6 +87,7 @@
         <div class="flex">
           <input
             v-model="redpoint"
+            placeholder="0"
             type="text"
             disabled
             class="input1 text-center w-1/4"
