@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col md:flex-row justify-between gap-1">
-    <div class="w-1/3 flex flex-col gap-2">
+    <div class="w-1/3 flex flex-col gap-1">
       <div class="w-auto flex flex-col gap-1">
         <div class="flex justify-between items-center bg-blue-500 h-10 rounded-md">
           <label class="pl-2 text-white text-xl">Blue Team</label>

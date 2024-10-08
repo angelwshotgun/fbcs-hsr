@@ -7,7 +7,7 @@
         v-if="model?.img !== ''"
         :src="link + model?.img"
         :style="props.isBan ? 'filter: grayscale(100%);' : ''"
-        class="object-contain w-30% h-auto"
+        class="object-contain w-auto h-100%"
       />
       <!-- <Select
         v-else

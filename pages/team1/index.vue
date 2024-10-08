@@ -117,7 +117,8 @@
       </div>
     </div>
     <div class="w-1/3">
-      <div>
+      <div class="flex justify-center items-center">
+        <Button label="Xem điểm" @click="display = true"/>
         <RollButton />
       </div>
       <div class="pb-1">
@@ -149,7 +150,7 @@
         <Button label="Khóa" class="w-1/4" @click="lockCharacter" />
       </div>
     </div>
-    <div class="w-1/3 flex flex-col gap-2">
+    <div class="w-1/3 flex flex-col gap-1">
       <div class="w-auto flex flex-col gap-1">
         <div
           class="flex justify-between items-center bg-red-500 h-10 rounded-md"
@@ -254,6 +255,7 @@
       </div>
     </div>
   </div>
+  <ListModal :display="display" @close="display = false"/>
 </template>
 
 <script setup>
@@ -262,6 +264,7 @@ import { useStore } from "~/store/useStore";
 const store = useStore();
 const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
 
+const display = ref(false);
 const search = ref();
 const characters = ref();
 const filterCharacters = ref();
@@ -271,6 +274,7 @@ const isSelected = ref(false);
 const selectedStage = computed(() => {
   return store.$state.stage;
 });
+defineEmits('closeModal');
 async function fetchCharacters() {
   try {
     const response = await $fetch('/api/github/readCharacters', {
@@ -291,8 +295,6 @@ async function fetchCharacters() {
     console.error("Error reading file:", err);
   }
 }
-
-
 async function fetchLightcones() {
   try {
     const response = await $fetch('/api/github/readCharacters', {
