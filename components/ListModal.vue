@@ -30,7 +30,7 @@
                         <table class="border-collapse">
                           <thead>
                             <tr>
-                              <th v-for="(_, index) in character.point" :key="index" class="px-4">e{{ index }}</th>
+                              <th v-for="(_, index) in character.point" :key="index" class="px-4">E{{ index }}</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -59,7 +59,7 @@
                         <table class="border-collapse">
                           <thead>
                             <tr>
-                              <th v-for="(_, index) in lightCone.point" :key="index" class="px-4">s{{ index + 1 }}</th>
+                              <th v-for="(_, index) in lightCone.point" :key="index" class="px-4">S{{ index + 1 }}</th>
                             </tr>
                           </thead>
                           <tbody>
