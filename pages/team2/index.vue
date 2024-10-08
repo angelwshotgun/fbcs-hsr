@@ -95,7 +95,8 @@
       </div>
     </div>
     <div class="w-1/3">
-      <div>
+      <div class="flex justify-center items-center">
+        <Button label="Xem điểm" @click="display = true"/>
         <RollButton />
       </div>
       <div class="pb-1">
@@ -171,6 +172,7 @@
       </div>
     </div>
   </div>
+  <ListModal :display="display" @close="display = false"/>
 </template>
 
 <script setup>
@@ -179,6 +181,7 @@ import { useStore } from "~/store/useStore";
 const store = useStore();
 const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
 
+const display = ref(false);
 const search = ref();
 const characters = ref();
 const filterCharacters = ref();
