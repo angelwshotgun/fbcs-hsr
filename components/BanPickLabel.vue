@@ -3,7 +3,9 @@
     <div
       class="layout-point flex justify-center items-center flex-gap-1 w-full"
     >
-      <h2 :class="{ 'text-blue-500': isTeamBlue, 'text-red-500': !isTeamBlue }">{{ label }}</h2>
+      <h2 :class="{ 'text-blue-500': isTeamBlue, 'text-red-500': !isTeamBlue }">
+        {{ label }}
+      </h2>
     </div>
   </div>
 </template>
@@ -22,6 +24,72 @@ const banpick = computed(() => {
   return store.$state.banpick;
 });
 
+const bluetotal = computed(() => {
+  return (
+    store.$state.state.point.bluep.char[0] +
+    store.$state.state.point.bluep.char[1] +
+    store.$state.state.point.bluep.char[2] +
+    store.$state.state.point.bluep.char[3] +
+    store.$state.state.point.bluep.char[4] +
+    store.$state.state.point.bluep.char[5] +
+    store.$state.state.point.bluep.char[6] +
+    store.$state.state.point.bluep.char[7] +
+    store.$state.state.point.bluep.lc[0] +
+    store.$state.state.point.bluep.lc[1] +
+    store.$state.state.point.bluep.lc[2] +
+    store.$state.state.point.bluep.lc[3] +
+    store.$state.state.point.bluep.lc[4] +
+    store.$state.state.point.bluep.lc[5] +
+    store.$state.state.point.bluep.lc[6] +
+    store.$state.state.point.bluep.lc[7]
+  );
+});
+
+const redtotal = computed(() => {
+  return (
+    store.$state.state.point.redp.char[0] +
+    store.$state.state.point.redp.char[1] +
+    store.$state.state.point.redp.char[2] +
+    store.$state.state.point.redp.char[3] +
+    store.$state.state.point.redp.char[4] +
+    store.$state.state.point.redp.char[5] +
+    store.$state.state.point.redp.char[6] +
+    store.$state.state.point.redp.char[7] +
+    store.$state.state.point.redp.lc[0] +
+    store.$state.state.point.redp.lc[1] +
+    store.$state.state.point.redp.lc[2] +
+    store.$state.state.point.redp.lc[3] +
+    store.$state.state.point.redp.lc[4] +
+    store.$state.state.point.redp.lc[5] +
+    store.$state.state.point.redp.lc[6] +
+    store.$state.state.point.redp.lc[7]
+  );
+});
+
+const bluepoint = computed(() => {
+  const totalValue = Number(bluetotal.value);
+  let adjustedTotal;
+  if (totalValue <= 30) {
+    adjustedTotal = (totalValue - 30) / 6;
+  } else {
+    adjustedTotal = (totalValue - 30) / 4;
+  }
+  const result = adjustedTotal;
+  return Number(result.toFixed(2));
+});
+
+const redpoint = computed(() => {
+  const totalValue = Number(redtotal.value);
+  let adjustedTotal;
+  if (totalValue <= 30) {
+    adjustedTotal = (totalValue - 30) / 6;
+  } else {
+    adjustedTotal = (totalValue - 30) / 4;
+  }
+  const result = adjustedTotal;
+  return Number(result.toFixed(2));
+});
+
 const label = computed(() => {
   const team = [
     1, 2, 1, 2, 2, 1, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2,
@@ -35,9 +103,39 @@ const label = computed(() => {
       isTeamBlue.value = false;
       return "Lượt team đỏ";
     }
+  } else if (banpick.value > 22) {
+    const difference = bluepoint.value - redpoint.value;
+    console.log(difference);
+    if (bluepoint.value < 0 && redpoint.value < 0) {
+      if (difference > 0) {
+        isTeamBlue.value = true;
+        return `Team xanh nhiều hơn ${Math.floor(Math.abs(difference))}cc`;
+      } else if (difference < 0) {
+        isTeamBlue.value = false;
+        return `Team đỏ nhiều hơn ${Math.floor(Math.abs(difference))}cc`;
+      } else {
+        isTeamBlue.value = true;
+        return "Hai team bằng điểm";
+      }
+    } else if (Math.floor(Math.abs(difference)) === 0) {
+      if (difference > 0) {
+        isTeamBlue.value = false;
+        return "Team đỏ ít hơn 1cc";
+      } else {
+        isTeamBlue.value = true;
+        return "Team xanh ít hơn 1cc";
+      }
+    } else if (difference < 0) {
+      isTeamBlue.value = true;
+      return `Team xanh ít hơn ${Math.floor(Math.abs(difference))}cc`;
+    } else {
+      isTeamBlue.value = false;
+      return `Team đỏ ít hơn ${Math.floor(difference)}cc`;
+    }
   }
   return "Lượt team xanh";
 });
+
 </script>
 
 <style scoped>
