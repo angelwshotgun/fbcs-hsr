@@ -104,33 +104,17 @@ const label = computed(() => {
       return "Lượt team đỏ";
     }
   } else if (banpick.value > 22) {
-    const difference = bluepoint.value - redpoint.value;
-    console.log(difference);
-    if (bluepoint.value < 0 && redpoint.value < 0) {
-      if (difference > 0) {
-        isTeamBlue.value = true;
-        return `Team xanh nhiều hơn ${Math.floor(Math.abs(difference))}cc`;
-      } else if (difference < 0) {
-        isTeamBlue.value = false;
-        return `Team đỏ nhiều hơn ${Math.floor(Math.abs(difference))}cc`;
-      } else {
-        isTeamBlue.value = true;
-        return "Hai team bằng điểm";
-      }
-    } else if (Math.floor(Math.abs(difference)) === 0) {
-      if (difference > 0) {
-        isTeamBlue.value = false;
-        return "Team đỏ ít hơn 1cc";
-      } else {
-        isTeamBlue.value = true;
-        return "Team xanh ít hơn 1cc";
-      }
-    } else if (difference < 0) {
+    const difference = (bluepoint.value + 5) - (redpoint.value + 5);
+    if (difference < 0) {
+      const roundedDifference = Math.ceil(Math.abs(difference));
       isTeamBlue.value = true;
-      return `Team xanh ít hơn ${Math.floor(Math.abs(difference))}cc`;
-    } else {
+      return `Blue Team Advantage ${roundedDifference} cc`;
+    } else if (difference > 0) {
+      const roundedDifference = Math.floor(difference);
       isTeamBlue.value = false;
-      return `Team đỏ ít hơn ${Math.floor(difference)}cc`;
+      return `Red Team Advance ${roundedDifference} cc`;
+    } else {
+      return "Blue Team Advantage 1 cc";
     }
   }
   return "Lượt team xanh";

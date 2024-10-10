@@ -283,7 +283,7 @@ async function fetchCharacters() {
         action: 'readFile',
         owner: "angelwshotgun",
         repo: "DataStore",
-        path: `data/characters${selectedStage.value === "11" ? "11" : ""}.json`
+        path: `data/characters${selectedStage.value === 11 ? "11" : ""}.json`
       }
     });
     if (response.error) {
@@ -303,7 +303,7 @@ async function fetchLightcones() {
         action: 'readFile',
         owner: "angelwshotgun",
         repo: "DataStore",
-        path: `data/light_cones${selectedStage.value === "11" ? "11" : ""}.json`
+        path: `data/light_cones${selectedStage.value === 11 ? "11" : ""}.json`
       }
     });
     if (response.error) {

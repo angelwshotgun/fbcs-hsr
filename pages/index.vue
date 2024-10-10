@@ -268,10 +268,11 @@
       v-model:visible="visible"
       modal
       header="Edit"
-      :style="{ width: '40rem' }"
+      :style="{ width: '70rem' }"
     >
       <div>
         <div class="space-y-4">
+          <WheelOfName />
           <div class="flex justify-between">
             <div class="flex flex-col">
               <label class="mb-1 text-sm font-medium">Tên đội 1</label>
@@ -300,7 +301,6 @@
 
 <script setup>
 import { useStore } from "~/store/useStore";
-
 const team1 = ref("Blue Team");
 const team2 = ref("Red Team");
 const visible = ref(false);
