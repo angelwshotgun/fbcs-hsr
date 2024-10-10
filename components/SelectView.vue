@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="!props.isLightCone"
-    class="w-full flex flex-col bg-black bg-opacity-50 rounded-md"
+    class="w-full flex flex-col bg-black bg-opacity-40 rounded-md"
     :class="{ 'active-selection': banpick === props.stt }"
   >
     <div
@@ -67,7 +67,7 @@
       >
     </div>
   </div>
-  <div v-else class="w-full flex flex-col bg-black bg-opacity-50 rounded-md" :class="{ 'active-selection': banpick === props.stt }">
+  <div v-else class="w-full flex flex-col bg-black bg-opacity-40 rounded-md" :class="{ 'active-selection': banpick === props.stt }">
     <div
       class="w-full h-[100px] flex flex-col justify-center items-center overflow-hidden"
     >

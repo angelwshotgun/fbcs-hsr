@@ -126,7 +126,7 @@
           />
         </div>
       </div>
-      <div class="overflow-y-auto h-[100vh]">
+      <div class="overflow-y-auto h-[90vh]">
         <div class="flex flex-col gap-4">
           <div>
             <RollButton />
