@@ -127,6 +127,12 @@
         </div>
       </div>
       <div class="flex flex-col gap-4">
+    <!-- Button to toggle dropdown -->
+    <Button label="Show/Hide Options" @click="toggleDropdown" />
+
+    <!-- Drop-down content that toggles visibility with v-show to avoid layout shift -->
+    <div class="overflow-y-auto h-[90vh]" v-show="isDropdownOpen">
+      <div class="flex flex-col gap-4">
         <div>
           <RollButton />
         </div>
@@ -138,6 +144,8 @@
         </div>
         <Button label="Edit" @click="visible = true" />
       </div>
+    </div>
+  </div>
       <div class="w-800px flex flex-col gap-1">
         <div
           class="flex justify-between items-center bg-red-500 h-10 rounded-md"
@@ -331,4 +339,18 @@ const currentStage = computed(() => {
   return store.$state.stage;
 });
 const selectedStage = ref(currentStage.value);
+import { ref } from 'vue';
+
+// State to control whether the dropdown is open or not
+const isDropdownOpen = ref(false);
+
+// Function to toggle the dropdown open/close state
+const toggleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value;
+};
+const viewData = computed(() => {
+  return store.$state.state.data;
+});
+
 </script>
+

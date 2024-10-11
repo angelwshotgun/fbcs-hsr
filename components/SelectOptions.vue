@@ -330,6 +330,7 @@ const selectCharacter = () => {
     char.value.point[eiloidon.value]
   );
   store.updateGameData(`character/${props.lcstate}/e`, eiloidon.value);
+  store.updateGameData(`state/data/name`,char.value.name);
 };
 const changeEiloidon = () => {
   store.updateGameData(

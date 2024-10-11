@@ -48,12 +48,9 @@ const defaultState = {
     l16: { img: "", name: "", path: "", point: [], s:0 },
   },
   state: {
-    bc1: { team: "blue", name: "ban", disable: false },
-    bc2: { team: "red", name: "ban", disable: false },
-    c1: { team: "blue", name: "pick", disable: false },
-    c2: { team: "red", name: "pick", disable: false },
-    c3: { team: "red", name: "pick", disable: false },
-    c4: { team: "blue", name: "pick", disable: false },
+    data: {
+      name: '',
+    },
     point: {
       redp: {
         char: [0,0,0,0,0,0,0,0,0],
