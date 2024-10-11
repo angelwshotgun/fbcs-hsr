@@ -126,23 +126,26 @@
           />
         </div>
       </div>
-      <div class="overflow-y-auto h-[90vh]">
-        <div class="flex flex-col gap-4">
-          <div>
-            <RollButton />
-          </div>
-          <div class="pb-1">
-            <BanPickLabel />
-          </div>
-          <div>
-            <StatsInputs />
-            <StatsInputs />
-            <StatsInputs />
-            <StatsInputs />
-          </div>
-          <Button label="Edit" @click="visible = true" />
+      <div class="flex flex-col gap-4">
+    <!-- Button to toggle dropdown -->
+    <Button label="Show/Hide Options" @click="toggleDropdown" />
+
+    <!-- Drop-down content that toggles visibility with v-show to avoid layout shift -->
+    <div class="overflow-y-auto h-[90vh]" v-show="isDropdownOpen">
+      <div class="flex flex-col gap-4">
+        <div>
+          <RollButton />
         </div>
+        <div class="pb-1">
+          <BanPickLabel />
+        </div>
+        <div>
+          <StatsInputs />
+        </div>
+        <Button label="Edit" @click="visible = true" />
       </div>
+    </div>
+  </div>
       <div class="w-800px flex flex-col gap-1">
         <div
           class="flex justify-between items-center bg-red-500 h-10 rounded-md"
