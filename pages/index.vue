@@ -351,6 +351,13 @@ const toggleDropdown = () => {
 const viewData = computed(() => {
   return store.$state.state.data;
 });
-
+watch(
+  () => store.$state.state.data,
+  (newVal, oldVal) => {
+    // Perform actions when the data within store.$state.state.data changes
+    console.log('Data changed:', newVal);
+  },
+  { deep: true } // Watch for changes in nested properties
+);
 </script>
 
