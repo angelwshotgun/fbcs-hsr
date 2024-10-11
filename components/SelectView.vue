@@ -1,47 +1,34 @@
 <template>
-  <div
-    v-if="!props.isLightCone"
-    class="w-full flex flex-col bg-black bg-opacity-40 rounded-md"
-    :class="{ 'active-selection': banpick === props.stt }"
-  >
-    <div
-      :class="[
-        'relative',
-        'w-full',
-        props.isBan ? 'h-[100px]' : 'h-[180px]',
-        'flex',
-        'justify-center',
-        'items-center',
-        'overflow-hidden',
-      ]"
-    >
-      <div v-if="model?.img == '' && props.isBan">Banning...</div>
+  <div v-if="!props.isLightCone" class="w-full flex flex-col bg-black bg-opacity-40 rounded-md"
+    :class="{ 'active-selection': banpick === props.stt }">
+    <div :class="[
+      'relative',
+      'w-full',
+      props.isBan ? 'h-[100px]' : 'h-[180px]',
+      'flex',
+      'justify-center',
+      'items-center',
+      'overflow-hidden',
+    ]">
+      <div v-if="model?.img == '' && props.isBan"> <img
+          src="https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/icon/sign/AvatarIcon.png" alt="Avatar Icon"
+          class="blink"></div>
       <div v-else-if="model?.img == '' && !props.isBan">Picking...</div>
       <div :class="['flex', 'flex-col', 'h-100%']">
-        <NuxtImg
-          v-if="model?.img !== ''"
-          :src="link + model?.img"
-          :style="props.isBan ? 'filter: grayscale(100%);' : ''"
-          :class="[
+        <NuxtImg v-if="model?.img !== ''" :src="link + model?.img"
+          :style="props.isBan ? 'filter: grayscale(100%);' : ''" :class="[
             props.isBan ? 'h-100%' : 'h-80%',
             'object-contain',
             'w-auto',
             props.isBan ? '' : 'pr-24',
             props.isBan ? '' : 'pt-6',
-          ]"
-          @click="char = null"
-        />
-        <label
-          v-if="!props.isBan && model?.img"
-          class="text-white font-bold text-xl text-sm text-center pr-24"
-          >{{ model1?.name + " e" + model1?.e + (model2?.img !== '' ? "s" + (model2?.s !== undefined ? model2.s + 1 : '') : '') }}</label
-        >
+          ]" @click="char = null" />
+        <label v-if="!props.isBan && model?.img" class="text-white font-bold text-xl text-sm text-center pr-24">{{
+          model1?.name + " e" + model1?.e + (model2?.img !== '' ? "s" + (model2?.s !== undefined ? model2.s + 1 : '') :
+            '') }}</label>
       </div>
-      <NuxtImg
-        v-if="!props.isBan && model2?.img !== ''"
-        :src="link + model2?.img"
-        :style="props.isBan ? 'filter: grayscale(100%);' : ''"
-        :class="[
+      <NuxtImg v-if="!props.isBan && model2?.img !== ''" :src="link + model2?.img"
+        :style="props.isBan ? 'filter: grayscale(100%);' : ''" :class="[
           'absolute',
           'bottom-3',
           'right-3',
@@ -51,33 +38,27 @@
           'max-w-1/3',
           'pr-2',
           'pb-1',
-        ]"
-        @click="char = null"
-      />
-      <label
-        v-if="!props.isBan && model?.img"
-        class="absolute top-0 right-0 m-2 bg-black text-white font-bold text-xl bg-opacity-35 px-1 py-1 rounded text-sm w-16 text-center"
-        >{{
+        ]" @click="char = null" />
+      <label v-if="!props.isBan && model?.img"
+        class="absolute top-0 right-0 m-2 bg-black text-white font-bold text-xl bg-opacity-35 px-1 py-1 rounded text-sm w-16 text-center">{{
           model3?.char && model3?.lc && props.index !== undefined
             ? model3.char[props.index] + model3.lc[props.index] >= 0
               ? "+" + (model3.char[props.index] + model3.lc[props.index])
               : model3.char[props.index] + model3.lc[props.index]
             : ""
-        }}</label
-      >
+        }}</label>
     </div>
   </div>
-  <div v-else class="w-full flex flex-col bg-black bg-opacity-40 rounded-md" :class="{ 'active-selection': banpick === props.stt }">
-    <div
-      class="w-full h-[100px] flex flex-col justify-center items-center overflow-hidden"
-    >
-      <div v-if="model?.img == '' && isBan">Banning...</div>
-      <NuxtImg
-        v-else
-        :src="link + model?.img"
-        :style="props.isBan ? 'filter: grayscale(100%);' : ''"
-        class="object-contain h-100% w-auto"
-      />
+  <div v-else class="w-full flex flex-col bg-black bg-opacity-40 rounded-md"
+    :class="{ 'active-selection': banpick === props.stt }">
+    <div class="w-full h-[100px] flex flex-col justify-center items-center overflow-hidden">
+      <div v-if="model?.img == '' && isBan">
+        <img
+          src="https://api.hakush.in/hsr/UI/tabicon/inventory/InventoryLightConeIcon.webp" alt="Avatar Icon"
+          class="blink">
+      </div>
+      <NuxtImg v-else :src="link + model?.img" :style="props.isBan ? 'filter: grayscale(100%);' : ''"
+        class="object-contain h-100% w-auto" />
     </div>
   </div>
 </template>
@@ -256,11 +237,28 @@ const model3 = computed(() => {
   0% {
     box-shadow: 0 0 0 0 rgba(213, 176, 234, 0.7);
   }
+
   70% {
     box-shadow: 0 0 0 10px rgba(213, 176, 234, 0);
   }
+
   100% {
     box-shadow: 0 0 0 0 rgba(213, 176, 234, 0);
   }
 }
+.blink {
+            animation: blinkEffect 3s infinite;
+        }
+
+        @keyframes blinkEffect {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
 </style>
