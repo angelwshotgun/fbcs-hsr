@@ -1,7 +1,7 @@
 <template>
   <div>
-      <video autoplay loop muted class="absolute top-0 left-0 w-full h-full object-cover -z-10">
-        <source :src="`/public/video/${viewData.name}.mp4`" type="video/mp4" />
+      <video ref="videoPlayer" autoplay loop muted class="absolute top-0 left-0 w-full h-full object-cover -z-10">
+        <source :src="urlVideo" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       <div class="fixed bottom-0 left-0 p-4 bg-gray-800 text-white rounded-md">
@@ -238,14 +238,26 @@ const playAudio = () => {
 const viewData = computed(() => {
   return store.$state.state.data;
 });
+const videoPlayer = ref(null)
+const urlVideo = ref(`/video/${viewData.value.name}.mp4`)
 watch(
   () => store.$state.state.data,
   (newVal, oldVal) => {
-    // Perform actions when the data within store.$state.state.data changes
-    console.log('Data changed:', newVal);
+    // Kiểm tra nếu dữ liệu thực sự thay đổi (ví dụ thay đổi trường 'name')
+    if (newVal.name !== oldVal?.name) {
+      console.log('Data changed:', newVal);
+      urlVideo.value = `/video/${newVal.name}.mp4`;
+
+      // Chỉ tải lại video nếu name khác
+      if (videoPlayer.value) {
+        videoPlayer.value.load();
+      }
+      console.log(urlVideo.value);
+    }
   },
-  { deep: true } // Watch for changes in nested properties
+  { deep: true } // Nếu bạn cần theo dõi thay đổi sâu bên trong object
 );
+
 </script>
 <style scoped>
 video {
