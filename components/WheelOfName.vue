@@ -34,7 +34,7 @@
         />
       </div>
     </div>
-    <Dialog v-model:visible="showWinnerDialog" modal :class="winnerDialogClass" header="Winner Announcement" :style="{ width: '50vw' }">
+    <Dialog v-model:visible="showWinnerDialog" header="Winner Announcement" :style="{ width: '50vw' }">
         <p>The winner is: <strong>{{ winner }}</strong></p>
       </Dialog>
   </div>
