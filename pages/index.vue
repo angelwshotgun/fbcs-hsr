@@ -1,7 +1,7 @@
 <template>
   <div>
       <video autoplay loop muted class="absolute top-0 left-0 w-full h-full object-cover -z-10">
-        <source src="/public/video/fu-xuan-honkai-star-rail.1920x1080.mp4" type="video/mp4" />
+        <source :src="`/public/video/${viewData.name}.mp4`" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       <div class="fixed bottom-0 left-0 p-4 bg-gray-800 text-white rounded-md">
