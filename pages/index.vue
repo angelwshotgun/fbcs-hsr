@@ -128,7 +128,6 @@
       </div>
       <div class="overflow-y-auto h-[90vh]">
         <div class="flex flex-col gap-4">
-          {{ viewData }}
           <div>
             <RollButton />
           </div>
@@ -337,8 +336,18 @@ const currentStage = computed(() => {
   return store.$state.stage;
 });
 const selectedStage = ref(currentStage.value);
+import { ref } from 'vue';
+
+// State to control whether the dropdown is open or not
+const isDropdownOpen = ref(false);
+
+// Function to toggle the dropdown open/close state
+const toggleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value;
+};
 const viewData = computed(() => {
   return store.$state.state.data;
 });
 
 </script>
+
