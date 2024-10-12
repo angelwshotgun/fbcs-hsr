@@ -12,7 +12,7 @@
         <button @click="nextTrack">Next</button>
       </div>
     </div> -->
-    <div class="flex flex-col md:flex-row justify-between gap-1 p-4">
+    <div class="flex flex-col md:flex-row justify-between gap-1 p-3">
       <div class="w-2/5 flex flex-col gap-1">
         <div class="flex justify-between items-center bg-blue-500 h-10 rounded-md">
           <label class="pl-2 text-white text-xl">{{ team1 }}</label>
@@ -70,15 +70,15 @@
           <RollButton />
         </div>
         <div>
-          <BanPickLabel />
+          <BanPickLabel class="mb-2"/>
         </div>
+        <div class="flex justify-center">
+          <Button label="Edit" @click="visible = true" class="w-1/2"/>
+          </div>
         <div class="overflow-y-auto h-[60vh]" v-show="isDropdownOpen">
           <div class="flex flex-col gap-4"> 
             <div>
               <StatsInputs />
-            </div>
-            <div class="flex justify-center">
-            <Button label="Edit" @click="visible = true" class="w-1/2"/>
             </div>
           </div>
         </div>
