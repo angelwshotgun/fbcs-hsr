@@ -349,7 +349,6 @@ const selectLightcone = () => {
     lc.value.point[superimp.value]
   );
   store.updateGameData(`lightcone/${props.lcstate}/s`, superimp.value);
-  store.updateGameData(`state/data/name`,lc.value.portrait);
 };
 const changeLightcone = () => {
   store.updateGameData(
