@@ -1,10 +1,9 @@
 <template>
   <div>
-    <video ref="videoPlayer" autoplay loop muted class="absolute top-0 left-0 w-full h-full object-cover -z-10">
+    <!-- <video ref="videoPlayer" autoplay loop muted class="absolute top-0 left-0 w-full h-full object-cover -z-10">
       <source :src="urlVideo" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
-
     <div class="fixed bottom-0 left-0 p-4 bg-gray-800 text-white rounded-md">
       <audio ref="audioPlayer" :src="currentTrack.src" controls></audio>
       <div class="flex items-center justify-between mt-2">
@@ -12,9 +11,9 @@
         <div>{{ currentTrack.title }}</div>
         <button @click="nextTrack">Next</button>
       </div>
-    </div>
+    </div> -->
     <div class="flex flex-col md:flex-row justify-between gap-1 p-4">
-      <div class="w-800px flex flex-col gap-1">
+      <div class="w-2/5 flex flex-col gap-1">
         <div class="flex justify-between items-center bg-blue-500 h-10 rounded-md">
           <label class="pl-2 text-white text-xl">{{ team1 }}</label>
           <label class="pr-2 text-white text-xl">{{
@@ -66,28 +65,25 @@
             :stt="21" />
         </div>
       </div>
-      <div class="flex flex-col gap-4">
-        <!-- Button to toggle dropdown -->
-        <Button label="Show/Hide Options" @click="toggleDropdown" />
-
-        <!-- Drop-down content that toggles visibility with v-show to avoid layout shift -->
-        <div class="overflow-y-auto h-[90vh]" v-show="isDropdownOpen">
-          <div class="flex flex-col gap-4">
-            <div>
-              <RollButton />
-            </div>
-            <div class="pb-1">
-              <BanPickLabel />
-            </div>
+      <div class="w-1/4 flex flex-col">
+        <div>
+          <RollButton />
+        </div>
+        <div>
+          <BanPickLabel />
+        </div>
+        <div class="overflow-y-auto h-[60vh]" v-show="isDropdownOpen">
+          <div class="flex flex-col gap-4"> 
             <div>
               <StatsInputs />
-
             </div>
-            <Button label="Edit" @click="visible = true" />
+            <div class="flex justify-center">
+            <Button label="Edit" @click="visible = true" class="w-1/2"/>
+            </div>
           </div>
         </div>
       </div>
-      <div class="w-800px flex flex-col gap-1">
+      <div class="w-2/5 flex flex-col gap-1">
         <div class="flex justify-between items-center bg-red-500 h-10 rounded-md">
           <label class="pl-2 text-white text-xl">{{
             store.$state.state.point.redp.char[0] +
@@ -140,7 +136,7 @@
         </div>
       </div>
     </div>
-    <Dialog v-model:visible="visible" modal header="Edit" :style="{ width: '70rem' }">
+    <Dialog v-model:visible="visible" modal header="Edit" :style="{ width: '60rem' }">
       <div>
         <div class="space-y-4">
           <WheelOfName />
@@ -150,14 +146,18 @@
               <InputText v-model="team1" placeholder="Nhập tên đội 1" class="p-2 border rounded" />
             </div>
             <div class="flex flex-col">
+              <label class="mb-1 text-sm font-medium">Mật khẩu</label>
+              <Password v-model="password" placeholder="CAC" :feedback="false" class="p-2 border rounded" />
+            </div>
+            <div class="flex flex-col">
               <label class="mb-1 text-sm font-medium">Tên đội 2</label>
               <InputText v-model="team2" placeholder="Nhập tên đội 2" class="p-2 border rounded" />
             </div>
           </div>
         </div>
       </div>
-      <div class="flex justify-center gap-5 pt-5">
-        <Button label="Reset" @click="resetData()" />
+      <div v-if="password == 'cumatcoser'" class="flex justify-center gap-5 pt-5">
+        <Button label="Reset" @click="resetData()"/>
         <Select v-model="selectedStage" :options="optionStage" option-label="label" option-value="value"
           @change="changeStage()" />
       </div>
@@ -169,6 +169,7 @@
 import { useStore } from "~/store/useStore";
 const team1 = ref("Blue Team");
 const team2 = ref("Red Team");
+const password = ref("");
 const visible = ref(false);
 const store = useStore();
 const optionStage = [
@@ -196,46 +197,18 @@ onMounted(() => {
 const currentStage = computed(() => {
   return store.$state.stage;
 });
-const selectedStage = ref(currentStage.value);
-import { ref } from 'vue';
+const selectedStage = ref(currentStage.value);;
 
-// State to control whether the dropdown is open or not
 const isDropdownOpen = ref(false);
 
-// Function to toggle the dropdown open/close state
-const toggleDropdown = () => {
-  isDropdownOpen.value = !isDropdownOpen.value;
-};
-const tracks = [
-  { title: "Monodrama", src: "/music/Y2meta.app - Monodrama (From _Honkai_ Star Rail_) (Sparkle Theme) (320 kbps).mp3" },
-  { title: "Track 2", src: "/music/Y2meta.app - Monodrama (From _Honkai_ Star Rail_) (Sparkle Theme) (320 kbps).mp3" },
-  { title: "Track 3", src: "/music/Y2meta.app - Monodrama (From _Honkai_ Star Rail_) (Sparkle Theme) (320 kbps).mp3" }
-];
-
-// Set up reactive states for the current track
-const currentTrackIndex = ref(0);
-const currentTrack = ref(tracks[currentTrackIndex.value]);
-
-// Function to go to the next track
-const nextTrack = () => {
-  currentTrackIndex.value = (currentTrackIndex.value + 1) % tracks.length;
-  currentTrack.value = tracks[currentTrackIndex.value];
-  playAudio();
-};
-
-// Function to go to the previous track
-const previousTrack = () => {
-  currentTrackIndex.value = (currentTrackIndex.value - 1 + tracks.length) % tracks.length;
-  currentTrack.value = tracks[currentTrackIndex.value];
-  playAudio();
-};
-
-// Function to play the current track
-const playAudio = () => {
-  const audio = document.querySelector('audio');
-  audio.load();  // Reload the audio element to use the new source
-  audio.play();  // Play the new track
-};
+const banpick = computed(() => {
+  return store.$state.banpick;
+});
+watch(banpick, () => {
+  if (banpick.value > 22) {
+    isDropdownOpen.value = true;
+  }
+});
 const viewData = computed(() => {
   return store.$state.state.data;
 });

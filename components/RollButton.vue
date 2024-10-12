@@ -26,8 +26,10 @@ watch(banpick, () => {
   if (intervalId) {
     clearInterval(intervalId);
   }
-  timer.value = '01:30';
-  startCountdown();
+  if (banpick.value <= 22) {
+    timer.value = '01:30';
+    startCountdown();
+  }
 });
 
 function startCountdown() {

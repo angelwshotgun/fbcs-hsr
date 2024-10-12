@@ -366,6 +366,7 @@ const selectCharacter = (item) => {
 const lockCharacter = () => {
   if (team.value === 1 && isSelected.value == true) {
     store.updateGameData("banpick", banpick.value + 1);
+    store.updateGameData(`state/data/name`, '');
     isSelected.value = false;
   }
 }
