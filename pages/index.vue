@@ -12,7 +12,7 @@
         <button @click="nextTrack">Next</button>
       </div>
     </div> -->
-    <NuxtImg v-if="viewData.name !== ''" :src="link + viewData.name" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50%; height: 95vh; object-fit: cover; z-index: 1;" />
+    <NuxtImg v-if="viewData.name!== ''" :src="link + viewData.name" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50%; height: 95vh; object-fit: cover; z-index: -1;" />
     <div class="flex flex-col md:flex-row justify-between gap-1 p-3">
       <div class="w-2/5 flex flex-col gap-1">
         <div class="flex justify-between items-center bg-blue-500 h-10 rounded-md">
