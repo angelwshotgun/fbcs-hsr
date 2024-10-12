@@ -188,26 +188,22 @@ watch(
         if (props.isLightCone) {
           lc.value = props.data;
         } else char.value = props.data;
-        console.log("Ban LightCone", props.isBan, props.isLightCone);
         banLightcone();
       } else if (props.isBan && !props.isLightCone) {
         if (props.isLightCone) {
           lc.value = props.data;
         } else char.value = props.data;
         banCharacter();
-        console.log("Ban character", props.isBan, props.isLightCone);
       } else if (!props.isBan && props.isLightCone) {
         if (props.isLightCone) {
           lc.value = props.data;
         } else char.value = props.data;
         selectLightcone();
-        console.log("select lightcone", props.isBan, props.isLightCone);
       } else if (!props.isBan && !props.isLightCone) {
         if (props.isLightCone) {
           lc.value = props.data;
         } else char.value = props.data;
         selectCharacter();
-        console.log("select character", props.isBan, props.isLightCone);
       }
     }
   },
@@ -330,7 +326,7 @@ const selectCharacter = () => {
     char.value.point[eiloidon.value]
   );
   store.updateGameData(`character/${props.lcstate}/e`, eiloidon.value);
-  store.updateGameData(`state/data/name`,char.value.tag);
+  store.updateGameData(`state/data/name`,char.value.portrait);
 };
 const changeEiloidon = () => {
   store.updateGameData(
@@ -353,6 +349,7 @@ const selectLightcone = () => {
     lc.value.point[superimp.value]
   );
   store.updateGameData(`lightcone/${props.lcstate}/s`, superimp.value);
+  store.updateGameData(`state/data/name`,lc.value.portrait);
 };
 const changeLightcone = () => {
   store.updateGameData(
@@ -365,11 +362,13 @@ const banCharacter = () => {
   store.updateGameData(`ban/${props.state}/img`, char.value.icon);
   store.updateGameData(`ban/${props.state}/name`, char.value.name);
   store.updateGameData(`ban/${props.state}/path`, char.value.path);
+  store.updateGameData(`state/data/name`,char.value.portrait);
 };
 const banLightcone = () => {
   store.updateGameData(`ban/${props.state}/img`, lc.value.preview);
   store.updateGameData(`ban/${props.state}/name`, lc.value.name);
   store.updateGameData(`ban/${props.state}/path`, lc.value.path);
+  store.updateGameData(`state/data/name`,lc.value.portrait);
 };
 </script>
 

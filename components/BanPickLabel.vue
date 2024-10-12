@@ -3,7 +3,13 @@
     <div
       class="layout-point flex justify-center items-center flex-gap-1 w-full"
     >
-      <h2 :class="{ 'text-blue-500': isTeamBlue, 'text-red-500': !isTeamBlue }">
+      <h2
+        :class="{
+          'text-blue-500': isTeamBlue && !isDraw,
+          'text-red-500': !isTeamBlue && !isDraw,
+          'text-white': isDraw,
+        }"
+      >
         {{ label }}
       </h2>
     </div>
@@ -15,6 +21,7 @@ import { useStore } from "~/store/useStore";
 const store = useStore();
 
 const isTeamBlue = ref(true);
+const isDraw = ref(false);
 
 onMounted(() => {
   store.initializeRealtimeListeners();
@@ -104,7 +111,7 @@ const label = computed(() => {
       return "Lượt team đỏ";
     }
   } else if (banpick.value > 22) {
-    const difference = (bluepoint.value + 5) - (redpoint.value + 5);
+    const difference = bluepoint.value + 5 - (redpoint.value + 5);
     if (difference < 0) {
       const roundedDifference = Math.ceil(Math.abs(difference));
       isTeamBlue.value = true;
@@ -114,12 +121,12 @@ const label = computed(() => {
       isTeamBlue.value = false;
       return `Red Team Advance ${roundedDifference} cc`;
     } else {
-      return "Blue Team Advantage 1 cc";
+      isDraw.value = true;
+      return "Draw";
     }
   }
   return "Lượt team xanh";
 });
-
 </script>
 
 <style scoped>

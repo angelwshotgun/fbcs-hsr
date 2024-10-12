@@ -28,7 +28,7 @@
           <label v-if="!props.isBan && model?.img" class="text-white font-bold text-xl text-sm text-center pr-24">
             {{ model1?.name }} 
             <span v-if="banpick > 22">
-              e{{ model1?.e }}{{ model2?.img !== '' ? 's' + (model2?.s !== undefined ? model2.s + 1 : '') : '' }}
+              E{{ model1?.e }}{{ model2?.img !== '' ? 'S' + (model2?.s !== undefined ? model2.s + 1 : '') : '' }}
             </span>
           </label>          
       </div>

@@ -12,6 +12,9 @@
         <button @click="nextTrack">Next</button>
       </div>
     </div> -->
+    <transition name="fade" mode="out-in">
+      <NuxtImg v-if="showImage" :src="link + viewData.name" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50%; height: 95vh; object-fit: cover; z-index: 1;" />
+    </transition>
     <div class="flex flex-col md:flex-row justify-between gap-1 p-3">
       <div class="w-2/5 flex flex-col gap-1">
         <div class="flex justify-between items-center bg-blue-500 h-10 rounded-md">
@@ -171,7 +174,9 @@ const team1 = ref("Blue Team");
 const team2 = ref("Red Team");
 const password = ref("");
 const visible = ref(false);
+const showImage = ref(false);
 const store = useStore();
+const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
 const optionStage = [
   {
     label: "Tầng 12",
@@ -212,26 +217,36 @@ watch(banpick, () => {
 const viewData = computed(() => {
   return store.$state.state.data;
 });
-const videoPlayer = ref(null)
-const urlVideo = ref(`/video/${viewData.value.name}.mp4`)
-watch(
-  () => store.$state.state.data,
-  (newVal, oldVal) => {
-    // Kiểm tra nếu dữ liệu thực sự thay đổi (ví dụ thay đổi trường 'name')
-    if (newVal.name !== oldVal?.name) {
-      console.log('Data changed:', newVal);
-      urlVideo.value = `/video/${newVal.name}.mp4`;
+// const videoPlayer = ref(null)
+// const urlVideo = ref(`/video/${viewData.value.name}.mp4`)
+// watch(
+//   () => store.$state.state.data,
+//   (newVal, oldVal) => {
+//     // Kiểm tra nếu dữ liệu thực sự thay đổi (ví dụ thay đổi trường 'name')
+//     if (newVal.name !== oldVal?.name) {
+//       console.log('Data changed:', newVal);
+//       urlVideo.value = `/video/${newVal.name}.mp4`;
 
-      // Chỉ tải lại video nếu name khác
-      if (videoPlayer.value) {
-        videoPlayer.value.load();
-      }
-      console.log(urlVideo.value);
+//       // Chỉ tải lại video nếu name khác
+//       if (videoPlayer.value) {
+//         videoPlayer.value.load();
+//       }
+//       console.log(urlVideo.value);
+//     }
+//   },
+//   { deep: true } // Nếu bạn cần theo dõi thay đổi sâu bên trong object
+// );
+watch(
+  () => viewData.value.name,
+  (newVal) => {
+    if (newVal!== '') {
+      showImage.value = true;
+    } else {
+      showImage.value = false;
     }
   },
-  { deep: true } // Nếu bạn cần theo dõi thay đổi sâu bên trong object
+  { deep: true }
 );
-
 </script>
 <style scoped>
 video {
@@ -285,4 +300,30 @@ video {
     clip-path: circle(60% at 50% 50%);
   }
 }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-to,
+.fade-leave {
+  opacity: 1;
+}
+.fade-enter-active,.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-to,.fade-leave {
+  opacity: 1;
+}
+	
 </style>
