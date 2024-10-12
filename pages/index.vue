@@ -1,10 +1,11 @@
 <template>
   <div>
-      <video ref="videoPlayer" autoplay loop muted class="absolute top-0 left-0 w-full h-full object-cover -z-10">
-        <source :src="urlVideo" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <div class="fixed bottom-0 left-0 p-4 bg-gray-800 text-white rounded-md">
+    <video ref="videoPlayer" autoplay loop muted class="absolute top-0 left-0 w-full h-full object-cover -z-10">
+      <source :src="urlVideo" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    <div class="fixed bottom-0 left-0 p-4 bg-gray-800 text-white rounded-md">
       <audio ref="audioPlayer" :src="currentTrack.src" controls></audio>
       <div class="flex items-center justify-between mt-2">
         <button @click="previousTrack">Previous</button>
@@ -263,15 +264,20 @@ watch(
 video {
   object-fit: cover;
   object-position: right;
-  clip-path: circle(25% at 75% 50%); /* Tạo clip-path hình tròn */
+  clip-path: circle(25% at 75% 50%);
   transform: translateX(-25%);
 }
+
 .relative {
   position: relative;
 }
 
 .absolute {
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: -1;
 }
 
@@ -281,5 +287,29 @@ video {
 
 .z-10 {
   z-index: 10;
+}
+
+/* Responsive media queries */
+@media (max-width: 1024px) {
+  video {
+    object-position: center;
+    clip-path: circle(40% at 50% 50%);
+    /* Điều chỉnh vị trí và kích thước clip-path */
+    transform: translateX(0);
+    /* Xoá translate nếu cần */
+  }
+}
+
+@media (max-width: 768px) {
+  video {
+    clip-path: circle(50% at 50% 50%);
+  }
+}
+
+@media (max-width: 480px) {
+  video {
+    object-position: center;
+    clip-path: circle(60% at 50% 50%);
+  }
 }
 </style>

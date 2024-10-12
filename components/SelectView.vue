@@ -231,6 +231,7 @@ const model3 = computed(() => {
 .active-selection {
   border: 2px solid rgb(213, 176, 234);
   animation: pulse 2s infinite;
+  animation: blinkEffect 3s infinite;
 }
 
 @keyframes pulse {
@@ -246,19 +247,17 @@ const model3 = computed(() => {
     box-shadow: 0 0 0 0 rgba(213, 176, 234, 0);
   }
 }
-.blink {
-            animation: blinkEffect 3s infinite;
-        }
-
-        @keyframes blinkEffect {
+@keyframes blinkEffect {
             0% {
                 opacity: 1;
             }
             50% {
-                opacity: 0;
+                opacity: 0.5;
             }
             100% {
                 opacity: 1;
             }
         }
+
+        
 </style>
