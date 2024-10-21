@@ -9,7 +9,9 @@
         (selectedImpose[0] ?? 0) +
         (selectedImpose[1] ?? 0) +
         (selectedImpose[2] ?? 0) +
-        (selectedImpose[3] ?? 0)
+        (selectedImpose[3] ?? 0) +
+        bonus +
+        bonusLightcone
       }}</label>
       <Button label="Reset" @click="reset()" />
     </div>
@@ -39,11 +41,12 @@
         </Select>
         <Select
           v-model="selectedLightcone[0]"
-          :options="Object.entries(lightcone)"
+          :options="Object.entries(filteredLightcone)"
           optionLabel="0"
           optionValue="1"
           filter
           class="w-1/3"
+          @change="selectLightcone(0)"
         >
           <template #option="slotProps">
             <div>
@@ -91,11 +94,12 @@
         </Select>
         <Select
           v-model="selectedLightcone[1]"
-          :options="Object.entries(lightcone)"
+          :options="Object.entries(filteredLightcone)"
           optionLabel="0"
           optionValue="1"
           filter
           class="w-1/3"
+          @change="selectLightcone(1)"
         >
           <template #option="slotProps">
             <div>
@@ -143,11 +147,12 @@
         </Select>
         <Select
           v-model="selectedLightcone[2]"
-          :options="Object.entries(lightcone)"
+          :options="Object.entries(filteredLightcone)"
           optionLabel="0"
           optionValue="1"
           filter
           class="w-1/3"
+          @change="selectLightcone(2)"
         >
           <template #option="slotProps">
             <div>
@@ -195,11 +200,12 @@
         </Select>
         <Select
           v-model="selectedLightcone[3]"
-          :options="Object.entries(lightcone)"
+          :options="Object.entries(filteredLightcone)"
           optionLabel="0"
           optionValue="1"
           filter
           class="w-1/3"
+          @change="selectLightcone(3)"
         >
           <template #option="slotProps">
             <div>
@@ -257,10 +263,82 @@ const char = ref([
   { name: "", eiloidon: [], lightcone: [], icon: "" },
 ]);
 const selectedEiloidon = ref([]);
-const selectedLightcone = ref([]);
+const selectedLightcone = ref([
+  { name: "", eiloidon: [], lightcone: [], icon: "" },
+  { name: "", eiloidon: [], lightcone: [], icon: "" },
+  { name: "", eiloidon: [], lightcone: [], icon: "" },
+  { name: "", eiloidon: [], lightcone: [], icon: "" },  
+]);
 const selectedImpose = ref([]);
 const filterCharacters = ref();
 const count = ref(0);
+const bonus = computed(() => {
+  const characterNames = char.value.map(c => c.name);
+  const hasCharacter = name => characterNames.includes(name);
+  let point = 0;
+  if (hasCharacter("Acheron")) {
+    if (hasCharacter("Jiaoqiu")) {
+      point += 2;
+    }
+    if (hasCharacter("Welt")) {
+      point += 2;
+    }
+  }
+  if (hasCharacter("Sparkle")) {
+    if (hasCharacter("Qingque")) {
+      point += 1;
+    }
+    if (hasCharacter("Dan Heng IL")) {
+      point += 1;
+    }
+    if (hasCharacter("Seele")) {
+      point += 0.5;
+    }
+  }
+  if (hasCharacter("Ruan Mei")) {
+    if (hasCharacter("Main Hòa Hợp")) {
+      point += 2.5;
+    }
+    if (hasCharacter("Boothill")) {
+      point += 2;
+    }
+    if (hasCharacter("Luka")) {
+      point += 2;
+    }
+    if (hasCharacter("Xueyi")) {
+      point += 1;
+    }
+  }
+  if (hasCharacter("Robin")) {
+    if (hasCharacter("Feixiao")) {
+      point += 2;
+    }
+    if (hasCharacter("Yunli")) {
+      point += 1.5;
+    }
+    if (hasCharacter("Dr. Ratio")) {
+      point += 1;
+    }
+    if (hasCharacter("Jade")) {
+      point += 1;
+    }
+    if (hasCharacter("Moze")) {
+      point += 1;
+    }
+    if (hasCharacter("Topaz & Numby")) {
+      point += 1;
+    }
+    if (hasCharacter("March7 Săn Bắn")) {
+      point += 1;
+    }
+  }
+  return point;
+});
+const bonusLightcone = computed(() => {
+  const lightconeNames = selectedLightcone.value.map(lc => lc.name);
+  const muaMuaMuaCount = lightconeNames.filter(name => name === "Múa, Múa, Múa").length;
+  return (muaMuaMuaCount >= 2) ? 1.5 : 0;
+});
 const data = ref({
   acheron: {
     name: "Acheron",
@@ -915,9 +993,16 @@ const data = ref({
 filterCharacters.value = Object.values(data.value);
 const lightcone = ref({
   "★★★★": {
+    name: "★★★★",
     lightcone: {
-      0: 0,
-    }
+      s1: 0,
+    },
+  },
+  "Múa Múa Múa": {
+    name: "Múa, Múa, Múa",
+    lightcone: {
+      s1: 0,
+    },
   },
   acheron: {
     name: "Acheron",
@@ -987,6 +1072,13 @@ const lightcone = ref({
       e3: 1,
       e4: 1.5,
     },
+    lightcone: {
+      s1: 0,
+      s2: 0,
+      s3: 0.5,
+      s4: 1,
+      s5: 1.5,
+    },
     icon: "icon/character/1211.png",
   },
   blackswan: {
@@ -1043,6 +1135,13 @@ const lightcone = ref({
       e3: 5,
       e4: 7,
     },
+    lightcone: {
+      s1: 0,
+      s2: 0,
+      s3: 0.5,
+      s4: 1,
+      s5: 1.5,
+    },
     icon: "icon/character/1101.png",
   },
   clara: {
@@ -1053,6 +1152,13 @@ const lightcone = ref({
       e2: 3.5,
       e3: 3.5,
       e4: 4,
+    },
+    lightcone: {
+      s1: 0,
+      s2: 0,
+      s3: 0.5,
+      s4: 1,
+      s5: 1.5,
     },
     icon: "icon/character/1107.png",
   },
@@ -1134,6 +1240,13 @@ const lightcone = ref({
       e5: 1.5,
       e6: 1.5,
     },
+    lightcone: {
+      s1: 0,
+      s2: 0,
+      s3: 0.5,
+      s4: 1,
+      s5: 1.5,
+    },
     icon: "icon/character/1104.png",
   },
   gallagher: {
@@ -1172,6 +1285,13 @@ const lightcone = ref({
       e2: 3.5,
       e3: 3.5,
       e4: 5.5,
+    },
+    lightcone: {
+      s1: 0,
+      s2: 0,
+      s3: 0.5,
+      s4: 1,
+      s5: 1.5,
     },
     icon: "icon/character/1003.png",
   },
@@ -1273,7 +1393,7 @@ const lightcone = ref({
       e3: 3,
     },
     lightcone: {
-      0: 0,
+      s1: 0,
     },
     icon: "icon/character/1203.png",
   },
@@ -1474,6 +1594,13 @@ const lightcone = ref({
       e3: 2,
       e4: 2.5,
     },
+    lightcone: {
+      s1: 0,
+      s2: 0,
+      s3: 0.5,
+      s4: 1,
+      s5: 1.5,
+    },
     icon: "icon/character/1004.png",
   },
   xueyi: {
@@ -1506,6 +1633,13 @@ const lightcone = ref({
       e2: 2,
       e3: 2,
       e4: 3.5,
+    },
+    lightcone: {
+      s1: 0,
+      s2: 0,
+      s3: 0.5,
+      s4: 1,
+      s5: 1.5,
     },
     icon: "icon/character/1209.png",
   },
@@ -1568,7 +1702,10 @@ const lightcone = ref({
     },
     icon: "icon/character/1222.png",
   },
-})
+});
+const filteredLightcone = Object.fromEntries(
+  Object.entries(lightcone.value).filter(([_, value]) => 'lightcone' in value)
+);
 const reset = () => {
   char.value = [
     { name: "", eiloidon: [], lightcone: [], icon: "" },
@@ -1576,10 +1713,29 @@ const reset = () => {
     { name: "", eiloidon: [], lightcone: [], icon: "" },
     { name: "", eiloidon: [], lightcone: [], icon: "" },
   ];
+  selectedEiloidon.value = [0, 0, 0, 0];
+  selectedImpose.value = [0, 0, 0, 0];
+  selectedLightcone.value = [
+    { name: "", eiloidon: [], lightcone: [], icon: "" },
+    { name: "", eiloidon: [], lightcone: [], icon: "" },
+    { name: "", eiloidon: [], lightcone: [], icon: "" },
+    { name: "", eiloidon: [], lightcone: [], icon: "" },
+  ]
   count.value = 0;
 };
 const select = (item) => {
   char.value[count.value] = item;
+  // Check if eiloidon exists and has e0 property
+  if (item.eiloidon && 'e0' in item.eiloidon) {
+    selectedEiloidon.value[count.value] = item.eiloidon.e0;
+  } else {
+    // If e0 doesn't exist, find the first available property
+    const firstKey = Object.keys(item.eiloidon)[0];
+    selectedEiloidon.value[count.value] = item.eiloidon[firstKey] || 1;
+  }
   count.value++;
 };
+const selectLightcone = (index) => {
+  selectedImpose.value[index] = selectedLightcone.value[index].lightcone.s1;
+}
 </script>
