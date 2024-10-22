@@ -2,6 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore'; // Nếu dùng Firestore
 import { getDatabase } from 'firebase/database'; // Nếu dùng Realtime Database
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAgJLsUJXAymwTfh-dKitwaKQRlAYJyO4g",
@@ -19,6 +20,7 @@ const firebaseApp = initializeApp(firebaseConfig);
 
 // Firestore
 export const db1 = getFirestore(firebaseApp);
+export const storage = getStorage(firebaseApp);
 
 // Realtime Database (nếu cần)
 export const db = getDatabase(firebaseApp);

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex flex-col flex justify-center items-center">
     <div class="flex justify-center mb-4">
       <label class="text-4xl bg-primary px-5 rounded">{{
         (selectedEiloidon[0] ?? 0) +
@@ -14,24 +14,39 @@
         bonusLightcone
       }}</label>
       <Button label="Reset" @click="reset()" />
+      <Button label="Lưu" @click="visible = true" />
+      <Button label="Xem comp" @click="visible1 = true" />
     </div>
-    <div class="flex gap-10 px-50">
-      <div @click="count = 0" class="flex-1">
-        <div class="w-full pb-[100%] relative">
+    <div class="flex w-5/6 gap-10 px-50">
+      <div
+        v-for="index in 4"
+        :key="index - 1"
+        @click="count = index - 1"
+        class="flex-1 hover:cursor-pointer transition-all duration-300"
+        :class="[
+          count === index - 1
+            ? 'ring-4 ring-blue-500 rounded-lg shadow-lg scale-105 neon-border'
+            : 'hover:shadow hover:scale-102',
+        ]"
+      >
+        <div class="w-full pb-100% relative">
           <NuxtImg
-            v-if="char[0].icon !== ''"
-            :src="link + char[0].icon"
-            :alt="char[0].name"
-            class="absolute inset-0 w-full h-full object-cover bg-primary"
+            v-if="char[index - 1].icon !== ''"
+            :src="link + char[index - 1].icon"
+            :alt="char[index - 1].name"
+            class="absolute inset-0 w-full h-full object-cover bg-primary rounded-t-lg"
           />
         </div>
-        <div class="text-center mt-2">{{ char[0].name ?? "" }}</div>
+        <div class="text-center mt-2 font-medium">
+          {{ char[index - 1].name ?? "" }}
+        </div>
+
         <Select
-          v-model="selectedEiloidon[0]"
-          :options="Object.entries(char[0].eiloidon)"
+          v-model="selectedEiloidon[index - 1]"
+          :options="Object.entries(char[index - 1].eiloidon)"
           optionLabel="0"
           optionValue="1"
-          class="w-1/3"
+          class="w-1/3 mt-2"
         >
           <template #option="slotProps">
             <div>
@@ -39,14 +54,15 @@
             </div>
           </template>
         </Select>
+
         <Select
-          v-model="selectedLightcone[0]"
+          v-model="selectedLightcone[index - 1]"
           :options="Object.entries(filteredLightcone)"
           optionLabel="0"
           optionValue="1"
           filter
-          class="w-1/3"
-          @change="selectLightcone(0)"
+          class="w-1/3 mt-2"
+          @change="selectLightcone(index - 1)"
         >
           <template #option="slotProps">
             <div>
@@ -54,172 +70,14 @@
             </div>
           </template>
         </Select>
+
         <Select
-          v-if="selectedLightcone[0]?.lightcone"
-          v-model="selectedImpose[0]"
-          :options="Object.entries(selectedLightcone[0].lightcone)"
+          v-if="selectedLightcone[index - 1]?.lightcone"
+          v-model="selectedImpose[index - 1]"
+          :options="Object.entries(selectedLightcone[index - 1].lightcone)"
           optionLabel="0"
           optionValue="1"
-          class="w-1/3"
-        >
-          <template #option="slotProps">
-            <div>
-              {{ slotProps.option[0] }}
-            </div>
-          </template>
-        </Select>
-      </div>
-      <div @click="count = 1" class="flex-1">
-        <div class="w-full pb-[100%] relative">
-          <NuxtImg
-            v-if="char[1].icon !== ''"
-            :src="link + char[1].icon"
-            :alt="char[1].name"
-            class="absolute inset-0 w-full h-full object-cover bg-primary"
-          />
-        </div>
-        <div class="text-center mt-2">{{ char[1].name ?? "" }}</div>
-        <Select
-          v-model="selectedEiloidon[1]"
-          :options="Object.entries(char[1].eiloidon)"
-          optionLabel="0"
-          optionValue="1"
-          class="w-1/3"
-        >
-          <template #option="slotProps">
-            <div>
-              {{ slotProps.option[0] }}
-            </div>
-          </template>
-        </Select>
-        <Select
-          v-model="selectedLightcone[1]"
-          :options="Object.entries(filteredLightcone)"
-          optionLabel="0"
-          optionValue="1"
-          filter
-          class="w-1/3"
-          @change="selectLightcone(1)"
-        >
-          <template #option="slotProps">
-            <div>
-              {{ slotProps.option[0] }}
-            </div>
-          </template>
-        </Select>
-        <Select
-          v-if="selectedLightcone[1]?.lightcone"
-          v-model="selectedImpose[1]"
-          :options="Object.entries(selectedLightcone[1].lightcone)"
-          optionLabel="0"
-          optionValue="1"
-          class="w-1/3"
-        >
-          <template #option="slotProps">
-            <div>
-              {{ slotProps.option[0] }}
-            </div>
-          </template>
-        </Select>
-      </div>
-      <div @click="count = 2" class="flex-1">
-        <div class="w-full pb-[100%] relative">
-          <NuxtImg
-            v-if="char[2].icon !== ''"
-            :src="link + char[2].icon"
-            :alt="char[2].name"
-            class="absolute inset-0 w-full h-full object-cover bg-primary"
-          />
-        </div>
-        <div class="text-center mt-2">{{ char[2].name ?? "" }}</div>
-        <Select
-          v-model="selectedEiloidon[2]"
-          :options="Object.entries(char[2].eiloidon)"
-          optionLabel="0"
-          optionValue="1"
-          class="w-1/3"
-        >
-          <template #option="slotProps">
-            <div>
-              {{ slotProps.option[0] }}
-            </div>
-          </template>
-        </Select>
-        <Select
-          v-model="selectedLightcone[2]"
-          :options="Object.entries(filteredLightcone)"
-          optionLabel="0"
-          optionValue="1"
-          filter
-          class="w-1/3"
-          @change="selectLightcone(2)"
-        >
-          <template #option="slotProps">
-            <div>
-              {{ slotProps.option[0] }}
-            </div>
-          </template>
-        </Select>
-        <Select
-          v-if="selectedLightcone[2]?.lightcone"
-          v-model="selectedImpose[2]"
-          :options="Object.entries(selectedLightcone[2].lightcone)"
-          optionLabel="0"
-          optionValue="1"
-          class="w-1/3"
-        >
-          <template #option="slotProps">
-            <div>
-              {{ slotProps.option[0] }}
-            </div>
-          </template>
-        </Select>
-      </div>
-      <div @click="count = 3" class="flex-1">
-        <div class="w-full pb-[100%] relative">
-          <NuxtImg
-            v-if="char[3].icon !== ''"
-            :src="link + char[3].icon"
-            :alt="char[3].name"
-            class="absolute inset-0 w-full h-full object-cover bg-primary"
-          />
-        </div>
-        <div class="text-center mt-2">{{ char[3].name ?? "" }}</div>
-        <Select
-          v-model="selectedEiloidon[3]"
-          :options="Object.entries(char[3].eiloidon)"
-          optionLabel="0"
-          optionValue="1"
-          class="w-1/3"
-        >
-          <template #option="slotProps">
-            <div>
-              {{ slotProps.option[0] }}
-            </div>
-          </template>
-        </Select>
-        <Select
-          v-model="selectedLightcone[3]"
-          :options="Object.entries(filteredLightcone)"
-          optionLabel="0"
-          optionValue="1"
-          filter
-          class="w-1/3"
-          @change="selectLightcone(3)"
-        >
-          <template #option="slotProps">
-            <div>
-              {{ slotProps.option[0] }}
-            </div>
-          </template>
-        </Select>
-        <Select
-          v-if="selectedLightcone[3]?.lightcone"
-          v-model="selectedImpose[3]"
-          :options="Object.entries(selectedLightcone[3].lightcone)"
-          optionLabel="0"
-          optionValue="1"
-          class="w-1/3"
+          class="w-1/3 mt-2"
         >
           <template #option="slotProps">
             <div>
@@ -230,7 +88,7 @@
       </div>
     </div>
   </div>
-  <div class="overflow-y-auto h-[60vh]">
+  <div class="overflow-y-auto h-[60vh] pt-5">
     <div class="grid grid-cols-16 gap-1">
       <div
         v-for="item in data"
@@ -251,9 +109,53 @@
       </div>
     </div>
   </div>
+  <Dialog
+    v-model:visible="visible"
+    modal
+    header="Lưu comp"
+    :style="{ width: '50vw' }"
+    :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
+    @close="visible = false"
+  >
+    <AlzcUpload
+      :comp="
+        char[0].name +
+        ' ' +
+        char[1].name +
+        ' ' +
+        char[2].name +
+        ' ' +
+        char[3].name
+      "
+      :point="
+        bonus +
+        bonusLightcone +
+        (selectedEiloidon[0] ?? 0) +
+        (selectedEiloidon[1] ?? 0) +
+        (selectedEiloidon[2] ?? 0) +
+        (selectedEiloidon[3] ?? 0) +
+        (selectedImpose[0] ?? 0) +
+        (selectedImpose[1] ?? 0) +
+        (selectedImpose[2] ?? 0) +
+        (selectedImpose[3] ?? 0)
+      "
+    />
+  </Dialog>
+  <Dialog
+    v-model:visible="visible1"
+    modal
+    header="Xem comp"
+    :style="{ width: '50vw' }"
+    :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
+    @close="visible = false"
+  >
+    <AlzcList />
+  </Dialog>
 </template>
 
 <script setup>
+const visible = ref(false);
+const visible1 = ref(false);
 const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
 
 const char = ref([
@@ -267,14 +169,14 @@ const selectedLightcone = ref([
   { name: "", eiloidon: [], lightcone: [], icon: "" },
   { name: "", eiloidon: [], lightcone: [], icon: "" },
   { name: "", eiloidon: [], lightcone: [], icon: "" },
-  { name: "", eiloidon: [], lightcone: [], icon: "" },  
+  { name: "", eiloidon: [], lightcone: [], icon: "" },
 ]);
 const selectedImpose = ref([]);
 const filterCharacters = ref();
 const count = ref(0);
 const bonus = computed(() => {
-  const characterNames = char.value.map(c => c.name);
-  const hasCharacter = name => characterNames.includes(name);
+  const characterNames = char.value.map((c) => c.name);
+  const hasCharacter = (name) => characterNames.includes(name);
   let point = 0;
   if (hasCharacter("Acheron")) {
     if (hasCharacter("Jiaoqiu")) {
@@ -335,9 +237,11 @@ const bonus = computed(() => {
   return point;
 });
 const bonusLightcone = computed(() => {
-  const lightconeNames = selectedLightcone.value.map(lc => lc.name);
-  const muaMuaMuaCount = lightconeNames.filter(name => name === "Múa, Múa, Múa").length;
-  return (muaMuaMuaCount >= 2) ? 1.5 : 0;
+  const lightconeNames = selectedLightcone.value.map((lc) => lc.name);
+  const muaMuaMuaCount = lightconeNames.filter(
+    (name) => name === "Múa, Múa, Múa"
+  ).length;
+  return muaMuaMuaCount >= 2 ? 1.5 : 0;
 });
 const data = ref({
   acheron: {
@@ -1704,7 +1608,7 @@ const lightcone = ref({
   },
 });
 const filteredLightcone = Object.fromEntries(
-  Object.entries(lightcone.value).filter(([_, value]) => 'lightcone' in value)
+  Object.entries(lightcone.value).filter(([_, value]) => "lightcone" in value)
 );
 const reset = () => {
   char.value = [
@@ -1720,22 +1624,41 @@ const reset = () => {
     { name: "", eiloidon: [], lightcone: [], icon: "" },
     { name: "", eiloidon: [], lightcone: [], icon: "" },
     { name: "", eiloidon: [], lightcone: [], icon: "" },
-  ]
+  ];
   count.value = 0;
 };
 const select = (item) => {
   char.value[count.value] = item;
   // Check if eiloidon exists and has e0 property
-  if (item.eiloidon && 'e0' in item.eiloidon) {
+  if (item.eiloidon && "e0" in item.eiloidon) {
     selectedEiloidon.value[count.value] = item.eiloidon.e0;
   } else {
     // If e0 doesn't exist, find the first available property
     const firstKey = Object.keys(item.eiloidon)[0];
     selectedEiloidon.value[count.value] = item.eiloidon[firstKey] || 1;
   }
-  count.value++;
+  if (
+    char.value[0].name == "" ||
+    char.value[1].name == "" ||
+    char.value[2].name == "" ||
+    char.value[3].name == ""
+  ) {
+    count.value++;
+  } else {
+    count.value = 4;
+  }
 };
 const selectLightcone = (index) => {
   selectedImpose.value[index] = selectedLightcone.value[index].lightcone.s1;
-}
+};
 </script>
+
+<style>
+.neon-border {
+  border: 1px solid rgba(0, 255, 255, 0.5);
+  box-shadow: rgb(255, 255, 255) 0px 0px 0.2rem,
+    rgb(255, 255, 255) 0px 0px 0.1rem, rgba(0, 255, 255, 0.5) 0px 0px 1rem,
+    rgba(0, 255, 255, 0.5) 0px 0px 0.4rem, rgba(0, 255, 255, 0.5) 0px 0px 1rem,
+    rgba(0, 255, 255, 0.5) 0px 0px 0.7rem inset;
+}
+</style>
