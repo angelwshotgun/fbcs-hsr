@@ -11,7 +11,8 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@primevue/nuxt-module',
     '@nuxtjs/color-mode',
-    '@nuxtjs/google-fonts'
+    '@nuxtjs/google-fonts',
+    '@hypernym/nuxt-anime',
   ],
   unocss: {
     configFile: '../uno.config.ts',
@@ -37,5 +38,8 @@ export default defineNuxtConfig({
       // Client-side environment variables
       GITHUB_TOKEN: process.env.GITHUB_TOKEN
     }
+  },
+  anime: {
+    provide: true
   }
 })

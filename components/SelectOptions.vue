@@ -1,5 +1,9 @@
 <template>
-  <div v-if="!props.isLightCone" class="w-full flex flex-col bg-primary rounded">
+  <div
+    v-if="!props.isLightCone"
+    class="w-full flex flex-col bg-black bg-opacity-40 rounded"
+    :class="{ 'active-selection': banpick === props.stt }"
+  >
     <div
       class="relative w-full h-[100px] flex flex-col justify-center items-center overflow-hidden"
     >
@@ -21,11 +25,11 @@
       /> -->
       <label
         v-if="!props.isBan"
-        class="absolute top-0 right-0 m-2 bg-black text-white font-bold text-xl bg-opacity-35 py-1 rounded text-xs w-12 text-center"
+        class="absolute top-0 right-0 m-2 bg-gray text-white font-bold text-xl bg-opacity-10 py-1 rounded text-xs w-12 text-center"
         >{{
-          (model1?.point[eiloidon] + (lc?.point[superimp] || 0)) >= 0
+          model1?.point[eiloidon] + (lc?.point[superimp] || 0) >= 0
             ? "+ " + (model1?.point[eiloidon] + (lc?.point[superimp] || 0))
-            : (model1?.point[eiloidon] + (lc?.point[superimp] || 0))
+            : model1?.point[eiloidon] + (lc?.point[superimp] || 0)
         }}</label
       >
     </div>
@@ -43,11 +47,23 @@
         v-model="lc"
         :options="light_cones"
         option-label="name"
+        :filterFields="['name', 'character']"
         filter
         placeholder="Chọn nón ánh sáng"
         class="col-span-4"
         @change="selectLightcone()"
-      />
+      >
+        <template #option="slotProps">
+          <div class="flex justify-between w-300px">
+            <div class="w-80% break-words whitespace-normal">{{ slotProps.option.name }}</div>
+          <NuxtImg
+            v-if="slotProps.option.preview !== ''"
+            :src="link + slotProps.option.preview"
+            class="w-20% h-auto"
+          />
+          </div>
+        </template>
+      </Select>
       <Select
         v-model="superimp"
         :options="superimpSelect"
@@ -59,7 +75,8 @@
       />
     </div>
   </div>
-  <div v-else class="w-full flex flex-col bg-primary">
+  <div v-else class="w-full flex flex-col bg-black bg-opacity-40 rounded"
+  :class="{ 'active-selection': banpick === props.stt }">
     <div
       class="w-full h-[100px] flex flex-col justify-center items-center overflow-hidden"
     >
@@ -117,14 +134,14 @@ const superimpSelect = ref([
 
 async function fetchCharacters() {
   try {
-    const response = await $fetch('/api/github/readCharacters', {
-      method: 'POST',
+    const response = await $fetch("/api/github/readCharacters", {
+      method: "POST",
       body: {
-        action: 'readFile',
+        action: "readFile",
         owner: "angelwshotgun",
         repo: "DataStore",
-        path: `data/characters${selectedStage.value === 11 ? "11" : ""}.json`
-      }
+        path: `data/characters${selectedStage.value === 11 ? "11" : ""}.json`,
+      },
     });
     if (response.error) {
       throw new Error(response.error);
@@ -137,14 +154,14 @@ async function fetchCharacters() {
 
 async function fetchLightcones() {
   try {
-    const response = await $fetch('/api/github/readCharacters', {
-      method: 'POST',
+    const response = await $fetch("/api/github/readCharacters", {
+      method: "POST",
       body: {
-        action: 'readFile',
+        action: "readFile",
         owner: "angelwshotgun",
         repo: "DataStore",
-        path: `data/light_cones${selectedStage.value === 11 ? "11" : ""}.json`
-      }
+        path: `data/light_cones${selectedStage.value === 11 ? "11" : ""}.json`,
+      },
     });
     if (response.error) {
       throw new Error(response.error);
@@ -175,9 +192,11 @@ const banpick = computed(() => {
   return store.$state.banpick;
 });
 watch(banpick, () => {
-  const team = [1, 2, 1, 2, 2, 1, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2];
+  const team = [
+    1, 2, 1, 2, 2, 1, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2,
+  ];
   if (banpick.value >= 1 && banpick.value <= 22) {
-    store.updateGameData('team', team[banpick.value - 1]);
+    store.updateGameData("team", team[banpick.value - 1]);
   }
 });
 watch(
@@ -326,7 +345,7 @@ const selectCharacter = () => {
     char.value.point[eiloidon.value]
   );
   store.updateGameData(`character/${props.lcstate}/e`, eiloidon.value);
-  store.updateGameData(`state/data/name`,char.value.portrait);
+  store.updateGameData(`state/data/name`, char.value.portrait);
 };
 const changeEiloidon = () => {
   store.updateGameData(
@@ -361,17 +380,48 @@ const banCharacter = () => {
   store.updateGameData(`ban/${props.state}/img`, char.value.icon);
   store.updateGameData(`ban/${props.state}/name`, char.value.name);
   store.updateGameData(`ban/${props.state}/path`, char.value.path);
-  store.updateGameData(`state/data/name`,char.value.portrait);
+  store.updateGameData(`state/data/name`, char.value.portrait);
 };
 const banLightcone = () => {
   store.updateGameData(`ban/${props.state}/img`, lc.value.preview);
   store.updateGameData(`ban/${props.state}/name`, lc.value.name);
   store.updateGameData(`ban/${props.state}/path`, lc.value.path);
-  store.updateGameData(`state/data/name`,lc.value.portrait);
+  store.updateGameData(`state/data/name`, lc.value.portrait);
 };
 </script>
 
 <style scoped>
+.active-selection {
+  border: 2px solid rgb(213, 176, 234);
+  animation: pulse 2s infinite;
+  animation: blinkEffect 3s infinite;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(213, 176, 234, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(213, 176, 234, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(213, 176, 234, 0);
+  }
+}
+@keyframes blinkEffect {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        
 .p-select {
   background-color: #56406d;
   font-size: 16px;

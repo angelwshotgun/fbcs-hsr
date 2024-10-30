@@ -12,7 +12,7 @@
         <button @click="nextTrack">Next</button>
       </div>
     </div> -->
-    <NuxtImg v-if="viewData.name!== ''" :src="link + viewData.name" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50%; height: 95vh; object-fit: cover; z-index: -1;" />
+    <NuxtImg v-if="viewData.name !== ''" :src="link + viewData.name" style="position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); width: 40%; height: 80vh; object-fit: cover; z-index: 99;" />
     <div class="flex flex-col md:flex-row justify-between gap-1 p-3">
       <div class="w-2/5 flex flex-col gap-1">
         <div class="flex justify-between items-center bg-blue-500 h-10 rounded-md">
@@ -66,21 +66,15 @@
             :stt="21" />
         </div>
       </div>
-      <div class="w-1/4 flex flex-col">
-        <div>
-          <RollButton />
+      <div class="w-1/4 flex flex-col items-center">
+        <div class="flex items-center justify-center gap-1">
+          <RollButton class="ml-15" />
+          <Button label="Edit" @click="visible = true" class="w-1/2" severity="contrast" :outlined="true"/>
         </div>
-        <div>
-          <BanPickLabel class="mb-2"/>
-        </div>
-        <div class="flex justify-center">
-          <Button label="Edit" @click="visible = true" class="w-1/2"/>
-          </div>
+        <BanPickLabel class="mb-2"/>
         <div class="overflow-y-auto h-[60vh]" v-show="isDropdownOpen">
-          <div class="flex flex-col gap-4"> 
-            <div>
-              <StatsInputs />
-            </div>
+          <div class="flex flex-col gap-4">
+            <StatsInputs />
           </div>
         </div>
       </div>

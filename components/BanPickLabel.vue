@@ -1,17 +1,18 @@
 <template>
-  <div class="flex justify-between bg-primary p-1 rounded-md">
+  <div class="flex justify-between rounded-md">
     <div
       class="layout-point flex justify-center items-center flex-gap-1 w-full"
     >
-      <h2
+      <Tag
         :class="{
           'text-blue-500': isTeamBlue && !isDraw,
           'text-red-500': !isTeamBlue && !isDraw,
           'text-white': isDraw,
         }"
+        :severity="isTeamBlue && !isDraw ? 'info' : isDraw ? 'secondary' : 'danger'"
       >
-        {{ label }}
-      </h2>
+        <div class="text-xl">{{ label }}</div>
+      </Tag>
     </div>
   </div>
 </template>
