@@ -8,6 +8,7 @@
       <Button label="Tạo trận đấu" @click="createGame()" />
     </div>
     <div v-if="isCreated">
+      <h2>Chỉ tắt trang này khi xong trận</h2>
       <div class="flex items-center">
         <h2 class="w-[150px]">Link Team 1:</h2>
         <InputText
