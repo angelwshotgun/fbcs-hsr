@@ -28,6 +28,7 @@ export default defineNuxtConfig({
   googleFonts: {
     families: {
       Exo: true,
+      'Tilt Neon': true,
     },
     preload: true,
   },
@@ -41,5 +42,8 @@ export default defineNuxtConfig({
   },
   anime: {
     provide: true
-  }
+  },
+  plugins: [
+    '~/plugins/loadData.js'
+  ]
 })

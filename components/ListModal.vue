@@ -82,14 +82,16 @@
 import { useStore } from "~/store/useStore";
 
 const store = useStore();
-const characters = ref();
-const light_cones = ref();
 const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
 const visible = ref(false);
 const searchQuery = ref('');
 const props = defineProps({
   display: Boolean, 
+  characters: Object,
+  light_cones: Object,
 })
+const characters = ref(props.characters);
+const light_cones = ref(props.light_cones);
 const emit = defineEmits(['close']);
 const selectedStage = computed(() => {
   return store.$state.stage;
@@ -112,52 +114,6 @@ const filteredLightCones = computed(() => {
   );
 });
 
-async function fetchCharacters() {
-  try {
-    const response = await $fetch('/api/github/readCharacters', {
-      method: 'POST',
-      body: {
-        action: 'readFile',
-        owner: "angelwshotgun",
-        repo: "DataStore",
-        path: `data/characters${selectedStage.value === 11 ? "11" : ""}.json`
-      }
-    });
-    if (response.error) {
-      throw new Error(response.error);
-    }
-    characters.value = Object.values(response.content);
-  } catch (err) {
-    console.error("Error reading file:", err);
-  }
-}
-async function fetchLightcones() {
-  try {
-    const response = await $fetch('/api/github/readCharacters', {
-      method: 'POST',
-      body: {
-        action: 'readFile',
-        owner: "angelwshotgun",
-        repo: "DataStore",
-        path: `data/light_cones${selectedStage.value === 11 ? "11" : ""}.json`
-      }
-    });
-    if (response.error) {
-      throw new Error(response.error);
-    }
-    light_cones.value = Object.values(response.content).filter(item => item.rarity === 5);
-  } catch (err) {
-    console.error("Error reading file:", err);
-  }
-}
-const loadData = async () => {
-  await fetchCharacters();
-  await fetchLightcones();
-};
-onMounted(async () => {
-  store.initializeRealtimeListeners();
-  await loadData();
-});
 watch(selectedStage, () => {
   loadData();
 });

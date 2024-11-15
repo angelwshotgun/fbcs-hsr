@@ -25,7 +25,6 @@ const isTeamBlue = ref(true);
 const isDraw = ref(false);
 
 onMounted(() => {
-  store.initializeRealtimeListeners();
 });
 
 const banpick = computed(() => {

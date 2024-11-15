@@ -19,7 +19,6 @@ const banpick = computed(() => {
 let intervalId = null;
 
 onMounted(() => {
-  store.initializeRealtimeListeners();
 });
 
 watch(banpick, () => {
