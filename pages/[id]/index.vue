@@ -360,11 +360,9 @@ const optionStage = [
     value: 11,
   },
 ];
-
 const selectedStage = computed(() => {
   return store.$state.games[id].stage;
 });
-
 const resetData = () => {
   store.resetGameData();
 };

@@ -70,121 +70,34 @@ const createDefaultState = () => ({
 export const useStore = defineStore("store", {
   state: () => ({
     games: {},
-    listeners: {},
-    deletedGames: new Set(),
-    isInitialized: false, // Add flag to track initialization status
+    deletedGames: new Set()
   }),
 
   actions: {
-    // New function to initialize listeners for all existing games
-    async initializeRealtimeListeners() {
-      if (this.isInitialized) {
-        console.warn('Realtime listeners already initialized');
-        return;
-      }
-
+    async fetchGames() {
       try {
-        // Get all existing games
         const gamesRef = ref(db, 'games');
         const snapshot = await get(gamesRef);
         
         if (snapshot.exists()) {
           const games = snapshot.val();
           
-          // Initialize listeners for each existing game
-          Object.keys(games).forEach(gameId => {
-            if (!this.deletedGames.has(gameId) && !this.listeners[gameId]) {
-              this.initializeGame(gameId);
+          // Initialize games that haven't been deleted
+          Object.entries(games).forEach(([gameId, gameData]) => {
+            if (!this.deletedGames.has(gameId)) {
+              this.games[gameId] = {
+                ...createDefaultState(),
+                ...gameData
+              };
             }
           });
-
-          // Also set up a listener for new games being added
-          const unsubscribe = onValue(gamesRef, (snapshot) => {
-            const currentGames = snapshot.val() || {};
-            
-            // Handle removed games
-            Object.keys(this.games).forEach(gameId => {
-              if (!currentGames[gameId] && !this.deletedGames.has(gameId)) {
-                this.cleanup(gameId);
-              }
-            });
-            
-            // Handle new games
-            Object.keys(currentGames).forEach(gameId => {
-              if (!this.deletedGames.has(gameId) && !this.listeners[gameId]) {
-                this.initializeGame(gameId);
-              }
-            });
-          });
-
-          // Store the main listener
-          this.listeners['_main'] = unsubscribe;
         }
-
-        this.isInitialized = true;
-        console.log('Realtime listeners initialized successfully');
+        
+        console.log('Games fetched successfully');
       } catch (error) {
-        console.error('Error initializing realtime listeners:', error);
+        console.error('Error fetching games:', error);
         throw error;
       }
-    },
-
-    // Modified cleanup to handle single game or all games
-    cleanup(gameId = null) {
-      if (gameId) {
-        // Cleanup specific game
-        if (this.listeners[gameId]) {
-          this.listeners[gameId]();
-          delete this.listeners[gameId];
-        }
-        delete this.games[gameId];
-        this.deletedGames.add(gameId);
-      } else {
-        // Cleanup all games
-        if (this.listeners['_main']) {
-          this.listeners['_main']();
-        }
-        
-        Object.values(this.listeners).forEach(unsubscribe => {
-          if (typeof unsubscribe === 'function') {
-            unsubscribe();
-          }
-        });
-        
-        this.listeners = {};
-        this.games = {};
-        this.deletedGames.clear();
-        this.isInitialized = false;
-      }
-    },
-
-    // Rest of the existing actions remain the same
-    initializeGame(gameId) {
-      if (this.deletedGames.has(gameId)) {
-        return;
-      }
-
-      if (this.listeners[gameId]) {
-        return;
-      }
-
-      const gameRef = ref(db, `games/${gameId}`);
-      const unsubscribe = onValue(gameRef, (snapshot) => {
-        const data = snapshot.val();
-        
-        if (!this.deletedGames.has(gameId)) {
-          if (data) {
-            this.games[gameId] = {
-              ...createDefaultState(),
-              ...data
-            };
-          } else {
-            delete this.games[gameId];
-          }
-        }
-      });
-
-      this.listeners[gameId] = unsubscribe;
     },
 
     async createGame(gameId) {
@@ -196,10 +109,10 @@ export const useStore = defineStore("store", {
       try {
         await set(gameRef, defaultData);
         this.games[gameId] = defaultData;
-        this.initializeGame(gameId);
         console.log(`Game ${gameId} created successfully`);
       } catch (error) {
         console.error(`Error creating game ${gameId}:`, error);
+        throw error;
       }
     },
 
@@ -212,9 +125,26 @@ export const useStore = defineStore("store", {
       const gameRef = ref(db, `games/${gameId}/${path}`);
       try {
         await set(gameRef, value);
+        
+        // Update local state
+        if (!this.games[gameId]) {
+          this.games[gameId] = createDefaultState();
+        }
+        
+        const pathParts = path.split('/');
+        let current = this.games[gameId];
+        for (let i = 0; i < pathParts.length - 1; i++) {
+          if (!current[pathParts[i]]) {
+            current[pathParts[i]] = {};
+          }
+          current = current[pathParts[i]];
+        }
+        current[pathParts[pathParts.length - 1]] = value;
+        
         console.log(`Updated ${path} for game ${gameId}`);
       } catch (error) {
         console.error(`Error updating game ${gameId} at ${path}:`, error);
+        throw error;
       }
     },
 
@@ -233,23 +163,16 @@ export const useStore = defineStore("store", {
         console.log(`Game ${gameId} reset successfully`);
       } catch (error) {
         console.error(`Error resetting game ${gameId}:`, error);
+        throw error;
       }
     },
 
     async deleteGame(gameId) {
       try {
         this.deletedGames.add(gameId);
-
-        if (this.listeners[gameId]) {
-          this.listeners[gameId]();
-          delete this.listeners[gameId];
-        }
-
         const gameRef = ref(db, `games/${gameId}`);
         await remove(gameRef);
-
         delete this.games[gameId];
-
         console.log(`Game ${gameId} deleted successfully`);
       } catch (error) {
         this.deletedGames.delete(gameId);
@@ -257,5 +180,10 @@ export const useStore = defineStore("store", {
         throw error;
       }
     },
+
+    clearStore() {
+      this.games = {};
+      this.deletedGames.clear();
+    }
   },
 });
