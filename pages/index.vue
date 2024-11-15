@@ -79,7 +79,6 @@ const copyToClipboard = async (text) => {
     await navigator.clipboard.writeText(text);
   }
 };
-let isLeavingPage = false;
 
 if (process.client) {
   let isLeavingPage = false;
