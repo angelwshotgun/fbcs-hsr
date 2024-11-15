@@ -68,9 +68,9 @@ const { $generateHashID } = useNuxtApp();
 
 const createGame = () => {
   const id = $generateHashID(name.value);
-  team1.value = `http://localhost:3000/${id}/team1`;
-  team2.value = `http://localhost:3000/${id}/team2`;
-  view.value = `http://localhost:3000/${id}`;
+  team1.value = `fbcs-hsr.vercel.app/${id}/team1`;
+  team2.value = `fbcs-hsr.vercel.app/${id}/team2`;
+  view.value = `fbcs-hsr.vercel.app/${id}`;
   store.createGame(`${id}`);
   isCreated.value = true;
 };
