@@ -67,6 +67,9 @@ const createDefaultState = () => ({
   stage: 12,
 });
 
+// Tạo một closure để quản lý unsubscribe functions bên ngoài store
+const unsubscribers = new Set();
+
 export const useStore = defineStore("store", {
   state: () => ({
     games: {},
@@ -76,26 +79,54 @@ export const useStore = defineStore("store", {
   actions: {
     async fetchGames() {
       try {
-        const gamesRef = ref(db, 'games');
-        const snapshot = await get(gamesRef);
+        // Hủy tất cả các listeners cũ
+        this.unsubscribeAll();
         
-        if (snapshot.exists()) {
-          const games = snapshot.val();
-          
-          // Initialize games that haven't been deleted
-          Object.entries(games).forEach(([gameId, gameData]) => {
-            if (!this.deletedGames.has(gameId)) {
-              this.games[gameId] = {
-                ...createDefaultState(),
-                ...gameData
-              };
-            }
-          });
-        }
+        const gamesRef = ref(db, 'games');
+        
+        // Thiết lập realtime listener
+        const unsubscribe = onValue(gamesRef, (snapshot) => {
+          if (snapshot.exists()) {
+            const games = snapshot.val();
+            
+            // Cập nhật games mới và loại bỏ những games đã bị xóa
+            Object.entries(games).forEach(([gameId, gameData]) => {
+              if (!this.deletedGames.has(gameId)) {
+                this.games[gameId] = {
+                  ...createDefaultState(),
+                  ...gameData
+                };
+              }
+            });
+
+            // Xóa những games không còn tồn tại trong database
+            Object.keys(this.games).forEach(gameId => {
+              if (!games[gameId] && !this.deletedGames.has(gameId)) {
+                delete this.games[gameId];
+              }
+            });
+          } else {
+            // Nếu không có dữ liệu, reset về object rỗng
+            this.games = {};
+          }
+        }, (error) => {
+          console.error("Error fetching games:", error);
+          throw error;
+        });
+
+        // Lưu hàm unsubscribe
+        unsubscribers.add(unsubscribe);
         
       } catch (error) {
+        console.error("Error in fetchGames:", error);
         throw error;
       }
+    },
+
+    unsubscribeAll() {
+      // Hủy tất cả các listeners
+      unsubscribers.forEach(unsubscribe => unsubscribe());
+      unsubscribers.clear();
     },
 
     async createGame(gameId) {
@@ -120,22 +151,6 @@ export const useStore = defineStore("store", {
       const gameRef = ref(db, `games/${gameId}/${path}`);
       try {
         await set(gameRef, value);
-        
-        // Update local state
-        if (!this.games[gameId]) {
-          this.games[gameId] = createDefaultState();
-        }
-        
-        const pathParts = path.split('/');
-        let current = this.games[gameId];
-        for (let i = 0; i < pathParts.length - 1; i++) {
-          if (!current[pathParts[i]]) {
-            current[pathParts[i]] = {};
-          }
-          current = current[pathParts[i]];
-        }
-        current[pathParts[pathParts.length - 1]] = value;
-        
       } catch (error) {
         throw error;
       }
@@ -151,7 +166,6 @@ export const useStore = defineStore("store", {
       
       try {
         await set(gameRef, defaultData);
-        this.games[gameId] = defaultData;
       } catch (error) {
         throw error;
       }
@@ -170,6 +184,7 @@ export const useStore = defineStore("store", {
     },
 
     clearStore() {
+      this.unsubscribeAll();
       this.games = {};
       this.deletedGames.clear();
     }

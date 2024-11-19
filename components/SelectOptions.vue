@@ -204,7 +204,8 @@ watch(props, () => {
   light_cones.value = props.light_cones;
   light_cones34.value = props.light_cones34;
   if (light_cones34.value && light_cones.value) {
-    filterLightcones.value = [...light_cones.value, ...light_cones34.value];
+    const data = [...light_cones.value, ...light_cones34.value].map(item => ({...item}));
+    filterLightcones.value = data;
   }
 })
 onMounted(async () => {
