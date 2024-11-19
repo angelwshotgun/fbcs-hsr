@@ -93,9 +93,7 @@ export const useStore = defineStore("store", {
           });
         }
         
-        console.log('Games fetched successfully');
       } catch (error) {
-        console.error('Error fetching games:', error);
         throw error;
       }
     },
@@ -109,16 +107,13 @@ export const useStore = defineStore("store", {
       try {
         await set(gameRef, defaultData);
         this.games[gameId] = defaultData;
-        console.log(`Game ${gameId} created successfully`);
       } catch (error) {
-        console.error(`Error creating game ${gameId}:`, error);
         throw error;
       }
     },
 
     async updateGameData(gameId, path, value) {
       if (this.deletedGames.has(gameId)) {
-        console.warn(`Cannot update deleted game ${gameId}`);
         return;
       }
 
@@ -141,16 +136,13 @@ export const useStore = defineStore("store", {
         }
         current[pathParts[pathParts.length - 1]] = value;
         
-        console.log(`Updated ${path} for game ${gameId}`);
       } catch (error) {
-        console.error(`Error updating game ${gameId} at ${path}:`, error);
         throw error;
       }
     },
 
     async resetGameData(gameId) {
       if (this.deletedGames.has(gameId)) {
-        console.warn(`Cannot reset deleted game ${gameId}`);
         return;
       }
 
@@ -160,9 +152,7 @@ export const useStore = defineStore("store", {
       try {
         await set(gameRef, defaultData);
         this.games[gameId] = defaultData;
-        console.log(`Game ${gameId} reset successfully`);
       } catch (error) {
-        console.error(`Error resetting game ${gameId}:`, error);
         throw error;
       }
     },
@@ -173,10 +163,8 @@ export const useStore = defineStore("store", {
         const gameRef = ref(db, `games/${gameId}`);
         await remove(gameRef);
         delete this.games[gameId];
-        console.log(`Game ${gameId} deleted successfully`);
       } catch (error) {
         this.deletedGames.delete(gameId);
-        console.error(`Error deleting game ${gameId}:`, error);
         throw error;
       }
     },

@@ -1,18 +1,12 @@
+import { readFile } from 'fs/promises';
+import { join } from 'path';
+
 export default defineEventHandler(async (event) => {
-  // URL to the remote JSON file
-  const url = 'https://raw.githubusercontent.com/angelwshotgun/fbcs-hsr/refs/heads/main/data/light_cones.json';
-
+  const filePath = join(process.cwd(), 'data', 'light_cones34.json'); // Đường dẫn tới file JSON
   try {
-    const response = await fetch(url);
-
-    // Check if the response is OK (status code 200)
-    if (!response.ok) {
-      throw new Error('Failed to fetch data');
-    }
-
-    const data = await response.json();
-    return data; // Return the parsed JSON data
+    const data = await readFile(filePath, 'utf-8'); // Đọc file JSON
+    return JSON.parse(data); // Trả về dữ liệu JSON
   } catch (error) {
-    return { error: 'Failed to fetch data' };
+    return { error: 'Unable to read data file', details: error.message };
   }
 });

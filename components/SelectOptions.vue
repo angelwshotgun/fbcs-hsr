@@ -46,7 +46,7 @@
         />
         <Select
           v-model="lc"
-          :options="light_cones"
+          :options="filterLightcones"
           option-label="name"
           :filterFields="['name', 'character']"
           filter
@@ -126,12 +126,15 @@ const props = defineProps({
   stt: Number,
   characters: Object,
   light_cones: Object,
+  light_cones34: Object,
   filterCharacters: Object,
 });
 
 const id = route.params.id;
 const characters = ref(props.characters);
 const light_cones = ref(props.light_cones);
+const light_cones34 = ref(props.light_cones34);
+const filterLightcones = ref();
 const char = ref();
 const lc = ref();
 const eiloidon = ref(0);
@@ -196,6 +199,14 @@ watch(
   },
   { deep: true }
 );
+watch(props, () => {
+  characters.value = props.characters;
+  light_cones.value = props.light_cones;
+  light_cones34.value = props.light_cones34;
+  if (light_cones34.value && light_cones.value) {
+    filterLightcones.value = [...light_cones.value, ...light_cones34.value];
+  }
+})
 onMounted(async () => {
 });
 const model = computed(() => {
