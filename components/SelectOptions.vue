@@ -1,5 +1,5 @@
 <template>
-  <ClientOnly v-if="store.$state.games[id]">
+  <ClientOnly>
     <div
       v-if="!props.isLightCone"
       class="w-full flex flex-col bg-black bg-opacity-40 rounded"
@@ -29,7 +29,7 @@
           class="absolute top-0 right-0 m-2 bg-gray text-white font-bold text-xl bg-opacity-10 py-1 rounded text-xs w-12 text-center"
           >{{
             model1?.point[eiloidon] + (lc?.point[superimp] || 0) >= 0
-              ? '+ ' + (model1?.point[eiloidon] + (lc?.point[superimp] || 0))
+              ? "+ " + (model1?.point[eiloidon] + (lc?.point[superimp] || 0))
               : model1?.point[eiloidon] + (lc?.point[superimp] || 0)
           }}</label
         >
@@ -108,25 +108,11 @@
 </template>
 
 <script setup>
-import { useStore } from '~/store/useStore';
+import { useStore } from "~/store/useStore";
 
 const route = useRoute();
 const store = useStore();
-const id = route.params.id;
-const link = 'https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/';
-// Create a reactive reference for game data
-const gameData = ref(null);
-
-// Watcher to update gameData when store's games data changes
-watch(
-  () => store.$state.games,
-  (newGames) => {
-    if (newGames && newGames[id]) {
-      gameData.value = newGames[id];
-    }
-  },
-  { immediate: true }
-);
+const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
 
 const props = defineProps({
   isBan: Boolean,
@@ -144,6 +130,7 @@ const props = defineProps({
   filterCharacters: Object,
 });
 
+const id = route.params.id;
 const characters = ref(props.characters);
 const light_cones = ref(props.light_cones);
 const light_cones34 = ref(props.light_cones34);
@@ -152,38 +139,35 @@ const char = ref();
 const lc = ref();
 const eiloidon = ref(0);
 const superimp = ref(0);
+const selectedStage = computed(() => {
+  return store.$state.games[id].stage;
+});
 const eiloidonSelect = ref([
-  { label: 'e0', value: 0 },
-  { label: 'e1', value: 1 },
-  { label: 'e2', value: 2 },
-  { label: 'e3', value: 3 },
-  { label: 'e4', value: 4 },
-  { label: 'e5', value: 5 },
-  { label: 'e6', value: 6 },
+  { label: "e0", value: 0 },
+  { label: "e1", value: 1 },
+  { label: "e2", value: 2 },
+  { label: "e3", value: 3 },
+  { label: "e4", value: 4 },
+  { label: "e5", value: 5 },
+  { label: "e6", value: 6 },
 ]);
 const superimpSelect = ref([
-  { label: 's1', value: 0 },
-  { label: 's2', value: 1 },
-  { label: 's3', value: 2 },
-  { label: 's4', value: 3 },
-  { label: 's5', value: 4 },
+  { label: "s1", value: 0 },
+  { label: "s2", value: 1 },
+  { label: "s3", value: 2 },
+  { label: "s4", value: 3 },
+  { label: "s5", value: 4 },
 ]);
-// Modify existing computed and watchers to use gameData
-const selectedStage = computed(() => {
-  return gameData.value?.stage || null;
-});
 
 const banpick = computed(() => {
-  return gameData.value?.banpick || null;
+  return store.$state.games[id].banpick;
 });
-
-// Modify the existing watchers to check gameData
 watch(banpick, () => {
   const team = [
     1, 2, 1, 2, 2, 1, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2,
   ];
   if (banpick.value >= 1 && banpick.value <= 22) {
-    store.updateGameData(`${id}`, 'team', team[banpick.value - 1]);
+    store.updateGameData(`${id}`, "team", team[banpick.value - 1]);
   }
 });
 watch(
@@ -220,173 +204,114 @@ watch(props, () => {
   light_cones.value = props.light_cones;
   light_cones34.value = props.light_cones34;
   if (light_cones34.value && light_cones.value) {
-    const data = [...light_cones.value, ...light_cones34.value].map((item) => ({
-      ...item,
-    }));
+    const data = [...light_cones.value, ...light_cones34.value].map(item => ({...item}));
     filterLightcones.value = data;
   }
+})
+onMounted(async () => {
 });
-// Modify model computed to use gameData
 const model = computed(() => {
-  if (!gameData.value) return null;
-
-  const banStates = {
-    bc1: gameData.value.ban?.bc1,
-    bc2: gameData.value.ban?.bc2,
-    bc3: gameData.value.ban?.bc3,
-    bc4: gameData.value.ban?.bc4,
-    bl1: gameData.value.ban?.bl1,
-    bl2: gameData.value.ban?.bl2,
-  };
-
-  const characterStates = {
-    c1: gameData.value.character?.c1,
-    c2: gameData.value.character?.c2,
-    c3: gameData.value.character?.c3,
-    c4: gameData.value.character?.c4,
-    c5: gameData.value.character?.c5,
-    c6: gameData.value.character?.c6,
-    c7: gameData.value.character?.c7,
-    c8: gameData.value.character?.c8,
-    c9: gameData.value.character?.c9,
-    c10: gameData.value.character?.c10,
-    c11: gameData.value.character?.c11,
-    c12: gameData.value.character?.c12,
-    c13: gameData.value.character?.c13,
-    c14: gameData.value.character?.c14,
-    c15: gameData.value.character?.c15,
-    c16: gameData.value.character?.c16,
-  };
-
-  return banStates[props.state] || characterStates[props.state] || null;
+  switch (props.state) {
+    case "bc1":
+      return store.$state.games[id].ban.bc1;
+    case "bc2":
+      return store.$state.games[id].ban.bc2;
+    case "bc3":
+      return store.$state.games[id].ban.bc3;
+    case "bc4":
+      return store.$state.games[id].ban.bc4;
+    case "bl1":
+      return store.$state.games[id].ban.bl1;
+    case "bl2":
+      return store.$state.games[id].ban.bl2;
+    case "c1":
+      return store.$state.games[id].character.c1;
+    case "c2":
+      return store.$state.games[id].character.c2;
+    case "c3":
+      return store.$state.games[id].character.c3;
+    case "c4":
+      return store.$state.games[id].character.c4;
+    case "c5":
+      return store.$state.games[id].character.c5;
+    case "c6":
+      return store.$state.games[id].character.c6;
+    case "c7":
+      return store.$state.games[id].character.c7;
+    case "c8":
+      return store.$state.games[id].character.c8;
+    case "c9":
+      return store.$state.games[id].character.c9;
+    case "c10":
+      return store.$state.games[id].character.c10;
+    case "c11":
+      return store.$state.games[id].character.c11;
+    case "c12":
+      return store.$state.games[id].character.c12;
+    case "c13":
+      return store.$state.games[id].character.c13;
+    case "c14":
+      return store.$state.games[id].character.c14;
+    case "c15":
+      return store.$state.games[id].character.c15;
+    case "c16":
+      return store.$state.games[id].character.c16;
+    default:
+      return null;
+  }
 });
-
 const model1 = computed(() => {
-  if (!gameData.value) return null;
-
-  const characterStates = {
-    c1: gameData.value.character?.c1,
-    c2: gameData.value.character?.c2,
-    c3: gameData.value.character?.c3,
-    c4: gameData.value.character?.c4,
-    c5: gameData.value.character?.c5,
-    c6: gameData.value.character?.c6,
-    c7: gameData.value.character?.c7,
-    c8: gameData.value.character?.c8,
-    c9: gameData.value.character?.c9,
-    c10: gameData.value.character?.c10,
-    c11: gameData.value.character?.c11,
-    c12: gameData.value.character?.c12,
-    c13: gameData.value.character?.c13,
-    c14: gameData.value.character?.c14,
-    c15: gameData.value.character?.c15,
-    c16: gameData.value.character?.c16,
-  };
-
-  return characterStates[props.state] || null;
+  switch (props.state) {
+    case "c1":
+      return store.$state.games[id].character.c1;
+    case "c2":
+      return store.$state.games[id].character.c2;
+    case "c3":
+      return store.$state.games[id].character.c3;
+    case "c4":
+      return store.$state.games[id].character.c4;
+    case "c5":
+      return store.$state.games[id].character.c5;
+    case "c6":
+      return store.$state.games[id].character.c6;
+    case "c7":
+      return store.$state.games[id].character.c7;
+    case "c8":
+      return store.$state.games[id].character.c8;
+    case "c9":
+      return store.$state.games[id].character.c9;
+    case "c10":
+      return store.$state.games[id].character.c10;
+    case "c11":
+      return store.$state.games[id].character.c11;
+    case "c12":
+      return store.$state.games[id].character.c12;
+    case "c13":
+      return store.$state.games[id].character.c13;
+    case "c14":
+      return store.$state.games[id].character.c14;
+    case "c15":
+      return store.$state.games[id].character.c15;
+    case "c16":
+      return store.$state.games[id].character.c16;
+    default:
+      return null;
+  }
 });
-// const model = computed(() => {
-//   switch (props.state) {
-//     case 'bc1':
-//       return store.$state.games[id].ban.bc1;
-//     case 'bc2':
-//       return store.$state.games[id].ban.bc2;
-//     case 'bc3':
-//       return store.$state.games[id].ban.bc3;
-//     case 'bc4':
-//       return store.$state.games[id].ban.bc4;
-//     case 'bl1':
-//       return store.$state.games[id].ban.bl1;
-//     case 'bl2':
-//       return store.$state.games[id].ban.bl2;
-//     case 'c1':
-//       return store.$state.games[id].character.c1;
-//     case 'c2':
-//       return store.$state.games[id].character.c2;
-//     case 'c3':
-//       return store.$state.games[id].character.c3;
-//     case 'c4':
-//       return store.$state.games[id].character.c4;
-//     case 'c5':
-//       return store.$state.games[id].character.c5;
-//     case 'c6':
-//       return store.$state.games[id].character.c6;
-//     case 'c7':
-//       return store.$state.games[id].character.c7;
-//     case 'c8':
-//       return store.$state.games[id].character.c8;
-//     case 'c9':
-//       return store.$state.games[id].character.c9;
-//     case 'c10':
-//       return store.$state.games[id].character.c10;
-//     case 'c11':
-//       return store.$state.games[id].character.c11;
-//     case 'c12':
-//       return store.$state.games[id].character.c12;
-//     case 'c13':
-//       return store.$state.games[id].character.c13;
-//     case 'c14':
-//       return store.$state.games[id].character.c14;
-//     case 'c15':
-//       return store.$state.games[id].character.c15;
-//     case 'c16':
-//       return store.$state.games[id].character.c16;
-//     default:
-//       return null;
-//   }
-// });
-// const model1 = computed(() => {
-//   switch (props.state) {
-//     case 'c1':
-//       return store.$state.games[id].character.c1;
-//     case 'c2':
-//       return store.$state.games[id].character.c2;
-//     case 'c3':
-//       return store.$state.games[id].character.c3;
-//     case 'c4':
-//       return store.$state.games[id].character.c4;
-//     case 'c5':
-//       return store.$state.games[id].character.c5;
-//     case 'c6':
-//       return store.$state.games[id].character.c6;
-//     case 'c7':
-//       return store.$state.games[id].character.c7;
-//     case 'c8':
-//       return store.$state.games[id].character.c8;
-//     case 'c9':
-//       return store.$state.games[id].character.c9;
-//     case 'c10':
-//       return store.$state.games[id].character.c10;
-//     case 'c11':
-//       return store.$state.games[id].character.c11;
-//     case 'c12':
-//       return store.$state.games[id].character.c12;
-//     case 'c13':
-//       return store.$state.games[id].character.c13;
-//     case 'c14':
-//       return store.$state.games[id].character.c14;
-//     case 'c15':
-//       return store.$state.games[id].character.c15;
-//     case 'c16':
-//       return store.$state.games[id].character.c16;
-//     default:
-//       return null;
-//   }
-// });
 const selectCharacter = () => {
   store.updateGameData(
     `${id}`,
-    `${props.isLightCone ? 'lightcone' : 'character'}/${props.state}/img`,
+    `${props.isLightCone ? "lightcone" : "character"}/${props.state}/img`,
     char.value.icon
   );
   store.updateGameData(
     `${id}`,
-    `${props.isLightCone ? 'lightcone' : 'character'}/${props.state}/name`,
+    `${props.isLightCone ? "lightcone" : "character"}/${props.state}/name`,
     char.value.name
   );
   store.updateGameData(
     `${id}`,
-    `${props.isLightCone ? 'lightcone' : 'character'}/${props.state}/path`,
+    `${props.isLightCone ? "lightcone" : "character"}/${props.state}/path`,
     char.value.path
   );
   store.updateGameData(
