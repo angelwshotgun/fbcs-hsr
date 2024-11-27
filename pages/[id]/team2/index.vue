@@ -421,10 +421,11 @@ onMounted(async () => {
   if (store.$state.games && store.$state.games[id]) {
     // Cập nhật selectedStage từ store
     selectedStage.value = store.$state.games[id].stage;
-
     // Load data sau khi có selectedStage
-    await loadData();
   }
+  await fetchCharacters();
+  await fetchLightcones();
+  await fetchLightcones34();
 });
 
 // Sử dụng computed để lấy giá trị từ store, với giá trị mặc định là null
