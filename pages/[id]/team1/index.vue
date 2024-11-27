@@ -335,8 +335,6 @@
 
 <script setup>
 import { useStore } from '~/store/useStore';
-import { ref, computed, watch, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
 
 const store = useStore();
 const route = useRoute();

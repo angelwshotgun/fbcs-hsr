@@ -1,5 +1,5 @@
 <template>
-  <ClientOnly>
+  <ClientOnly v-if="store.$state.games[id]">
     <div
       v-if="!props.isLightCone"
       class="w-full flex flex-col bg-black bg-opacity-40 rounded-md"
