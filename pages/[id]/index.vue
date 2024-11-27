@@ -343,7 +343,6 @@
 
 <script setup>
 import { useStore } from '~/store/useStore';
-
 const team1 = ref('Blue Team');
 const team2 = ref('Red Team');
 const visible = ref(false);
@@ -351,7 +350,6 @@ const route = useRoute();
 const store = useStore();
 const id = route.params.id;
 const link = 'https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/';
-
 const optionStage = [
   {
     label: 'Tầng 12',
@@ -362,42 +360,32 @@ const optionStage = [
     value: 11,
   },
 ];
-
-// Khởi tạo các biến computed và ref với giá trị mặc định
-const selectedStage = ref(null);
-const isDropdownOpen = ref(false);
-const banpick = ref(null);
-const viewData = ref(null);
-
-// Sử dụng onMounted để đảm bảo data được load
-onMounted(() => {
-  // Kiểm tra xem game data đã tồn tại chưa
-  if (store.$state.games && store.$state.games[id]) {
-    // Cập nhật các biến khi data đã load
-    selectedStage.value = store.$state.games[id].stage;
-    banpick.value = store.$state.games[id].banpick;
-    viewData.value = store.$state.games[id].state.data;
-  }
+const selectedStage = computed(() => {
+  return store.$state.games[id]?.stage ?? null;
 });
-
 const resetData = () => {
-  store.resetGameData();
+  store.resetGameData(id);
 };
 
 const changeStage = () => {
   resetData();
-  if (selectedStage.value !== null) {
-    store.updateGameData(`${id}`, 'stage', selectedStage.value);
-  }
+  store.updateGameData(`${id}`, 'stage', selectedStage.value);
 };
 
-// Theo dõi sự thay đổi của banpick
-watch(banpick, (newBanpick) => {
-  if (newBanpick && newBanpick > 22) {
+const isDropdownOpen = ref(false);
+
+const banpick = computed(() => {
+  return store.$state.games[id]?.banpick ?? null;
+});
+watch(banpick, () => {
+  if (banpick.value > 22) {
     isDropdownOpen.value = true;
   } else {
     isDropdownOpen.value = false;
   }
+});
+const viewData = computed(() => {
+  return store.$state.games[id]?.state.data ?? null;
 });
 </script>
 <style scoped>

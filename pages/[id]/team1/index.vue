@@ -184,6 +184,7 @@
         <div class="flex justify-center items-center">
           <Button label="Xem điểm" @click="display = true" />
           <RollButton />
+          <Button label="Xem đội hình" @click="display1 = true" />
         </div>
         <div class="pb-1">
           <BanPickLabel />
@@ -330,6 +331,12 @@
       :characters="characters"
       :light_cones="light_cones"
     />
+    <CompModal
+      :display="display1"
+      @close="display1 = false"
+      :characters="characters"
+      :light_cones="light_cones"
+    />
   </ClientOnly>
 </template>
 
@@ -342,6 +349,7 @@ const id = route.params.id;
 const link = 'https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/';
 
 const display = ref(false);
+const display1 = ref(false);
 const search = ref('');
 
 // Khởi tạo các ref với giá trị ban đầu là null
