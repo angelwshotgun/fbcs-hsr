@@ -1,5 +1,5 @@
 <template>
-  <ClientOnly>
+  <ClientOnly v-if="store.$state.games[id]">
     <div class="flex flex-col md:flex-row justify-between gap-1">
       <div class="w-1/3 flex flex-col gap-1">
         <div class="w-auto flex flex-col gap-1">

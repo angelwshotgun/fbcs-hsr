@@ -1,5 +1,5 @@
 <template>
-  <ClientOnly>
+  <ClientOnly v-if="store.$state.games[id]">
     <div>
       <!-- <video ref="videoPlayer" autoplay loop muted class="absolute top-0 left-0 w-full h-full object-cover -z-10">
         <source :src="urlVideo" type="video/mp4" />

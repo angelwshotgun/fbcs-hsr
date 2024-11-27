@@ -9,11 +9,12 @@
 
     <!-- Rest of your layout -->
     <SharedTopBar />
-    <div class="layout-main-container">
+    <div class="layout-main-container min-h-85vh">
       <div class="layout-main">
         <NuxtPage />
       </div>
     </div>
+    <SharedFootBar />
     <div class="layout-mask animate-fadein" />
     <Toast />
   </div>
