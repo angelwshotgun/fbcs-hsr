@@ -335,6 +335,8 @@
 
 <script setup>
 import { useStore } from '~/store/useStore';
+import { ref, computed, watch, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 
 const store = useStore();
 const route = useRoute();
@@ -342,16 +344,20 @@ const id = route.params.id;
 const link = 'https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/';
 
 const display = ref(false);
-const search = ref();
-const characters = ref();
-const filterCharacters = ref();
-const light_cones = ref();
-const light_cones34 = ref();
+const search = ref('');
+
+// Khởi tạo các ref với giá trị ban đầu là null
+const characters = ref(null);
+const filterCharacters = ref(null);
+const light_cones = ref(null);
+const light_cones34 = ref(null);
 const data = ref(null);
 const isSelected = ref(false);
-const selectedStage = computed(() => {
-  return store.$state.games[id].stage;
-});
+
+// Khởi tạo selectedStage với giá trị null
+const selectedStage = ref(null);
+
+// Các hàm fetch data giữ nguyên
 async function fetchCharacters() {
   try {
     const response = await $fetch('/api/github/readCharacters', {
@@ -372,6 +378,7 @@ async function fetchCharacters() {
     console.error('Error reading file:', err);
   }
 }
+
 async function fetchLightcones() {
   try {
     const response = await $fetch('/api/github/readCharacters', {
@@ -393,31 +400,48 @@ async function fetchLightcones() {
     console.error('Error reading file:', err);
   }
 }
+
 async function fetchLightcones34() {
   const response = await fetch('/api/light_cones');
   const data = await response.json();
   light_cones34.value = Object.values(data);
 }
-const loadData = async () => {
-  await fetchCharacters();
-  await fetchLightcones();
-  await fetchLightcones34();
-};
 
+// Sử dụng onMounted để load data và cập nhật các biến
 onMounted(async () => {
-  await loadData();
+  // Kiểm tra xem game data đã tồn tại chưa
+  if (store.$state.games && store.$state.games[id]) {
+    // Cập nhật selectedStage từ store
+    selectedStage.value = store.$state.games[id].stage;
+
+    // Load data sau khi có selectedStage
+    await fetchCharacters();
+    await fetchLightcones();
+    await fetchLightcones34();
+  }
 });
 
+// Sử dụng computed để lấy giá trị từ store
 const banpick = computed(() => {
-  return store.$state.games[id].banpick;
+  return store.$state.games[id]?.banpick ?? null;
 });
+
 const team = computed(() => {
-  return store.$state.games[id].team;
+  return store.$state.games[id]?.team ?? null;
 });
 
-watch(selectedStage, () => {});
+// Watch selectedStage để load lại data khi stage thay đổi
+watch(selectedStage, async (newStage) => {
+  if (newStage !== null) {
+    await fetchCharacters();
+    await fetchLightcones();
+  }
+});
 
+// Các watch khác giữ nguyên logic
 watch(banpick, (newVal) => {
+  if (!characters.value || !light_cones.value) return;
+
   if (newVal === 9) {
     filterCharacters.value = light_cones.value.filter((item) =>
       item.name.toLowerCase().includes(search.value?.toLowerCase() || '')
@@ -430,6 +454,8 @@ watch(banpick, (newVal) => {
 });
 
 watch(search, (newValue) => {
+  if (!characters.value || !light_cones.value) return;
+
   if (banpick.value === 9) {
     filterCharacters.value = light_cones.value.filter((item) =>
       item.name.toLowerCase().includes(newValue.toLowerCase())
@@ -440,14 +466,16 @@ watch(search, (newValue) => {
     );
   }
 });
+
 const selectCharacter = (item) => {
   if (team.value === 1) {
     data.value = item;
     isSelected.value = true;
   }
 };
+
 const lockCharacter = () => {
-  if (team.value === 1 && isSelected.value == true) {
+  if (team.value === 1 && isSelected.value === true) {
     store.updateGameData(`${id}`, 'banpick', banpick.value + 1);
     store.updateGameData(`${id}`, `state/data/name`, '');
     isSelected.value = false;
