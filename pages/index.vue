@@ -42,12 +42,12 @@
         <InputText
           v-model="view"
           class="h-1/2 cursor-pointer"
-          @click="copyToClipboard(team2)"
+          @click="copyToClipboard(view)"
           :disabled="true"
         />
         <Button
           icon="pi pi-copy"
-          @click="copyToClipboard(team2)"
+          @click="copyToClipboard(view)"
           class="ml-2"
         />
       </div>

@@ -65,6 +65,10 @@ const createDefaultState = () => ({
   team: 1,
   banpick: 1,
   stage: 12,
+  time: {
+    team1: 900,
+    team2: 900
+  }
 });
 
 // Tạo một closure để quản lý unsubscribe functions bên ngoài store

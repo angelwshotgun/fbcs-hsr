@@ -4,16 +4,29 @@
       v-model:visible="visible"
       modal
       header="Xem điểm"
-      :style="{ width: '80rem', height: '80rem' }"
+      :style="{ width: '90rem', height: '80rem' }"
       @hide="closeModal"
     >
       <div class="flex flex-col flex justify-center items-center">
+        <div class="flex justify-center mb-4">
+          <label class="text-4xl bg-primary px-5 rounded">{{
+            (selectedEiloidon[0] ?? 0) +
+            (selectedEiloidon[1] ?? 0) +
+            (selectedEiloidon[2] ?? 0) +
+            (selectedEiloidon[3] ?? 0) +
+            (selectedImpose[0] ?? 0) +
+            (selectedImpose[1] ?? 0) +
+            (selectedImpose[2] ?? 0) +
+            (selectedImpose[3] ?? 0)
+          }}</label>
+          <Button label="Reset" @click="reset()" />
+        </div>
         <div class="flex w-5/6 gap-10 px-50">
           <div
             v-for="index in 4"
             :key="index - 1"
             @click="count = index - 1"
-            class="flex-1 hover:cursor-pointer transition-all duration-300"
+            class="flex-1 hover:cursor-pointer transition-all duration-300 min-w-[25%]"
             :class="[
               count === index - 1
                 ? 'ring-4 ring-blue-500 rounded-lg shadow-lg scale-105 neon-border'
@@ -31,6 +44,34 @@
             <div class="text-center mt-2 font-medium">
               {{ char[index - 1].name ?? '' }}
             </div>
+            <Select
+              v-model="selectedEiloidon[index - 1]"
+              :options="char[index - 1].point"
+              class="w-1/3 mt-2"
+            >
+            </Select>
+
+            <Select
+              v-model="selectedLightcone[index - 1]"
+              :options="light_cones"
+              option-label="name"
+              filter
+              class="w-1/3 mt-2"
+              @before-hide="
+                selectedImpose[index - 1] =
+                  selectedLightcone[index - 1]?.point[0];
+                console.log(selectedImpose[index - 1]);
+              "
+            >
+            </Select>
+
+            <Select
+              v-if="selectedLightcone[index - 1]?.point"
+              v-model="selectedImpose[index - 1]"
+              :options="selectedLightcone[index - 1]?.point"
+              class="w-1/3 mt-2"
+            >
+            </Select>
           </div>
         </div>
       </div>
@@ -145,6 +186,8 @@ const reset = () => {
 };
 const select = (item) => {
   char.value[count.value] = item;
+  selectedEiloidon.value[count.value] = item.point[0];
+  selectedLightcone.value[count.value] = null;
   if (
     char.value[0].name == '' ||
     char.value[1].name == '' ||
@@ -158,12 +201,16 @@ const select = (item) => {
 };
 </script>
 
-<style>
+<style lang="scss">
 .neon-border {
   border: 1px solid rgba(0, 255, 255, 0.5);
   box-shadow: rgb(255, 255, 255) 0px 0px 0.2rem,
     rgb(255, 255, 255) 0px 0px 0.1rem, rgba(0, 255, 255, 0.5) 0px 0px 1rem,
     rgba(0, 255, 255, 0.5) 0px 0px 0.4rem, rgba(0, 255, 255, 0.5) 0px 0px 1rem,
     rgba(0, 255, 255, 0.5) 0px 0px 0.7rem inset;
+}
+.p-dialog-content {
+  background-color: #2c2c2c;
+  color: white;
 }
 </style>

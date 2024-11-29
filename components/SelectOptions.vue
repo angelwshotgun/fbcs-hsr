@@ -203,10 +203,11 @@ watch(props, () => {
   characters.value = props.characters;
   light_cones.value = props.light_cones;
   light_cones34.value = props.light_cones34;
-  if (light_cones34.value && light_cones.value) {
-    const data = [...light_cones.value, ...light_cones34.value].map(item => ({...item}));
-    filterLightcones.value = data;
-  }
+  // if (light_cones34.value && light_cones.value) {
+  //   const data = [...light_cones.value, ...light_cones34.value].map(item => ({...item}));
+  //   filterLightcones.value = data;
+  // }
+  filterLightcones.value = light_cones.value;
 })
 onMounted(async () => {
 });

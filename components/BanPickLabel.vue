@@ -19,8 +19,9 @@
 
 <script setup>
 import { useStore } from "~/store/useStore";
+const route = useRoute();
 const store = useStore();
-
+const id = route.params.id;
 const isTeamBlue = ref(true);
 const isDraw = ref(false);
 
@@ -28,48 +29,48 @@ onMounted(() => {
 });
 
 const banpick = computed(() => {
-  return store.$state.banpick;
+  return store.$state.games[id]?.banpick ?? null;
 });
 
 const bluetotal = computed(() => {
   return (
-    store.$state.state.point.bluep.char[0] +
-    store.$state.state.point.bluep.char[1] +
-    store.$state.state.point.bluep.char[2] +
-    store.$state.state.point.bluep.char[3] +
-    store.$state.state.point.bluep.char[4] +
-    store.$state.state.point.bluep.char[5] +
-    store.$state.state.point.bluep.char[6] +
-    store.$state.state.point.bluep.char[7] +
-    store.$state.state.point.bluep.lc[0] +
-    store.$state.state.point.bluep.lc[1] +
-    store.$state.state.point.bluep.lc[2] +
-    store.$state.state.point.bluep.lc[3] +
-    store.$state.state.point.bluep.lc[4] +
-    store.$state.state.point.bluep.lc[5] +
-    store.$state.state.point.bluep.lc[6] +
-    store.$state.state.point.bluep.lc[7]
+    store.$state.state.games[id].point.bluep.char[0] +
+    store.$state.state.games[id].point.bluep.char[1] +
+    store.$state.state.games[id].point.bluep.char[2] +
+    store.$state.state.games[id].point.bluep.char[3] +
+    store.$state.state.games[id].point.bluep.char[4] +
+    store.$state.state.games[id].point.bluep.char[5] +
+    store.$state.state.games[id].point.bluep.char[6] +
+    store.$state.state.games[id].point.bluep.char[7] +
+    store.$state.state.games[id].point.bluep.lc[0] +
+    store.$state.state.games[id].point.bluep.lc[1] +
+    store.$state.state.games[id].point.bluep.lc[2] +
+    store.$state.state.games[id].point.bluep.lc[3] +
+    store.$state.state.games[id].point.bluep.lc[4] +
+    store.$state.state.games[id].point.bluep.lc[5] +
+    store.$state.state.games[id].point.bluep.lc[6] +
+    store.$state.state.games[id].point.bluep.lc[7]
   );
 });
 
 const redtotal = computed(() => {
   return (
-    store.$state.state.point.redp.char[0] +
-    store.$state.state.point.redp.char[1] +
-    store.$state.state.point.redp.char[2] +
-    store.$state.state.point.redp.char[3] +
-    store.$state.state.point.redp.char[4] +
-    store.$state.state.point.redp.char[5] +
-    store.$state.state.point.redp.char[6] +
-    store.$state.state.point.redp.char[7] +
-    store.$state.state.point.redp.lc[0] +
-    store.$state.state.point.redp.lc[1] +
-    store.$state.state.point.redp.lc[2] +
-    store.$state.state.point.redp.lc[3] +
-    store.$state.state.point.redp.lc[4] +
-    store.$state.state.point.redp.lc[5] +
-    store.$state.state.point.redp.lc[6] +
-    store.$state.state.point.redp.lc[7]
+    store.$state.state.games[id].point.redp.char[0] +
+    store.$state.state.games[id].point.redp.char[1] +
+    store.$state.state.games[id].point.redp.char[2] +
+    store.$state.state.games[id].point.redp.char[3] +
+    store.$state.state.games[id].point.redp.char[4] +
+    store.$state.state.games[id].point.redp.char[5] +
+    store.$state.state.games[id].point.redp.char[6] +
+    store.$state.state.games[id].point.redp.char[7] +
+    store.$state.state.games[id].point.redp.lc[0] +
+    store.$state.state.games[id].point.redp.lc[1] +
+    store.$state.state.games[id].point.redp.lc[2] +
+    store.$state.state.games[id].point.redp.lc[3] +
+    store.$state.state.games[id].point.redp.lc[4] +
+    store.$state.state.games[id].point.redp.lc[5] +
+    store.$state.state.games[id].point.redp.lc[6] +
+    store.$state.state.games[id].point.redp.lc[7]
   );
 });
 
