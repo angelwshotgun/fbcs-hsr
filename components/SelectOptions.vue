@@ -42,7 +42,6 @@
           option-value="value"
           filter
           class="col-span-1"
-          :disabled="banpick > 22"
           @change="changeEiloidon()"
         />
         <Select
