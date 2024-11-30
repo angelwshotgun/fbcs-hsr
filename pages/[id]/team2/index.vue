@@ -108,7 +108,7 @@
       <div class="w-1/3">
         <div class="flex justify-center items-center">
           <Button label="Xem điểm" @click="display = true" />
-          <RollButton />
+          <TimerView />
         </div>
         <div class="pb-1">
           <BanPickLabel />

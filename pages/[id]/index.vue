@@ -155,7 +155,7 @@
         </div>
         <div class="w-1/4 flex flex-col items-center">
           <div class="flex items-center justify-center gap-1">
-            <RollButton class="ml-15" />
+            <TimerView class="ml-15" />
             <Button
               label="Edit"
               @click="visible = true"
