@@ -357,6 +357,16 @@ const isSelected = ref(false);
 
 // Khởi tạo selectedStage với giá trị null
 const selectedStage = ref(null);
+const stage = computed(() => {
+  return store.$state.games[id]?.stage ?? null;
+});
+watch(stage, (newVal) => {
+  if (stage.value) {
+    selectedStage.value = newVal;
+    fetchLightcones();
+    fetchCharacters();
+  }
+});
 
 // Các hàm fetch data giữ nguyên logic
 async function fetchCharacters() {
@@ -418,11 +428,8 @@ const loadData = async () => {
 
 // Sử dụng onMounted để load data và cập nhật các biến
 onMounted(async () => {
-  // Kiểm tra xem game data đã tồn tại chưa
   if (store.$state.games && store.$state.games[id]) {
-    // Cập nhật selectedStage từ store
     selectedStage.value = store.$state.games[id].stage;
-    // Load data sau khi có selectedStage
   }
   await fetchCharacters();
   await fetchLightcones();

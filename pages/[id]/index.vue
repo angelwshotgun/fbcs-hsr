@@ -360,17 +360,22 @@ const optionStage = [
     value: 11,
   },
 ];
-const selectedStage = computed(() => {
+const selectedStage = ref(12);
+const stage = computed(() => {
   return store.$state.games[id]?.stage ?? null;
 });
 const resetData = () => {
   store.resetGameData(id);
 };
-
 const changeStage = () => {
   resetData();
   store.updateGameData(`${id}`, 'stage', selectedStage.value);
 };
+watch(stage, (newVal) => {
+  if (stage.value) {
+    selectedStage.value = newVal;
+  }
+});
 
 const isDropdownOpen = ref(false);
 

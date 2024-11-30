@@ -352,7 +352,6 @@ const display = ref(false);
 const display1 = ref(false);
 const search = ref('');
 
-// Khởi tạo các ref với giá trị ban đầu là null
 const characters = ref(null);
 const filterCharacters = ref(null);
 const light_cones = ref(null);
@@ -360,10 +359,18 @@ const light_cones34 = ref(null);
 const data = ref(null);
 const isSelected = ref(false);
 
-// Khởi tạo selectedStage với giá trị null
 const selectedStage = ref(null);
-
-// Các hàm fetch data giữ nguyên
+const stage = computed(() => {
+  return store.$state.games[id]?.stage ?? null;
+});
+watch(stage, (newVal) => {
+  if (stage.value) {
+    selectedStage.value = newVal;
+    console.log(selectedStage.value);
+    fetchLightcones();
+    fetchCharacters();
+  }
+});
 async function fetchCharacters() {
   try {
     const response = await $fetch('/api/github/readCharacters', {
@@ -414,13 +421,9 @@ async function fetchLightcones34() {
   light_cones34.value = Object.values(data);
 }
 
-// Sử dụng onMounted để load data và cập nhật các biến
 onMounted(async () => {
-  // Kiểm tra xem game data đã tồn tại chưa
   if (store.$state.games && store.$state.games[id]) {
-    // Cập nhật selectedStage từ store
     selectedStage.value = store.$state.games[id].stage;
-    // Load data sau khi có selectedStage
   }
   await fetchCharacters();
   await fetchLightcones();
