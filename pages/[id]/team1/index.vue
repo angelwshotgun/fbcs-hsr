@@ -217,7 +217,7 @@
           </div>
         </div>
         <div class="flex justify-center mt-5">
-          <Button label="Khóa" class="w-1/4" @click="lockCharacter" />
+          <Button :severity="team === 1 && isSelected === true ? '' : 'secondary'" label="Khóa" class="w-1/4" @click="lockCharacter" />
         </div>
       </div>
       <div class="w-1/3 flex flex-col gap-1">
@@ -414,11 +414,11 @@ async function fetchLightcones() {
   }
 }
 
-async function fetchLightcones34() {
-  const response = await fetch('/api/light_cones');
-  const data = await response.json();
-  light_cones34.value = Object.values(data);
-}
+// async function fetchLightcones34() {
+//   const response = await fetch('/api/light_cones');
+//   const data = await response.json();
+//   light_cones34.value = Object.values(data);
+// }
 
 onMounted(async () => {
   if (store.$state.games && store.$state.games[id]) {
@@ -426,7 +426,7 @@ onMounted(async () => {
   }
   await fetchCharacters();
   await fetchLightcones();
-  await fetchLightcones34();
+  // await fetchLightcones34();
 });
 
 // Sử dụng computed để lấy giá trị từ store

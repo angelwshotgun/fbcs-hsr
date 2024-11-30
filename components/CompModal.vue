@@ -142,23 +142,6 @@ const closeModal = () => {
   emit('close');
 };
 
-const filteredCharacters = computed(() => {
-  if (!characters.value) return [];
-  return characters.value.filter((character) =>
-    character.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-  );
-});
-
-const filteredLightCones = computed(() => {
-  if (!light_cones.value) return [];
-  return light_cones.value.filter((lightCone) =>
-    lightCone.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-  );
-});
-
-watch(selectedStage, () => {
-  loadData();
-});
 watch(
   () => props.display,
   (newVal) => {

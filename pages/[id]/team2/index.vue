@@ -108,7 +108,8 @@
       <div class="w-1/3">
         <div class="flex justify-center items-center">
           <Button label="Xem điểm" @click="display = true" />
-          <TimerView />
+          <TimerPlayer/>
+          <Button label="Xem đội hình" @click="display1 = true" />
         </div>
         <div class="pb-1">
           <BanPickLabel />
@@ -140,7 +141,7 @@
           </div>
         </div>
         <div class="flex justify-center mt-5">
-          <Button label="Khóa" class="w-1/4" @click="lockCharacter" />
+          <Button :severity="team === 2 && isSelected === true ? '' : 'secondary'" label="Khóa" class="w-1/4" @click="lockCharacter" />
         </div>
       </div>
       <div class="w-1/3 flex flex-col gap-1">
@@ -331,13 +332,17 @@
       :filterCharacters="filterCharacters"
       :light_cones="light_cones"
     />
+    <CompModal
+      :display="display1"
+      @close="display1 = false"
+      :characters="characters"
+      :light_cones="light_cones"
+    />
   </ClientOnly>
 </template>
 
 <script setup>
 import { useStore } from '~/store/useStore';
-import { ref, computed, watch, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
 
 const store = useStore();
 const route = useRoute();
@@ -345,6 +350,7 @@ const id = route.params.id;
 const link = 'https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/';
 
 const display = ref(false);
+const display1 = ref(false);
 const search = ref('');
 
 // Khởi tạo các ref với giá trị ban đầu là null
@@ -413,17 +419,17 @@ async function fetchLightcones() {
   }
 }
 
-async function fetchLightcones34() {
-  const response = await fetch('/api/light_cones');
-  const data = await response.json();
-  light_cones34.value = Object.values(data);
-}
+// async function fetchLightcones34() {
+//   const response = await fetch('/api/light_cones');
+//   const data = await response.json();
+//   light_cones34.value = Object.values(data);
+// }
 
 // Hàm load data
 const loadData = async () => {
   await fetchCharacters();
   await fetchLightcones();
-  await fetchLightcones34();
+  // await fetchLightcones34();
 };
 
 // Sử dụng onMounted để load data và cập nhật các biến
@@ -433,7 +439,7 @@ onMounted(async () => {
   }
   await fetchCharacters();
   await fetchLightcones();
-  await fetchLightcones34();
+  // await fetchLightcones34();
 });
 
 // Sử dụng computed để lấy giá trị từ store, với giá trị mặc định là null

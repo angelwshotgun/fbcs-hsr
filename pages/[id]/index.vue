@@ -154,15 +154,15 @@
           </div>
         </div>
         <div class="w-1/4 flex flex-col items-center">
-          <div class="flex items-center justify-center gap-1">
-            <TimerView class="ml-15" />
-            <Button
+          <Button
               label="Edit"
               @click="visible = true"
               class="w-1/2"
               severity="contrast"
               :outlined="true"
             />
+          <div class="flex items-center justify-center gap-1">
+            <TimerView class="ml-15" />
           </div>
           <BanPickLabel class="mb-2" />
           <div class="overflow-y-auto h-[60vh]" v-show="isDropdownOpen">

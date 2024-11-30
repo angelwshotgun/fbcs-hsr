@@ -4,11 +4,15 @@
       <div class="box1 flex items-center justify-center bg-primary gap-5">
         <div class="flex flex-col items-center">
           <label>Team 1</label>
-          <label>{{ secondsToTime(timerTeam1) }}</label>
+          <label :class="{ 'animate-pulse text-red-500': team1 < 15 }">{{
+            secondsToTime(timerTeam1)
+          }}</label>
         </div>
         <div class="flex flex-col items-center">
           <label>Team 2</label>
-          <label>{{ secondsToTime(timerTeam2) }}</label>
+          <label :class="{ 'animate-pulse text-red-500': team2 < 15 }">{{
+            secondsToTime(timerTeam2)
+          }}</label>
         </div>
       </div>
     </div>
@@ -61,38 +65,40 @@ function secondsToTime(totalSeconds) {
 
 watch(team1, (newTime) => {
   timerTeam1.value = newTime;
+  if (newTime === 0) {
+    console.log('0');
+    clearInterval(intervalIdTeam1);
+  }
 });
 watch(team2, (newTime) => {
   timerTeam2.value = newTime;
+  if (newTime === 0) {
+    console.log('0');
+    clearInterval(intervalIdTeam2);
+  }
 });
 
 watch(team, (newVal) => {
   if (newVal === 1 && banpick.value > 1) {
-    clearInterval(intervalIdTeam2);
+    if (banpick.value <= 22) {
+      clearInterval(intervalIdTeam2);
+      console.log('clear');
+    }
     intervalIdTeam1 = setInterval(() => {
-      console.log(timerTeam1.value);
       const currentTime = timerTeam1.value;
       const newTime = currentTime - 1;
       store.updateGameData(`${id}`, 'time/team1', newTime);
-      console.log(newTime);
     }, 1000);
   } else if (newVal === 2 && banpick.value > 1) {
-    clearInterval(intervalIdTeam1);
+    if (banpick.value <= 21) {
+      clearInterval(intervalIdTeam1);
+      console.log('clear');
+    }
     intervalIdTeam2 = setInterval(() => {
-      console.log(timerTeam2.value);
       const currentTime = timerTeam2.value;
       const newTime = currentTime - 1;
-      console.log(timerTeam2.value);
       store.updateGameData(`${id}`, 'time/team2', newTime);
-      console.log(newTime);
     }, 1000);
-  }
-});
-
-watch(banpick, (newVal) => {
-  if (newVal > 22) {
-    clearInterval(intervalIdTeam1);
-    clearInterval(intervalIdTeam2);
   }
 });
 </script>
