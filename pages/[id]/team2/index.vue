@@ -108,7 +108,7 @@
       <div class="w-1/3">
         <div class="flex justify-center items-center">
           <Button label="Xem điểm" @click="display = true" />
-          <TimerPlayer/>
+          <TimerPlayer />
           <Button label="Xem đội hình" @click="display1 = true" />
         </div>
         <div class="pb-1">
@@ -128,20 +128,37 @@
               class="flex flex-col items-center bg-primary rounded overflow-hidden"
             >
               <div class="w-full pb-[100%] relative">
-                <NuxtImg
-                  :src="link + item.preview"
-                  :alt="item.name"
-                  class="absolute top-0 left-1/2 -translate-x-1/2 w-[150%] h-[150%] object-cover transition-transform duration-200 ease-in-out"
-                  @click="selectCharacter(item)"
-                  @mouseenter="$event.target.classList.add('scale-110')"
-                  @mouseleave="$event.target.classList.remove('scale-110')"
-                />
+                <div v-if="!charactersFilter.includes(item.name)">
+                  <NuxtImg
+                    v-if="item.preview !== ''"
+                    :src="link + item.preview"
+                    :alt="item.name"
+                    class="absolute top-0 left-1/2 -translate-x-1/2 w-[150%] h-[150%] object-cover transition-transform duration-200 ease-in-out"
+                    @click="selectCharacter(item)"
+                    @mouseenter="$event.target.classList.add('scale-110')"
+                    @mouseleave="$event.target.classList.remove('scale-110')"
+                  />
+                </div>
+                <div v-else>
+                  <NuxtImg
+                    v-if="item.preview !== ''"
+                    :src="link + item.preview"
+                    :alt="item.name"
+                    style="filter: grayscale(100%)"
+                    class="absolute top-0 left-1/2 -translate-x-1/2 w-[150%] h-[150%] object-cover transition-transform duration-200 ease-in-out"
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div class="flex justify-center mt-5">
-          <Button :severity="team === 2 && isSelected === true ? '' : 'secondary'" label="Khóa" class="w-1/4" @click="lockCharacter" />
+          <Button
+            :severity="team === 2 && isSelected === true ? '' : 'secondary'"
+            label="Khóa"
+            class="w-1/4"
+            @click="lockCharacter"
+          />
         </div>
       </div>
       <div class="w-1/3 flex flex-col gap-1">
@@ -342,16 +359,16 @@
 </template>
 
 <script setup>
-import { useStore } from '~/store/useStore';
+import { useStore } from "~/store/useStore";
 
 const store = useStore();
 const route = useRoute();
 const id = route.params.id;
-const link = 'https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/';
+const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
 
 const display = ref(false);
 const display1 = ref(false);
-const search = ref('');
+const search = ref("");
 
 // Khởi tạo các ref với giá trị ban đầu là null
 const characters = ref(null);
@@ -366,6 +383,30 @@ const selectedStage = ref(null);
 const stage = computed(() => {
   return store.$state.games[id]?.stage ?? null;
 });
+const charactersFilter = computed(() => {
+  return [
+    store.$state.games[id]?.character.c1.name ?? null,
+    store.$state.games[id]?.character.c2.name ?? null,
+    store.$state.games[id]?.character.c3.name ?? null,
+    store.$state.games[id]?.character.c4.name ?? null,
+    store.$state.games[id]?.character.c5.name ?? null,
+    store.$state.games[id]?.character.c6.name ?? null,
+    store.$state.games[id]?.character.c7.name ?? null,
+    store.$state.games[id]?.character.c8.name ?? null,
+    store.$state.games[id]?.character.c9.name ?? null,
+    store.$state.games[id]?.character.c10.name ?? null,
+    store.$state.games[id]?.character.c11.name ?? null,
+    store.$state.games[id]?.character.c12.name ?? null,
+    store.$state.games[id]?.character.c13.name ?? null,
+    store.$state.games[id]?.character.c14.name ?? null,
+    store.$state.games[id]?.character.c15.name ?? null,
+    store.$state.games[id]?.character.c16.name ?? null,
+    store.$state.games[id]?.ban.bc1.name ?? null,
+    store.$state.games[id]?.ban.bc2.name ?? null,
+    store.$state.games[id]?.ban.bc3.name ?? null,
+    store.$state.games[id]?.ban.bc4.name ?? null,
+  ];
+});
 watch(stage, (newVal) => {
   if (stage.value) {
     selectedStage.value = newVal;
@@ -377,13 +418,13 @@ watch(stage, (newVal) => {
 // Các hàm fetch data giữ nguyên logic
 async function fetchCharacters() {
   try {
-    const response = await $fetch('/api/github/readCharacters', {
-      method: 'POST',
+    const response = await $fetch("/api/github/readCharacters", {
+      method: "POST",
       body: {
-        action: 'readFile',
-        owner: 'angelwshotgun',
-        repo: 'DataStore',
-        path: `data/characters${selectedStage.value === 11 ? '11' : ''}.json`,
+        action: "readFile",
+        owner: "angelwshotgun",
+        repo: "DataStore",
+        path: `data/characters${selectedStage.value === 11 ? "11" : ""}.json`,
       },
     });
     if (response.error) {
@@ -392,19 +433,19 @@ async function fetchCharacters() {
     characters.value = Object.values(response.content);
     filterCharacters.value = Object.values(response.content);
   } catch (err) {
-    console.error('Error reading file:', err);
+    console.error("Error reading file:", err);
   }
 }
 
 async function fetchLightcones() {
   try {
-    const response = await $fetch('/api/github/readCharacters', {
-      method: 'POST',
+    const response = await $fetch("/api/github/readCharacters", {
+      method: "POST",
       body: {
-        action: 'readFile',
-        owner: 'angelwshotgun',
-        repo: 'DataStore',
-        path: `data/light_cones${selectedStage.value === 11 ? '11' : ''}.json`,
+        action: "readFile",
+        owner: "angelwshotgun",
+        repo: "DataStore",
+        path: `data/light_cones${selectedStage.value === 11 ? "11" : ""}.json`,
       },
     });
     if (response.error) {
@@ -415,7 +456,7 @@ async function fetchLightcones() {
     //   (item) => item.rarity === 5
     // );
   } catch (err) {
-    console.error('Error reading file:', err);
+    console.error("Error reading file:", err);
   }
 }
 
@@ -465,11 +506,11 @@ watch(banpick, (newVal) => {
 
   if (newVal === 10) {
     filterCharacters.value = light_cones.value.filter((item) =>
-      item.name.toLowerCase().includes(search.value?.toLowerCase() || '')
+      item.name.toLowerCase().includes(search.value?.toLowerCase() || "")
     );
   } else {
     filterCharacters.value = characters.value.filter((item) =>
-      item.name.toLowerCase().includes(search.value?.toLowerCase() || '')
+      item.name.toLowerCase().includes(search.value?.toLowerCase() || "")
     );
   }
 });
@@ -498,8 +539,8 @@ const selectCharacter = (item) => {
 
 const lockCharacter = () => {
   if (team.value === 2 && isSelected.value === true) {
-    store.updateGameData(`${id}`, 'banpick', banpick.value + 1);
-    store.updateGameData(`${id}`, `state/data/name`, '');
+    store.updateGameData(`${id}`, "banpick", banpick.value + 1);
+    store.updateGameData(`${id}`, `state/data/name`, "");
     isSelected.value = false;
   }
 };
