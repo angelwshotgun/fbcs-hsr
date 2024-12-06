@@ -1,10 +1,10 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed } from 'vue';
 
 const fileContent = ref(null);
-const selectedPath = ref("");
-const selectedVersion = ref("12"); // New ref for version selection
-const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
+const selectedPath = ref('');
+const selectedVersion = ref('12'); // New ref for version selection
+const link = 'https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/';
 const error = ref(null);
 
 const uniquePaths = computed(() => {
@@ -31,10 +31,12 @@ async function readFile() {
       method: 'POST',
       body: {
         action: 'readFile',
-        owner: "angelwshotgun",
-        repo: "DataStore",
-        path: `data/light_cones${selectedVersion.value === "11" ? "11" : ""}.json`
-      }
+        owner: 'angelwshotgun',
+        repo: 'DataStore',
+        path: `data/light_cones${
+          selectedVersion.value === '11' ? '11' : ''
+        }.json`,
+      },
     });
     if (response.error) {
       throw new Error(response.error);
@@ -42,7 +44,7 @@ async function readFile() {
     fileContent.value = response.content;
     console.log(fileContent.value);
   } catch (err) {
-    console.error("Error reading file:", err);
+    console.error('Error reading file:', err);
     error.value = err.message;
   }
 }
@@ -54,19 +56,21 @@ async function writeFile() {
       method: 'POST',
       body: {
         action: 'writeFile',
-        owner: "angelwshotgun",
-        repo: "DataStore",
-        path: `data/light_cones${selectedVersion.value === "11" ? "11" : ""}.json`,
+        owner: 'angelwshotgun',
+        repo: 'DataStore',
+        path: `data/light_cones${
+          selectedVersion.value === '11' ? '11' : ''
+        }.json`,
         content: JSON.stringify(fileContent.value, null, 2),
-        message: "Update file"
-      }
+        message: 'Update file',
+      },
     });
     if (response.error) {
       throw new Error(response.error);
     }
-    console.log("File written successfully");
+    console.log('File written successfully');
   } catch (err) {
-    console.error("Error writing file:", err);
+    console.error('Error writing file:', err);
     error.value = err.message;
   }
 }
@@ -80,8 +84,13 @@ async function writeFile() {
           <option value="12">Tầng 12</option>
           <option value="11">Tầng 11</option>
         </select>
-        <Button @click="readFile" label="Read File" class="h-1/2"/>
-        <Button @click="writeFile" label="Write File" class="h-1/2"/>
+        <Button @click="readFile" label="Read File" class="h-1/2" />
+        <Button
+          :disable="fileContent === null"
+          @click="writeFile"
+          label="Write File"
+          class="h-1/2"
+        />
       </div>
       <div v-if="fileContent">
         <h2>Lọc theo vận mệnh:</h2>

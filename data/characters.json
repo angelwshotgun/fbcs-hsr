@@ -7,13 +7,13 @@
     "path": "Knight",
     "element": "Ice",
     "point": [
-      -2,
-      -2,
-      -2,
-      -2,
-      -2,
-      -2,
-      -2
+      -4,
+      -4,
+      -4,
+      -4,
+      -4,
+      -4,
+      -4
     ],
     "icon": "icon/character/1001.png",
     "preview": "image/character_preview/1001.png",
@@ -67,8 +67,8 @@
     "path": "Warlock",
     "element": "Imaginary",
     "point": [
-      -2,
-      -2,
+      -3,
+      3,
       0,
       0,
       0,
@@ -87,10 +87,10 @@
     "path": "Warlock",
     "element": "Thunder",
     "point": [
-      3,
+      2,
+      4,
       5,
-      6,
-      6,
+      5,
       0,
       0,
       0
@@ -230,13 +230,13 @@
     "preview": "image/character_preview/1103.png",
     "portrait": "image/character_portrait/1103.png",
     "point": [
+      -2,
+      -2,
+      -2,
+      -2,
       0,
       0,
-      0,
-      0,
-      0,
-      0,
-      1
+      0
     ]
   },
   "1104": {
@@ -250,13 +250,13 @@
     "preview": "image/character_preview/1104.png",
     "portrait": "image/character_portrait/1104.png",
     "point": [
+      -3,
+      -3,
+      -3,
+      -3,
       -2,
       -2,
-      -1,
-      -1,
-      0,
-      0,
-      0
+      -2
     ]
   },
   "1105": {
@@ -270,13 +270,13 @@
     "preview": "image/character_preview/1105.png",
     "portrait": "image/character_portrait/1105.png",
     "point": [
-      -2,
-      -2,
-      -2,
-      -2,
-      -2,
-      -2,
-      -2
+      -4,
+      -4,
+      -4,
+      -4,
+      -4,
+      -4,
+      -4
     ]
   },
   "1106": {
@@ -291,12 +291,12 @@
     "portrait": "image/character_portrait/1106.png",
     "point": [
       0,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
     ]
   },
   "1107": {
@@ -490,10 +490,10 @@
     "preview": "image/character_preview/1204.png",
     "portrait": "image/character_portrait/1204.png",
     "point": [
+      2,
+      3,
+      3,
       4,
-      5,
-      5,
-      5,
       0,
       0,
       0
@@ -630,13 +630,13 @@
     "preview": "image/character_preview/1211.png",
     "portrait": "image/character_portrait/1211.png",
     "point": [
-      0,
-      0,
-      0,
-      0,
-      1,
-      1,
-      1
+      -2,
+      -2,
+      -2,
+      -2,
+      -1,
+      -1,
+      -1
     ]
   },
   "1212": {
@@ -671,9 +671,9 @@
     "portrait": "image/character_portrait/1213.png",
     "point": [
       3,
-      4,
-      7,
       5,
+      7,
+      7,
       0,
       0,
       0
@@ -710,13 +710,13 @@
     "preview": "image/character_preview/1215.png",
     "portrait": "image/character_portrait/1215.png",
     "point": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
     ]
   },
   "1217": {
@@ -750,10 +750,10 @@
     "preview": "image/character_preview/1218.png",
     "portrait": "image/character_portrait/1218.png",
     "point": [
-      3,
-      5,
+      4,
       6,
-      6,
+      7,
+      7,
       0,
       0,
       0
@@ -770,10 +770,10 @@
     "preview": "image/character_preview/1220.png",
     "portrait": "image/character_portrait/1220.png",
     "point": [
-      8,
-      12,
-      15,
-      15,
+      6,
+      10,
+      14,
+      14,
       0,
       0,
       0
@@ -810,10 +810,10 @@
     "preview": "image/character_preview/1222.png",
     "portrait": "image/character_portrait/1222.png",
     "point": [
-      5,
+      4,
+      7,
       8,
-      9,
-      9,
+      8,
       0,
       0,
       0
@@ -834,9 +834,9 @@
       1,
       1,
       2,
-      2,
-      2,
-      2
+      3,
+      3,
+      3
     ]
   },
   "1224": {
@@ -850,33 +850,13 @@
     "preview": "image/character_preview/1224.png",
     "portrait": "image/character_portrait/1224.png",
     "point": [
-      2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2
-    ]
-  },
-  "1225": {
-    "id": "1225",
-    "name": "Fugue",
-    "tag": "fugue",
-    "rarity": 5,
-    "path": "Warlock",
-    "element": "Fire",
-    "icon": "icon/character/1225.png",
-    "preview": "image/character_preview/1225.png",
-    "portrait": "image/character_portrait/1225.png",
-    "point": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
     ]
   },
   "1301": {
@@ -890,13 +870,13 @@
     "preview": "image/character_preview/1301.png",
     "portrait": "image/character_portrait/1301.png",
     "point": [
-      0,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2
+      1,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
     ]
   },
   "1302": {
@@ -970,10 +950,10 @@
     "preview": "image/character_preview/1305.png",
     "portrait": "image/character_portrait/1305.png",
     "point": [
-      2,
       3,
       4,
-      4,
+      5,
+      5,
       0,
       0,
       0
@@ -1010,7 +990,7 @@
     "preview": "image/character_preview/1307.png",
     "portrait": "image/character_portrait/1307.png",
     "point": [
-      3,
+      2,
       5,
       5,
       5,
@@ -1030,10 +1010,10 @@
     "preview": "image/character_preview/1308.png",
     "portrait": "image/character_portrait/1308.png",
     "point": [
-      7,
-      9,
-      15,
-      15,
+      6,
+      8,
+      13,
+      13,
       0,
       0,
       0
@@ -1070,10 +1050,10 @@
     "preview": "image/character_preview/1310.png",
     "portrait": "image/character_portrait/1310.png",
     "point": [
-      3,
-      6,
-      11,
-      11,
+      2,
+      5,
+      9,
+      9,
       0,
       0,
       0
@@ -1110,10 +1090,10 @@
     "preview": "image/character_preview/1313.png",
     "portrait": "image/character_portrait/1313.png",
     "point": [
-      -3,
-      -3,
-      -3,
-      -3,
+      5,
+      10,
+      11,
+      11,
       -3,
       -3,
       -3
@@ -1150,10 +1130,10 @@
     "preview": "image/character_preview/1315.png",
     "portrait": "image/character_portrait/1315.png",
     "point": [
-      3,
+      2,
+      5,
       6,
-      8,
-      8,
+      6,
       0,
       0,
       0
@@ -1170,10 +1150,10 @@
     "preview": "image/character_preview/1317.png",
     "portrait": "image/character_portrait/1317.png",
     "point": [
-      8,
-      12,
-      13,
-      13,
+      6,
+      9,
+      11,
+      11,
       0,
       0,
       0
@@ -1210,13 +1190,13 @@
     "preview": "image/character_preview/8003.png",
     "portrait": "image/character_portrait/8003.png",
     "point": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
+      -4,
+      -4,
+      -4,
+      -4,
+      -4,
+      -4,
+      -4
     ]
   },
   "8006": {
@@ -1230,13 +1210,13 @@
     "preview": "image/character_preview/8006.png",
     "portrait": "image/character_portrait/8006.png",
     "point": [
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
     ]
   }
 }

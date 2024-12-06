@@ -112,7 +112,7 @@ import { useStore } from "~/store/useStore";
 
 const route = useRoute();
 const store = useStore();
-const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
+const link = "/";
 
 const props = defineProps({
   isBan: Boolean,

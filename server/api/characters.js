@@ -1,18 +1,43 @@
+import { readFile, writeFile } from "fs/promises";
+import { join } from "path";
+
+const filePath = join(process.cwd(), "data/characters.json");
+
 export default defineEventHandler(async (event) => {
-  // URL to the remote JSON file
-  const url = 'https://raw.githubusercontent.com/angelwshotgun/fbcs-hsr/refs/heads/main/data/characters.json';
+  const method = getMethod(event);
 
-  try {
-    const response = await fetch(url);
-
-    // Check if the response is OK (status code 200)
-    if (!response.ok) {
-      throw new Error('Failed to fetch data');
+  if (method === "GET") {
+    // Đọc dữ liệu từ file JSON
+    try {
+      const data = await readFile(filePath, "utf-8");
+      return JSON.parse(data);
+    } catch (error) {
+      throw createError({ statusCode: 500, statusMessage: "Error reading file" });
     }
-
-    const data = await response.json();
-    return data; // Return the parsed JSON data
-  } catch (error) {
-    return { error: 'Failed to fetch data' };
   }
+
+  if (method === "POST") {
+    // Ghi dữ liệu vào file JSON
+    try {
+      const body = await readBody(event);
+      if (!body) {
+        throw createError({ statusCode: 400, statusMessage: "No data provided" });
+      }
+
+      // Đọc dữ liệu hiện tại
+      const data = JSON.parse(await readFile(filePath, "utf-8"));
+
+      // Thêm dữ liệu mới
+      const newEntry = { ...body, id: Date.now() };
+      data.push(newEntry);
+
+      // Ghi lại file
+      await writeFile(filePath, JSON.stringify(data, null, 2), "utf-8");
+      return { success: true, data: newEntry };
+    } catch (error) {
+      throw createError({ statusCode: 500, statusMessage: "Error writing to file" });
+    }
+  }
+
+  return createError({ statusCode: 405, statusMessage: "Method Not Allowed" });
 });

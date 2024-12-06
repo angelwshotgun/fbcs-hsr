@@ -39,7 +39,7 @@
           />
         </div>
         <div class="flex">
-          <label class="flex w-3/4 items-center justify-center">Point</label>
+          <label class="flex w-3/4 items-center justify-center font-bold">Point</label>
           <input
             v-model="bluepoint"
             placeholder="0"
@@ -92,7 +92,7 @@
             disabled
             class="input1 text-center w-1/4"
           />
-          <label class="flex w-3/4 items-center justify-center">Point</label>
+          <label class="flex w-3/4 items-center justify-center font-bold">Point</label>
         </div>
       </div>
     </div>

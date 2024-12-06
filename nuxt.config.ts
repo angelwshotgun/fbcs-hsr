@@ -45,5 +45,8 @@ export default defineNuxtConfig({
   },
   plugins: [
     '~/plugins/loadData.js'
-  ]
+  ],
+  image: {
+    dir: 'public/'
+  }
 })

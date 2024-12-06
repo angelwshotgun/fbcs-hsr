@@ -114,7 +114,7 @@ import { useStore } from '~/store/useStore';
 const route = useRoute();
 const store = useStore();
 const id = route.params.id;
-const link = 'https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/';
+const link = '/';
 const visible = ref(false);
 const searchQuery = ref('');
 const props = defineProps({

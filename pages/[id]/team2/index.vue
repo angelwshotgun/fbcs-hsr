@@ -364,7 +364,7 @@ import { useStore } from "~/store/useStore";
 const store = useStore();
 const route = useRoute();
 const id = route.params.id;
-const link = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/";
+const link = "/";
 
 const display = ref(false);
 const display1 = ref(false);
