@@ -67,8 +67,8 @@
     "path": "Warlock",
     "element": "Imaginary",
     "point": [
-      -3,
-      3,
+      -2,
+      -2,
       0,
       0,
       0,
@@ -87,10 +87,10 @@
     "path": "Warlock",
     "element": "Thunder",
     "point": [
-      2,
-      4,
+      3,
       5,
-      5,
+      6,
+      6,
       0,
       0,
       0
@@ -147,13 +147,13 @@
     "path": "Shaman",
     "element": "Fire",
     "point": [
-      -1,
       0,
-      0,
-      0,
-      0,
-      0,
-      0
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
     ],
     "icon": "icon/character/1009.png",
     "preview": "image/character_preview/1009.png",
@@ -230,13 +230,13 @@
     "preview": "image/character_preview/1103.png",
     "portrait": "image/character_portrait/1103.png",
     "point": [
-      -2,
-      -2,
-      -2,
-      -2,
-      -2,
-      -2,
-      0
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
     ]
   },
   "1104": {
@@ -450,13 +450,13 @@
     "preview": "image/character_preview/1202.png",
     "portrait": "image/character_portrait/1202.png",
     "point": [
-      2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      3
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
     ]
   },
   "1203": {
@@ -490,10 +490,10 @@
     "preview": "image/character_preview/1204.png",
     "portrait": "image/character_portrait/1204.png",
     "point": [
-      1,
-      2,
-      2,
-      2,
+      4,
+      5,
+      5,
+      5,
       0,
       0,
       0
@@ -670,9 +670,9 @@
     "preview": "image/character_preview/1213.png",
     "portrait": "image/character_portrait/1213.png",
     "point": [
-      1,
-      2,
-      5,
+      3,
+      4,
+      7,
       5,
       0,
       0,
@@ -710,13 +710,13 @@
     "preview": "image/character_preview/1215.png",
     "portrait": "image/character_portrait/1215.png",
     "point": [
-      -1,
-      -1,
-      -1,
-      -1,
-      -1,
-      -1,
-      -1
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
     ]
   },
   "1217": {
@@ -750,8 +750,8 @@
     "preview": "image/character_preview/1218.png",
     "portrait": "image/character_portrait/1218.png",
     "point": [
-      2,
-      4,
+      3,
+      5,
       6,
       6,
       0,
@@ -770,10 +770,10 @@
     "preview": "image/character_preview/1220.png",
     "portrait": "image/character_portrait/1220.png",
     "point": [
-      6,
-      10,
-      14,
-      14,
+      8,
+      12,
+      15,
+      15,
       0,
       0,
       0
@@ -810,10 +810,10 @@
     "preview": "image/character_preview/1222.png",
     "portrait": "image/character_portrait/1222.png",
     "point": [
-      4,
-      7,
+      5,
       8,
-      8,
+      9,
+      9,
       0,
       0,
       0
@@ -830,7 +830,7 @@
     "preview": "image/character_preview/1223.png",
     "portrait": "image/character_portrait/1223.png",
     "point": [
-      1,
+      0,
       1,
       1,
       2,
@@ -857,6 +857,26 @@
       2,
       2,
       2
+    ]
+  },
+  "1225": {
+    "id": "1225",
+    "name": "Fugue",
+    "tag": "fugue",
+    "rarity": 5,
+    "path": "Warlock",
+    "element": "Fire",
+    "icon": "icon/character/1225.png",
+    "preview": "image/character_preview/1225.png",
+    "portrait": "image/character_portrait/1225.png",
+    "point": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
     ]
   },
   "1301": {
@@ -950,10 +970,10 @@
     "preview": "image/character_preview/1305.png",
     "portrait": "image/character_portrait/1305.png",
     "point": [
+      2,
       3,
       4,
-      5,
-      5,
+      4,
       0,
       0,
       0
@@ -990,7 +1010,7 @@
     "preview": "image/character_preview/1307.png",
     "portrait": "image/character_portrait/1307.png",
     "point": [
-      2,
+      3,
       5,
       5,
       5,
@@ -1010,10 +1030,10 @@
     "preview": "image/character_preview/1308.png",
     "portrait": "image/character_portrait/1308.png",
     "point": [
-      6,
-      8,
-      13,
-      13,
+      7,
+      9,
+      15,
+      15,
       0,
       0,
       0
@@ -1069,6 +1089,26 @@
     "icon": "icon/character/1312.png",
     "preview": "image/character_preview/1312.png",
     "portrait": "image/character_portrait/1312.png",
+    "point": [
+      -3,
+      -3,
+      -3,
+      -3,
+      -3,
+      -3,
+      -3
+    ]
+  },
+  "1313": {
+    "id": "1313",
+    "name": "Sunday",
+    "tag": "sunday",
+    "rarity": 5,
+    "path": "Shaman",
+    "element": "Imaginary",
+    "icon": "icon/character/1313.png",
+    "preview": "image/character_preview/1313.png",
+    "portrait": "image/character_portrait/1313.png",
     "point": [
       -3,
       -3,
@@ -1190,13 +1230,13 @@
     "preview": "image/character_preview/8006.png",
     "portrait": "image/character_portrait/8006.png",
     "point": [
-      2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
     ]
   }
 }

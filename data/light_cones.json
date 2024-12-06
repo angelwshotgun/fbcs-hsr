@@ -189,11 +189,11 @@
     "preview": "image/light_cone_preview/23009.png",
     "portrait": "image/light_cone_portrait/23009.png",
     "point": [
+      1,
+      1,
       2,
       2,
-      3,
-      3,
-      4
+      3
     ]
   },
   "23010": {
@@ -207,11 +207,11 @@
     "preview": "image/light_cone_preview/23010.png",
     "portrait": "image/light_cone_portrait/23010.png",
     "point": [
+      1,
+      1,
       2,
       2,
-      3,
-      3,
-      4
+      3
     ]
   },
   "23011": {
@@ -279,11 +279,11 @@
     "preview": "image/light_cone_preview/23014.png",
     "portrait": "image/light_cone_portrait/23014.png",
     "point": [
+      1,
+      1,
       2,
       2,
-      3,
-      3,
-      4
+      3
     ]
   },
   "23015": {
@@ -297,11 +297,11 @@
     "preview": "image/light_cone_preview/23015.png",
     "portrait": "image/light_cone_portrait/23015.png",
     "point": [
+      1,
+      1,
       2,
       2,
-      3,
-      3,
-      4
+      3
     ]
   },
   "23016": {
@@ -513,10 +513,10 @@
     "preview": "image/light_cone_preview/23027.png",
     "portrait": "image/light_cone_portrait/23027.png",
     "point": [
+      3,
+      3,
       4,
       4,
-      4,
-      5,
       5
     ]
   },
@@ -531,11 +531,11 @@
     "preview": "image/light_cone_preview/23028.png",
     "portrait": "image/light_cone_portrait/23028.png",
     "point": [
+      1,
+      1,
       2,
       2,
-      3,
-      3,
-      4
+      3
     ]
   },
   "23029": {
@@ -585,11 +585,11 @@
     "preview": "image/light_cone_preview/23031.png",
     "portrait": "image/light_cone_portrait/23031.png",
     "point": [
+      3,
+      3,
       4,
       4,
-      5,
-      5,
-      6
+      5
     ]
   },
   "23032": {
@@ -621,11 +621,45 @@
     "preview": "image/light_cone_preview/23033.png",
     "portrait": "image/light_cone_portrait/23033.png",
     "point": [
+      3,
+      3,
       4,
       4,
-      5,
-      5,
-      6
+      5
+    ]
+  },
+  "23034": {
+    "id": "23034", 
+    "name": "Chuyến Bay Trở Về Mặt Đất", 
+    "rarity": 5, 
+    "path": "Shaman", 
+    "desc": "Ảo tưởng đã tan vỡ, anh muốn làm mặt trời của vạn vật, nhưng lại rơi từ trên trời xuống.\n\"Đã cảm nhận được thế nào là đau khổ chưa?\"\nMột giọng nói khác vang lên trong lòng anh ấy.\n\"Đó là những gì tôi đáng phải chịu.\"\nAnh ngã xuống cõi đời và tự trả lời mình bằng bước chân nặng nề.\nAnh bước trên mặt đất và một lần nữa chứng kiến sự đau khổ bao trùm thế gian, như suối nguồn bất tận.\nAnh bước qua những bụi gai chặn đường và nghe tiếng kêu gào của kẻ phàm trần, anh đã trải qua thống khổ, và vì thế, anh đã có được sự bình yên.\n\"Rơi xuống vốn là tên gọi khác của việc bay lượn.\"\nVà vào ngày thứ tám, anh tự ban cho mình \"sự khởi hành\".", 
+    "icon": "icon/light_cone/23034.png", 
+    "preview": "image/light_cone_preview/23034.png", 
+    "portrait": "image/light_cone_portrait/23034.png",
+    "point": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  }, 
+  "23035": {
+    "id": "23035", 
+    "name": "Đường Dài Vẫn Có Lối Về", 
+    "rarity": 5, 
+    "path": "Warlock", 
+    "desc": "\"Cô ấy... là ai?\" Người thiếu nữ vuốt ve bản thân xa lạ.\nCô ấy nhớ lại ngọn lửa của ngày hôm ấy đã nuốt chửng cô như thế nào, chiếc quạt khảm ngọc đã hóa thành tro bụi ra sao.\nBản thân từng đi trên con đường dài, tìm kiếm ánh sáng ở phía trước.\nTiếng nói ở bên ngoài đang gọi cô, đưa cô tiến về phía trước, dẫn dắt cô băng qua màn đêm dày đặc.\nGiọng nói trong lòng đang nhắc nhở cô, những lời hứa chưa hoàn thành, những cuộc hẹn chưa kịp đến, những ước mơ chưa thành hiện thực, tất cả vẫn đang chờ cô...\nChúng chưa từng biến mất trong ngọn lửa, thay vào đó, lại càng tỏa sáng rực rỡ hơn giữa ngọn lửa.\n\"Đó chính là tôi...\"\nCô ấy đứng ở điểm cuối, không quay đầu lưu luyến nữa...\n\"Tôi của trước đây, cũng là tôi hoàn toàn mới.\"", 
+    "icon": "icon/light_cone/23035.png", 
+    "preview": "image/light_cone_preview/23035.png", 
+    "portrait": "image/light_cone_portrait/23035.png",
+    "point": [
+      0,
+      0,
+      0,
+      0,
+      0
     ]
   },
   "24000": {
