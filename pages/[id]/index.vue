@@ -16,16 +16,16 @@
       <NuxtImg
         v-if="viewData.name !== ''"
         :src="link + convertImg(viewData.name)"
-        style="
-          position: absolute;
-          top: 55%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 40%;
-          height: 80vh;
-          object-fit: cover;
-          z-index: 99;
-        "
+        :style="{
+          position: 'absolute',
+          top: '55%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: banpick === 9 || banpick === 10 ? '25%' : '40%',
+          height: banpick === 9 || banpick === 10 ? '70vh' : '80vh',
+          objectFit: 'cover',
+          zIndex: 99,
+        }"
       />
       <div class="flex flex-col md:flex-row justify-between gap-1 p-3">
         <div class="w-2/5 flex flex-col gap-1">

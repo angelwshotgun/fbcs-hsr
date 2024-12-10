@@ -520,8 +520,10 @@ watch(search, (newValue) => {
   if (!characters.value || !light_cones.value) return;
 
   if (banpick.value === 10) {
-    filterCharacters.value = light_cones.value.filter((item) =>
-      item.name.toLowerCase().includes(newValue.toLowerCase())
+    filterCharacters.value = light_cones.value.filter(
+      (item) =>
+        item.name.toLowerCase().includes(newValue.toLowerCase()) ||
+        item.character?.toLowerCase().includes(newValue.toLowerCase())
     );
   } else {
     filterCharacters.value = characters.value.filter((item) =>
