@@ -15,7 +15,7 @@
       </div> -->
       <NuxtImg
         v-if="viewData.name !== ''"
-        :src="link + viewData.name"
+        :src="link + convertImg(viewData.name)"
         style="
           position: absolute;
           top: 55%;
@@ -349,7 +349,7 @@ const visible = ref(false);
 const route = useRoute();
 const store = useStore();
 const id = route.params.id;
-const link = 'https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/';
+const link = '/';
 const optionStage = [
   {
     label: 'Tầng 12',
@@ -392,6 +392,10 @@ watch(banpick, () => {
 const viewData = computed(() => {
   return store.$state.games[id]?.state.data ?? null;
 });
+
+const convertImg = (img) => {
+  return `${img.replace('.png', '.avif')}`;
+};
 </script>
 <style scoped>
 video {
