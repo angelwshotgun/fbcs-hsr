@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "fs/promises";
-import { join } from "path";
+import path from 'path';
 
-const filePath = join(process.cwd(), "data/characters11.json");
+const filePath = path.resolve('./data/characters11.json');
 
 export default defineEventHandler(async (event) => {
   const method = getMethod(event);
