@@ -102,11 +102,11 @@ body {
 }
 
 .p-menubar {
-  background-color: transparent;
-  border: none;
+  background-color: transparent !important;
+  border: none !important;
 }
 
 .p-menubar-item-content {
-  color:#fff
+  color:#fff !important;
 }
 </style>

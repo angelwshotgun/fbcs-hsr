@@ -1,59 +1,43 @@
-import { put, get } from '@vercel/blob';
+import { readFile, writeFile } from "fs/promises";
+import { join } from "path";
+
+const filePath = join(process.cwd(), "data/characters.json");
 
 export default defineEventHandler(async (event) => {
   const method = getMethod(event);
 
   if (method === "GET") {
+    // Đọc dữ liệu từ file JSON
     try {
-      const blob = await get('characters.json');
-      return JSON.parse(await blob.text());
+      const data = await readFile(filePath, "utf-8");
+      return JSON.parse(data);
     } catch (error) {
-      throw createError({ 
-        statusCode: 500, 
-        statusMessage: "Error reading characters" 
-      });
+      throw createError({ statusCode: 500, statusMessage: "Error reading file" });
     }
   }
 
   if (method === "POST") {
+    // Ghi dữ liệu vào file JSON
     try {
       const body = await readBody(event);
       if (!body) {
-        throw createError({ 
-          statusCode: 400, 
-          statusMessage: "No data provided" 
-        });
+        throw createError({ statusCode: 400, statusMessage: "No data provided" });
       }
 
-      // Read existing data
-      let data = [];
-      try {
-        const existingBlob = await get('characters.json');
-        data = JSON.parse(await existingBlob.text());
-      } catch {
-        // File might not exist yet
-      }
+      // Đọc dữ liệu hiện tại
+      const data = JSON.parse(await readFile(filePath, "utf-8"));
 
-      // Add new entry
+      // Thêm dữ liệu mới
       const newEntry = { ...body, id: Date.now() };
       data.push(newEntry);
 
-      // Write back to blob storage
-      await put('characters.json', JSON.stringify(data, null, 2), {
-        access: 'private'
-      });
-
+      // Ghi lại file
+      await writeFile(filePath, JSON.stringify(data, null, 2), "utf-8");
       return { success: true, data: newEntry };
     } catch (error) {
-      throw createError({ 
-        statusCode: 500, 
-        statusMessage: "Error writing characters" 
-      });
+      throw createError({ statusCode: 500, statusMessage: "Error writing to file" });
     }
   }
 
-  return createError({ 
-    statusCode: 405, 
-    statusMessage: "Method Not Allowed" 
-  });
+  return createError({ statusCode: 405, statusMessage: "Method Not Allowed" });
 });

@@ -328,7 +328,7 @@ const lightcones11 = ref([]);
 
 const fetchCharacters12 = async () => {
   try {
-    const response = await fetch('/api/characters');
+    const response = await fetch('/data/characters.json');
     characters12.value = await response.json();
     characters12.value = Object.values(characters12.value);
   } catch (error) {
@@ -337,7 +337,7 @@ const fetchCharacters12 = async () => {
 };
 const fetchCharacters11 = async () => {
   try {
-    const response = await fetch('/api/characters11');
+    const response = await fetch('/data/characters11.json');
     characters11.value = await response.json();
     characters11.value = Object.values(characters11.value);
   } catch (error) {
@@ -346,7 +346,7 @@ const fetchCharacters11 = async () => {
 };
 const fetchLightcones12 = async () => {
   try {
-    const response = await fetch('/api/light_cones');
+    const response = await fetch('/data/light_cones.json');
     lightcones12.value = await response.json();
     lightcones12.value = Object.values(lightcones12.value).filter(lightcone => lightcone.rarity === 5);
   } catch (error) {
@@ -355,7 +355,7 @@ const fetchLightcones12 = async () => {
 };
 const fetchLightcones11 = async () => {
   try {
-    const response = await fetch('/api/light_cones11');
+    const response = await fetch('/data/light_cones11.json');
     lightcones11.value = await response.json();
     lightcones11.value = Object.values(lightcones11.value).filter(lightcone => lightcone.rarity === 5);
   } catch (error) {
