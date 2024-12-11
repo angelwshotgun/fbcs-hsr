@@ -7,6 +7,8 @@
           <Tab value="1">Nhân vật 12</Tab>
           <Tab value="2">Nón ánh sáng 11</Tab>
           <Tab value="3">Nón ánh sáng 12</Tab>
+          <Tab value="4">Tính điểm đội hình 11</Tab>
+          <Tab value="5">Tính điểm đội hình 12</Tab>
         </TabList>
         <TabPanels>
           <TabPanel value="0">
@@ -14,7 +16,9 @@
               <Column header="Tên nhân vật">
                 <template #body="slotProps">
                   <div class="flex items-center justify-center">
-                    <label class="min-w-[100px]">{{ slotProps.data.name }}</label>
+                    <label class="min-w-[100px]">{{
+                      slotProps.data.name
+                    }}</label>
                     <NuxtImg
                       :src="link + slotProps.data.preview"
                       class="w-[50px]"
@@ -26,9 +30,7 @@
                 <template #body="slotProps">
                   <div class="flex items-center justify-center">
                     <NuxtImg
-                      :src="
-                        link + 'icon/path/' + slotProps.data.path + '.png'
-                      "
+                      :src="link + 'icon/path/' + slotProps.data.path + '.png'"
                       class="w-[40px] brightness-0"
                     />
                   </div>
@@ -102,7 +104,9 @@
               <Column header="Tên nhân vật">
                 <template #body="slotProps">
                   <div class="flex items-center justify-center">
-                    <label class="min-w-[100px]">{{ slotProps.data.name }}</label>
+                    <label class="min-w-[100px]">{{
+                      slotProps.data.name
+                    }}</label>
                     <NuxtImg
                       :src="link + slotProps.data.preview"
                       class="w-[50px]"
@@ -114,9 +118,7 @@
                 <template #body="slotProps">
                   <div class="flex items-center justify-center">
                     <NuxtImg
-                      :src="
-                        link + 'icon/path/' + slotProps.data.path + '.png'
-                      "
+                      :src="link + 'icon/path/' + slotProps.data.path + '.png'"
                       class="w-[40px] brightness-0"
                     />
                   </div>
@@ -190,7 +192,9 @@
               <Column header="Tên nón ánh sáng">
                 <template #body="slotProps">
                   <div class="flex items-center justify-center">
-                    <label class="min-w-[250px]">{{ slotProps.data.name }}</label>
+                    <label class="min-w-[250px]">{{
+                      slotProps.data.name
+                    }}</label>
                     <NuxtImg
                       v-if="slotProps.data.preview"
                       :src="link + slotProps.data.preview"
@@ -203,9 +207,7 @@
                 <template #body="slotProps">
                   <div class="flex items-center justify-center">
                     <NuxtImg
-                      :src="
-                        link + 'icon/path/' + slotProps.data.path + '.png'
-                      "
+                      :src="link + 'icon/path/' + slotProps.data.path + '.png'"
                       class="w-[40px] brightness-0"
                     />
                   </div>
@@ -253,7 +255,9 @@
               <Column header="Tên nón ánh sáng">
                 <template #body="slotProps">
                   <div class="flex items-center justify-center">
-                    <label class="min-w-[250px]">{{ slotProps.data.name }}</label>
+                    <label class="min-w-[250px]">{{
+                      slotProps.data.name
+                    }}</label>
                     <NuxtImg
                       :src="link + slotProps.data.preview"
                       class="w-[50px]"
@@ -265,9 +269,7 @@
                 <template #body="slotProps">
                   <div class="flex items-center justify-center">
                     <NuxtImg
-                      :src="
-                        link + 'icon/path/' + slotProps.data.path + '.png'
-                      "
+                      :src="link + 'icon/path/' + slotProps.data.path + '.png'"
                       class="w-[40px] brightness-0"
                     />
                   </div>
@@ -310,6 +312,18 @@
               </Column>
             </DataTable>
           </TabPanel>
+          <TabPanel value="4">
+            <CompModalV2
+              :characters="characters12"
+              :light_cones="lightcones12full"
+            />
+          </TabPanel>
+          <TabPanel value="5">
+            <CompModalV2
+              :characters="characters11"
+              :light_cones="lightcones11full"
+            />
+          </TabPanel>
         </TabPanels>
       </Tabs>
     </div>
@@ -321,10 +335,13 @@ definePageMeta({
   layout: 'white-layout',
 });
 const link = '/';
+
 const characters12 = ref([]);
 const characters11 = ref([]);
 const lightcones12 = ref([]);
 const lightcones11 = ref([]);
+const lightcones12full = ref([]);
+const lightcones11full = ref([]);
 
 const fetchCharacters12 = async () => {
   try {
@@ -347,8 +364,11 @@ const fetchCharacters11 = async () => {
 const fetchLightcones12 = async () => {
   try {
     const response = await fetch('/data/light_cones.json');
-    lightcones12.value = await response.json();
-    lightcones12.value = Object.values(lightcones12.value).filter(lightcone => lightcone.rarity === 5);
+    lightcones12full.value = await response.json();
+    lightcones12full.value = Object.values(lightcones12full.value);
+    lightcones12.value = Object.values(lightcones12full.value).filter(
+      (lightcone) => lightcone.rarity === 5
+    );
   } catch (error) {
     console.error('Error fetching characters:', error);
   }
@@ -356,8 +376,11 @@ const fetchLightcones12 = async () => {
 const fetchLightcones11 = async () => {
   try {
     const response = await fetch('/data/light_cones11.json');
-    lightcones11.value = await response.json();
-    lightcones11.value = Object.values(lightcones11.value).filter(lightcone => lightcone.rarity === 5);
+    lightcones11full.value = await response.json();
+    lightcones11full.value = Object.values(lightcones11full.value);
+    lightcones11.value = Object.values(lightcones11full.value).filter(
+      (lightcone) => lightcone.rarity === 5
+    );
   } catch (error) {
     console.error('Error fetching characters:', error);
   }
