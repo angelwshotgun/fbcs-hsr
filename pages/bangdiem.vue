@@ -314,14 +314,14 @@
           </TabPanel>
           <TabPanel value="4">
             <CompModalV2
-              :characters="characters12"
-              :light_cones="lightcones12full"
+              :characters="characters11"
+              :light_cones="lightcones11full"
             />
           </TabPanel>
           <TabPanel value="5">
             <CompModalV2
-              :characters="characters11"
-              :light_cones="lightcones11full"
+              :characters="characters12"
+              :light_cones="lightcones12full"
             />
           </TabPanel>
         </TabPanels>
