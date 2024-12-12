@@ -58,7 +58,9 @@
             :options="light_cones"
             option-label="name"
             filter
+            :filterFields="['name','character']"
             class="w-1/3 mt-2"
+            @change="selectedImpose[index - 1] = selectedLightcone[index - 1]?.point[0]"
           >
             <template #dropdownicon>{{}}</template>
           </Select>
@@ -109,7 +111,11 @@
             :options="light_cones"
             option-label="name"
             filter
+            :filterFields="['name','character']"
             class="w-1/3 mt-2"
+            @change="
+              selectedImpose[index + 3] = selectedLightcone[index + 3]?.point[0]
+            "
           >
             <template #dropdownicon>{{}}</template>
           </Select>
@@ -187,9 +193,7 @@ watch(props, (newVal) => {
   light_cones.value = newVal.light_cones;
 });
 const emit = defineEmits(['close']);
-const selectedStage = computed(() => {
-  return store.$state.stage;
-});
+
 const closeModal = () => {
   emit('close');
 };

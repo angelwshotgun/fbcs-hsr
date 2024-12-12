@@ -348,6 +348,7 @@ const fetchCharacters12 = async () => {
     const response = await fetch('/data/characters.json');
     characters12.value = await response.json();
     characters12.value = Object.values(characters12.value);
+    characters12.value = JSON.parse(JSON.stringify(characters12.value));
   } catch (error) {
     console.error('Error fetching characters:', error);
   }
@@ -357,6 +358,7 @@ const fetchCharacters11 = async () => {
     const response = await fetch('/data/characters11.json');
     characters11.value = await response.json();
     characters11.value = Object.values(characters11.value);
+    characters11.value = JSON.parse(JSON.stringify(characters11.value));
   } catch (error) {
     console.error('Error fetching characters:', error);
   }
@@ -369,6 +371,8 @@ const fetchLightcones12 = async () => {
     lightcones12.value = Object.values(lightcones12full.value).filter(
       (lightcone) => lightcone.rarity === 5
     );
+    lightcones12.value = JSON.parse(JSON.stringify(lightcones12.value));
+    lightcones12full.value = JSON.parse(JSON.stringify(lightcones12full.value));
   } catch (error) {
     console.error('Error fetching characters:', error);
   }
@@ -381,6 +385,8 @@ const fetchLightcones11 = async () => {
     lightcones11.value = Object.values(lightcones11full.value).filter(
       (lightcone) => lightcone.rarity === 5
     );
+    lightcones11.value = JSON.parse(JSON.stringify(lightcones11.value));
+    lightcones11full.value = JSON.parse(JSON.stringify(lightcones11full.value));
   } catch (error) {
     console.error('Error fetching characters:', error);
   }
