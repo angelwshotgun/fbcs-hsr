@@ -114,39 +114,41 @@
         <div class="pb-1">
           <BanPickLabel />
         </div>
-        <InputText
-          v-model="search"
-          placeholder="Tìm kiếm..."
-          class="w-full mb-1"
-        />
-        <div class="overflow-y-auto h-[60vh]">
-          <!-- Add a wrapper for scroll -->
-          <div class="grid grid-cols-6 gap-1">
-            <div
-              v-for="item in filterCharacters"
-              :key="item.id"
-              class="flex flex-col items-center bg-primary rounded overflow-hidden"
-            >
-              <div class="w-full pb-[100%] relative">
-                <div v-if="!charactersFilter.includes(item.name)">
-                  <NuxtImg
-                    v-if="item.preview !== ''"
-                    :src="link + item.preview"
-                    :alt="item.name"
-                    class="absolute top-0 left-1/2 -translate-x-1/2 w-[150%] h-[150%] object-cover transition-transform duration-200 ease-in-out"
-                    @click="selectCharacter(item)"
-                    @mouseenter="$event.target.classList.add('scale-110')"
-                    @mouseleave="$event.target.classList.remove('scale-110')"
-                  />
-                </div>
-                <div v-else>
-                  <NuxtImg
-                    v-if="item.preview !== ''"
-                    :src="link + item.preview"
-                    :alt="item.name"
-                    style="filter: grayscale(100%)"
-                    class="absolute top-0 left-1/2 -translate-x-1/2 w-[150%] h-[150%] object-cover transition-transform duration-200 ease-in-out"
-                  />
+        <div v-if="!isDoneBanPick">
+          <InputText
+            v-model="search"
+            placeholder="Tìm kiếm..."
+            class="w-full mb-1"
+          />
+          <div class="overflow-y-auto h-[60vh]">
+            <!-- Add a wrapper for scroll -->
+            <div class="grid grid-cols-6 gap-1">
+              <div
+                v-for="item in filterCharacters"
+                :key="item.id"
+                class="flex flex-col items-center bg-primary rounded overflow-hidden"
+              >
+                <div class="w-full pb-[100%] relative">
+                  <div v-if="!charactersFilter.includes(item.name)">
+                    <NuxtImg
+                      v-if="item.preview !== ''"
+                      :src="link + item.preview"
+                      :alt="item.name"
+                      class="absolute top-0 left-1/2 -translate-x-1/2 w-[150%] h-[150%] object-cover transition-transform duration-200 ease-in-out"
+                      @click="selectCharacter(item)"
+                      @mouseenter="$event.target.classList.add('scale-110')"
+                      @mouseleave="$event.target.classList.remove('scale-110')"
+                    />
+                  </div>
+                  <div v-else>
+                    <NuxtImg
+                      v-if="item.preview !== ''"
+                      :src="link + item.preview"
+                      :alt="item.name"
+                      style="filter: grayscale(100%)"
+                      class="absolute top-0 left-1/2 -translate-x-1/2 w-[150%] h-[150%] object-cover transition-transform duration-200 ease-in-out"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -155,9 +157,9 @@
         <div class="flex justify-center mt-5">
           <Button
             :severity="team === 2 && isSelected === true ? '' : 'secondary'"
-            label="Khóa"
+            :label="isDoneBanPick ? 'Ẩn/Hiện vật thể lạ' : 'Chọn'"
             class="w-1/4"
-            @click="lockCharacter"
+            @click="isDoneBanPick ? toggleAugment = !toggleAugment : lockCharacter()"
           />
         </div>
       </div>
@@ -355,22 +357,27 @@
       :characters="characters"
       :light_cones="light_cones"
     />
+    <UtilAugment
+      v-if="isDoneBanPick"
+      :style="toggleAugment ? 'display: flex' : 'display: none'"
+      :team="'red'"
+    />
   </ClientOnly>
 </template>
 
 <script setup>
-import { useStore } from "~/store/useStore";
+import { useStore } from '~/store/useStore';
 
 const store = useStore();
 const route = useRoute();
 const id = route.params.id;
-const link = "/";
+const link = '/';
 
+const toggleAugment = ref(false);
 const display = ref(false);
 const display1 = ref(false);
-const search = ref("");
-
-// Khởi tạo các ref với giá trị ban đầu là null
+const search = ref('');
+const isDoneBanPick = ref(false);
 const characters = ref(null);
 const filterCharacters = ref(null);
 const light_cones = ref(null);
@@ -378,7 +385,6 @@ const light_cones34 = ref(null);
 const data = ref(null);
 const isSelected = ref(false);
 
-// Khởi tạo selectedStage với giá trị null
 const selectedStage = ref(null);
 const stage = computed(() => {
   return store.$state.games[id]?.stage ?? null;
@@ -415,16 +421,15 @@ watch(stage, (newVal) => {
   }
 });
 
-// Các hàm fetch data giữ nguyên logic
 async function fetchCharacters() {
   try {
-    const response = await $fetch("/api/github/readCharacters", {
-      method: "POST",
+    const response = await $fetch('/api/github/readCharacters', {
+      method: 'POST',
       body: {
-        action: "readFile",
-        owner: "angelwshotgun",
-        repo: "DataStore",
-        path: `data/characters${selectedStage.value === 11 ? "11" : ""}.json`,
+        action: 'readFile',
+        owner: 'angelwshotgun',
+        repo: 'DataStore',
+        path: `data/characters${selectedStage.value === 11 ? '11' : ''}.json`,
       },
     });
     if (response.error) {
@@ -433,19 +438,19 @@ async function fetchCharacters() {
     characters.value = Object.values(response.content);
     filterCharacters.value = Object.values(response.content);
   } catch (err) {
-    console.error("Error reading file:", err);
+    console.error('Error reading file:', err);
   }
 }
 
 async function fetchLightcones() {
   try {
-    const response = await $fetch("/api/github/readCharacters", {
-      method: "POST",
+    const response = await $fetch('/api/github/readCharacters', {
+      method: 'POST',
       body: {
-        action: "readFile",
-        owner: "angelwshotgun",
-        repo: "DataStore",
-        path: `data/light_cones${selectedStage.value === 11 ? "11" : ""}.json`,
+        action: 'readFile',
+        owner: 'angelwshotgun',
+        repo: 'DataStore',
+        path: `data/light_cones${selectedStage.value === 11 ? '11' : ''}.json`,
       },
     });
     if (response.error) {
@@ -456,7 +461,7 @@ async function fetchLightcones() {
     //   (item) => item.rarity === 5
     // );
   } catch (err) {
-    console.error("Error reading file:", err);
+    console.error('Error reading file:', err);
   }
 }
 
@@ -466,14 +471,12 @@ async function fetchLightcones() {
 //   light_cones34.value = Object.values(data);
 // }
 
-// Hàm load data
 const loadData = async () => {
   await fetchCharacters();
   await fetchLightcones();
   // await fetchLightcones34();
 };
 
-// Sử dụng onMounted để load data và cập nhật các biến
 onMounted(async () => {
   if (store.$state.games && store.$state.games[id]) {
     selectedStage.value = store.$state.games[id].stage;
@@ -483,8 +486,10 @@ onMounted(async () => {
   // await fetchLightcones34();
 });
 
-// Sử dụng computed để lấy giá trị từ store, với giá trị mặc định là null
 const banpick = computed(() => {
+  if (store.$state.games[id]?.banpick > 22) {
+    isDoneBanPick.value = true;
+  }
   return store.$state.games[id]?.banpick ?? null;
 });
 
@@ -492,26 +497,27 @@ const team = computed(() => {
   return store.$state.games[id]?.team ?? null;
 });
 
-// Watch selectedStage để load lại data khi stage thay đổi
 watch(selectedStage, async (newStage) => {
   if (newStage !== null) {
     await loadData();
   }
 });
 
-// Các watch khác cần kiểm tra dữ liệu trước khi sử dụng
 watch(banpick, (newVal) => {
-  // Kiểm tra xem dữ liệu đã được load chưa
   if (!characters.value || !light_cones.value) return;
 
   if (newVal === 10) {
     filterCharacters.value = light_cones.value.filter((item) =>
-      item.name.toLowerCase().includes(search.value?.toLowerCase() || "")
+      item.name.toLowerCase().includes(search.value?.toLowerCase() || '')
     );
   } else {
     filterCharacters.value = characters.value.filter((item) =>
-      item.name.toLowerCase().includes(search.value?.toLowerCase() || "")
+      item.name.toLowerCase().includes(search.value?.toLowerCase() || '')
     );
+  }
+
+  if (newVal > 22) {
+    isDoneBanPick.value = true;
   }
 });
 
@@ -541,8 +547,8 @@ const selectCharacter = (item) => {
 
 const lockCharacter = () => {
   if (team.value === 2 && isSelected.value === true) {
-    store.updateGameData(`${id}`, "banpick", banpick.value + 1);
-    store.updateGameData(`${id}`, `state/data/name`, "");
+    store.updateGameData(`${id}`, 'banpick', banpick.value + 1);
+    store.updateGameData(`${id}`, `state/data/name`, '');
     isSelected.value = false;
   }
 };

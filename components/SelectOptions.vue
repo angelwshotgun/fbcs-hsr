@@ -29,7 +29,7 @@
           class="absolute top-0 right-0 m-2 bg-gray text-white font-bold text-xl bg-opacity-10 py-1 rounded text-xs w-12 text-center"
           >{{
             model1?.point[eiloidon] + (lc?.point[superimp] || 0) >= 0
-              ? "+ " + (model1?.point[eiloidon] + (lc?.point[superimp] || 0))
+              ? '+ ' + (model1?.point[eiloidon] + (lc?.point[superimp] || 0))
               : model1?.point[eiloidon] + (lc?.point[superimp] || 0)
           }}</label
         >
@@ -52,6 +52,7 @@
           filter
           placeholder="Chọn nón ánh sáng"
           class="col-span-4"
+          :disabled="(props.team === 'blue' && isEndTimer1) || (props.team === 'red' && isEndTimer2) "
           @change="selectLightcone()"
         >
           <template #option="slotProps">
@@ -108,11 +109,11 @@
 </template>
 
 <script setup>
-import { useStore } from "~/store/useStore";
+import { useStore } from '~/store/useStore';
 
 const route = useRoute();
 const store = useStore();
-const link = "/";
+const link = '/';
 
 const props = defineProps({
   isBan: Boolean,
@@ -143,22 +144,30 @@ const selectedStage = computed(() => {
   return store.$state.games[id].stage;
 });
 const eiloidonSelect = ref([
-  { label: "e0", value: 0 },
-  { label: "e1", value: 1 },
-  { label: "e2", value: 2 },
-  { label: "e3", value: 3 },
-  { label: "e4", value: 4 },
-  { label: "e5", value: 5 },
-  { label: "e6", value: 6 },
+  { label: 'e0', value: 0 },
+  { label: 'e1', value: 1 },
+  { label: 'e2', value: 2 },
+  { label: 'e3', value: 3 },
+  { label: 'e4', value: 4 },
+  { label: 'e5', value: 5 },
+  { label: 'e6', value: 6 },
 ]);
 const superimpSelect = ref([
-  { label: "s1", value: 0 },
-  { label: "s2", value: 1 },
-  { label: "s3", value: 2 },
-  { label: "s4", value: 3 },
-  { label: "s5", value: 4 },
+  { label: 's1', value: 0 },
+  { label: 's2', value: 1 },
+  { label: 's3', value: 2 },
+  { label: 's4', value: 3 },
+  { label: 's5', value: 4 },
 ]);
+const isEndTimer1 = ref(false);
+const isEndTimer2 = ref(false);
 
+const time1 = computed(() => {
+  return store.$state.games[id]?.time.team1 ?? null;
+});
+const time2 = computed(() => {
+  return store.$state.games[id]?.time.team2 ?? null;
+});
 const banpick = computed(() => {
   return store.$state.games[id].banpick;
 });
@@ -167,7 +176,7 @@ watch(banpick, () => {
     1, 2, 1, 2, 2, 1, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2,
   ];
   if (banpick.value >= 1 && banpick.value <= 22) {
-    store.updateGameData(`${id}`, "team", team[banpick.value - 1]);
+    store.updateGameData(`${id}`, 'team', team[banpick.value - 1]);
   }
 });
 watch(
@@ -199,6 +208,16 @@ watch(
   },
   { deep: true }
 );
+watch(time1, (newValue) => {
+  if (newValue === 0) {
+    isEndTimer1.value = true;
+  }
+});
+watch(time2, (newValue) => {
+  if (newValue === 0) {
+    isEndTimer2.value = true;
+  }
+});
 watch(props, () => {
   characters.value = props.characters;
   light_cones.value = props.light_cones;
@@ -208,54 +227,53 @@ watch(props, () => {
   //   filterLightcones.value = data;
   // }
   filterLightcones.value = light_cones.value;
-})
-onMounted(async () => {
 });
+onMounted(async () => {});
 const model = computed(() => {
   switch (props.state) {
-    case "bc1":
+    case 'bc1':
       return store.$state.games[id].ban.bc1;
-    case "bc2":
+    case 'bc2':
       return store.$state.games[id].ban.bc2;
-    case "bc3":
+    case 'bc3':
       return store.$state.games[id].ban.bc3;
-    case "bc4":
+    case 'bc4':
       return store.$state.games[id].ban.bc4;
-    case "bl1":
+    case 'bl1':
       return store.$state.games[id].ban.bl1;
-    case "bl2":
+    case 'bl2':
       return store.$state.games[id].ban.bl2;
-    case "c1":
+    case 'c1':
       return store.$state.games[id].character.c1;
-    case "c2":
+    case 'c2':
       return store.$state.games[id].character.c2;
-    case "c3":
+    case 'c3':
       return store.$state.games[id].character.c3;
-    case "c4":
+    case 'c4':
       return store.$state.games[id].character.c4;
-    case "c5":
+    case 'c5':
       return store.$state.games[id].character.c5;
-    case "c6":
+    case 'c6':
       return store.$state.games[id].character.c6;
-    case "c7":
+    case 'c7':
       return store.$state.games[id].character.c7;
-    case "c8":
+    case 'c8':
       return store.$state.games[id].character.c8;
-    case "c9":
+    case 'c9':
       return store.$state.games[id].character.c9;
-    case "c10":
+    case 'c10':
       return store.$state.games[id].character.c10;
-    case "c11":
+    case 'c11':
       return store.$state.games[id].character.c11;
-    case "c12":
+    case 'c12':
       return store.$state.games[id].character.c12;
-    case "c13":
+    case 'c13':
       return store.$state.games[id].character.c13;
-    case "c14":
+    case 'c14':
       return store.$state.games[id].character.c14;
-    case "c15":
+    case 'c15':
       return store.$state.games[id].character.c15;
-    case "c16":
+    case 'c16':
       return store.$state.games[id].character.c16;
     default:
       return null;
@@ -263,37 +281,37 @@ const model = computed(() => {
 });
 const model1 = computed(() => {
   switch (props.state) {
-    case "c1":
+    case 'c1':
       return store.$state.games[id].character.c1;
-    case "c2":
+    case 'c2':
       return store.$state.games[id].character.c2;
-    case "c3":
+    case 'c3':
       return store.$state.games[id].character.c3;
-    case "c4":
+    case 'c4':
       return store.$state.games[id].character.c4;
-    case "c5":
+    case 'c5':
       return store.$state.games[id].character.c5;
-    case "c6":
+    case 'c6':
       return store.$state.games[id].character.c6;
-    case "c7":
+    case 'c7':
       return store.$state.games[id].character.c7;
-    case "c8":
+    case 'c8':
       return store.$state.games[id].character.c8;
-    case "c9":
+    case 'c9':
       return store.$state.games[id].character.c9;
-    case "c10":
+    case 'c10':
       return store.$state.games[id].character.c10;
-    case "c11":
+    case 'c11':
       return store.$state.games[id].character.c11;
-    case "c12":
+    case 'c12':
       return store.$state.games[id].character.c12;
-    case "c13":
+    case 'c13':
       return store.$state.games[id].character.c13;
-    case "c14":
+    case 'c14':
       return store.$state.games[id].character.c14;
-    case "c15":
+    case 'c15':
       return store.$state.games[id].character.c15;
-    case "c16":
+    case 'c16':
       return store.$state.games[id].character.c16;
     default:
       return null;
@@ -302,17 +320,17 @@ const model1 = computed(() => {
 const selectCharacter = () => {
   store.updateGameData(
     `${id}`,
-    `${props.isLightCone ? "lightcone" : "character"}/${props.state}/img`,
+    `${props.isLightCone ? 'lightcone' : 'character'}/${props.state}/img`,
     char.value.icon
   );
   store.updateGameData(
     `${id}`,
-    `${props.isLightCone ? "lightcone" : "character"}/${props.state}/name`,
+    `${props.isLightCone ? 'lightcone' : 'character'}/${props.state}/name`,
     char.value.name
   );
   store.updateGameData(
     `${id}`,
-    `${props.isLightCone ? "lightcone" : "character"}/${props.state}/path`,
+    `${props.isLightCone ? 'lightcone' : 'character'}/${props.state}/path`,
     char.value.path
   );
   store.updateGameData(

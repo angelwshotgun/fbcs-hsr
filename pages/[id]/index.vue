@@ -155,20 +155,24 @@
         </div>
         <div class="w-1/4 flex flex-col items-center">
           <Button
-              label="Edit"
-              @click="visible = true"
-              class="w-1/2"
-              severity="contrast"
-              :outlined="true"
-            />
+            label="Edit"
+            @click="visible = true"
+            class="w-1/2"
+            severity="contrast"
+            :outlined="true"
+          />
           <div class="flex items-center justify-center gap-1">
             <TimerView class="ml-15" />
           </div>
           <BanPickLabel class="mb-2" />
-          <div class="overflow-y-auto h-[60vh]" v-show="isDropdownOpen">
+          <div class="overflow-y-auto" v-show="isDropdownOpen">
             <div class="flex flex-col gap-4">
               <StatsInputs />
             </div>
+          </div>
+          <div class="w-full flex justify-between">
+            <UtilAugmentView :team="'blue'" />
+            <UtilAugmentView :team="'red'" />
           </div>
         </div>
         <div class="w-2/5 flex flex-col gap-1">
@@ -380,6 +384,9 @@ watch(stage, (newVal) => {
 const isDropdownOpen = ref(false);
 
 const banpick = computed(() => {
+  if (banpick.value > 22) {
+    isDropdownOpen.value = true;
+  }
   return store.$state.games[id]?.banpick ?? null;
 });
 watch(banpick, () => {

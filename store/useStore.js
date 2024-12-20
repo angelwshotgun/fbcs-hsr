@@ -68,7 +68,11 @@ const createDefaultState = () => ({
   time: {
     team1: 900,
     team2: 900
-  }
+  },
+  augment: {
+    teamblue: '',
+    teamred: '',
+  },
 });
 
 // Tạo một closure để quản lý unsubscribe functions bên ngoài store
