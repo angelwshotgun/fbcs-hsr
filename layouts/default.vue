@@ -1,9 +1,9 @@
 <template>
   <div class="layout-wrapper">
-    <!-- <video autoplay muted loop playsinline class="background-video">
+    <video autoplay muted loop playsinline class="background-video">
       <source src="/image/background/bg.b7b6a1c.mp4" type="video/mp4" />
       Your browser does not support the video tag.
-    </video> -->
+    </video>
     <SharedTopBar />
     <div class="layout-main-container min-h-85vh">
       <div class="layout-main">
@@ -21,7 +21,6 @@
   position: relative;
   min-height: 100vh;
   overflow: hidden;
-  background-image: url('~/public/image/background/christmas.jpg');
 }
 
 .background-video {

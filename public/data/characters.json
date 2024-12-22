@@ -859,6 +859,26 @@
       2
     ]
   },
+  "1225": {
+    "id": "1225",
+    "name": "Fugue",
+    "tag": "fugue",
+    "rarity": 5,
+    "path": "Warlock",
+    "element": "Fire",
+    "icon": "icon/character/1225.png",
+    "preview": "image/character_preview/1225.png",
+    "portrait": "image/character_portrait/1225.png",
+    "point": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
   "1301": {
     "id": "1301",
     "name": "Gallagher",
