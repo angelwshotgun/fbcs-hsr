@@ -108,9 +108,9 @@
     "element": "Quantum",
     "point": [
       5,
-      7,
-      7,
-      7,
+      6,
+      6,
+      6,
       8,
       8,
       11
@@ -127,13 +127,13 @@
     "path": "Warrior",
     "element": "Thunder",
     "point": [
-      -2,
-      -2,
-      -2,
-      -2,
-      -2,
-      -2,
-      -2
+      -4,
+      -4,
+      -4,
+      -4,
+      -4,
+      -4,
+      -4
     ],
     "icon": "icon/character/1008.png",
     "preview": "image/character_preview/1008.png",
@@ -310,13 +310,13 @@
     "preview": "image/character_preview/1107.png",
     "portrait": "image/character_portrait/1107.png",
     "point": [
+      -1,
       0,
       1,
+      1,
+      1,
       2,
-      2,
-      2,
-      3,
-      5
+      4
     ]
   },
   "1108": {
@@ -530,13 +530,13 @@
     "preview": "image/character_preview/1206.png",
     "portrait": "image/character_portrait/1206.png",
     "point": [
-      -1,
-      -1,
-      -1,
-      -1,
-      -1,
-      -1,
-      0
+      -3,
+      -3,
+      -3,
+      -3,
+      -3,
+      -3,
+      -2
     ]
   },
   "1207": {
@@ -590,13 +590,13 @@
     "preview": "image/character_preview/1209.png",
     "portrait": "image/character_portrait/1209.png",
     "point": [
-      1,
-      1,
-      1,
-      1,
-      2,
-      2,
-      4
+      -3,
+      -3,
+      -3,
+      -3,
+      -2,
+      -2,
+      0
     ]
   },
   "1210": {
@@ -630,13 +630,13 @@
     "preview": "image/character_preview/1211.png",
     "portrait": "image/character_portrait/1211.png",
     "point": [
+      0,
+      0,
+      0,
+      0,
       1,
       1,
-      1,
-      1,
-      2,
-      2,
-      2
+      1
     ]
   },
   "1212": {
@@ -771,9 +771,9 @@
     "portrait": "image/character_portrait/1220.png",
     "point": [
       6,
-      11,
-      15,
-      15,
+      10,
+      14,
+      14,
       16.5,
       17,
       18
@@ -790,10 +790,10 @@
     "preview": "image/character_preview/1221.png",
     "portrait": "image/character_portrait/1221.png",
     "point": [
-      8,
-      12,
-      14,
-      14,
+      7,
+      11,
+      13,
+      13,
       11,
       11.5,
       18.5
@@ -810,10 +810,10 @@
     "preview": "image/character_preview/1222.png",
     "portrait": "image/character_portrait/1222.png",
     "point": [
-      2,
-      4,
-      5,
-      5,
+      3,
+      6,
+      7,
+      7,
       0,
       0,
       0
@@ -830,12 +830,12 @@
     "preview": "image/character_preview/1223.png",
     "portrait": "image/character_portrait/1223.png",
     "point": [
-      0,
+      1,
+      1,
+      1,
+      1,
       2,
-      3,
-      3,
-      3,
-      3,
+      2,
       3
     ]
   },
@@ -870,10 +870,10 @@
     "preview": "image/character_preview/1225.png",
     "portrait": "image/character_portrait/1225.png",
     "point": [
-      0,
-      0,
-      0,
-      0,
+      5,
+      9,
+      13,
+      13,
       0,
       0,
       0
@@ -891,12 +891,12 @@
     "portrait": "image/character_portrait/1301.png",
     "point": [
       0,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
     ]
   },
   "1302": {
@@ -910,10 +910,10 @@
     "preview": "image/character_preview/1302.png",
     "portrait": "image/character_portrait/1302.png",
     "point": [
+      2,
       3,
       4,
-      5,
-      5,
+      4,
       5.5,
       6,
       9
@@ -1052,8 +1052,8 @@
     "point": [
       7,
       12,
-      13,
-      13,
+      14,
+      14,
       14,
       14,
       18
@@ -1070,10 +1070,10 @@
     "preview": "image/character_preview/1310.png",
     "portrait": "image/character_portrait/1310.png",
     "point": [
-      3,
-      6,
-      11,
-      11,
+      4,
+      7,
+      12,
+      12,
       16.5,
       16.5,
       18
@@ -1170,10 +1170,10 @@
     "preview": "image/character_preview/1317.png",
     "portrait": "image/character_portrait/1317.png",
     "point": [
-      4,
-      8,
+      5,
       9,
-      9,
+      10,
+      10,
       0,
       0,
       0.5
