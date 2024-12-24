@@ -116,11 +116,11 @@ const label = computed(() => {
     if (difference < 0) {
       const roundedDifference = Math.ceil(Math.abs(difference));
       isTeamBlue.value = true;
-      return `Blue Team Advantage ${roundedDifference} cc`;
+      return roundedDifference === 0 ? "Blue Team Advantage" : `Blue Team Advantage ${roundedDifference} cc`;
     } else if (difference > 0) {
       const roundedDifference = Math.floor(difference);
       isTeamBlue.value = false;
-      return `Red Team Advance ${roundedDifference} cc`;
+      return roundedDifference === 0 ? "Red Team Advantage" : `Red Team Advantage ${roundedDifference} cc`;
     } else {
       isDraw.value = true;
       return "Draw";

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="aug" class="augment-item">
+  <div v-if="aug" class="augment-item rounded-lg overflow-hidden shadow-lg">
     <div class="augment-img h-60%">
       <NuxtImg :src="aug.image" class="w-full h-full object-contain" />
       <div class="augment-name flex items-center justify-center text-center">
@@ -41,7 +41,7 @@ const aug = computed(() => {
 .augment-item {
   width: 40%;
   height: 20vh;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   cursor: pointer;
   transition: all 0.3s ease;
 

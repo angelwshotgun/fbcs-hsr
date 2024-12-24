@@ -182,9 +182,9 @@
       </div>
       <div class="w-1/3">
         <div class="flex justify-center items-center">
-          <Button label="Xem điểm" @click="display = true" />
+          <Button label="Xem điểm" @click="display = true" class="min-w-32"/>
           <TimerPlayer />
-          <Button label="Xem đội hình" @click="display1 = true" />
+          <Button label="Xem đội hình" @click="display1 = true" class="min-w-32"/>
         </div>
         <div class="pb-1">
           <BanPickLabel />

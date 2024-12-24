@@ -72,7 +72,6 @@
             'pr-2',
             'pb-1',
           ]"
-          @click="char = null"
         />
         <label
           v-if="!props.isBan && model?.img"
