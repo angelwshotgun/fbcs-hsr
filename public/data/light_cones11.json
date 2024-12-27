@@ -657,11 +657,11 @@
     "preview": "image/light_cone_preview/23035.png",
     "portrait": "image/light_cone_portrait/23035.png",
     "point": [
+      2,
+      2,
       3,
       3,
-      4,
-      4,
-      5
+      4
     ]
   },
   "24000": {

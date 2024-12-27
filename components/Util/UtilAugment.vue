@@ -55,7 +55,7 @@ const augmentData = ref([
   {
     name: 'Cái giá phải trả',
     description:
-      'Khởi đầu với 6 lần reset miễn phí, hoàn thành node thi đấu đầu tiên, mất hết số lần reset miễn phí còn lại.',
+      'Khởi đầu với 8 lần reset miễn phí, hoàn thành node thi đấu đầu tiên, mất hết số lần reset miễn phí còn lại.',
     image: 'https://cdn.metatft.com/file/metatft/augments/atwhatcost_iii.png',
   },
   {
@@ -67,7 +67,7 @@ const augmentData = ref([
   },
   {
     name: 'Ngày an lành',
-    description: 'Có 3 lần reset miễn phí.',
+    description: 'Có 4 lần reset miễn phí.',
     image:
       'https://cdn.metatft.com/file/metatft/augments/trade3.png',
   },

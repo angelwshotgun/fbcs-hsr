@@ -148,12 +148,12 @@
     "element": "Fire",
     "point": [
       0,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
     ],
     "icon": "icon/character/1009.png",
     "preview": "image/character_preview/1009.png",
@@ -450,13 +450,13 @@
     "preview": "image/character_preview/1202.png",
     "portrait": "image/character_portrait/1202.png",
     "point": [
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
     ]
   },
   "1203": {
@@ -611,12 +611,12 @@
     "portrait": "image/character_portrait/1210.png",
     "point": [
       0,
-      0,
-      0,
-      0,
       1,
       1,
-      1
+      1,
+      2,
+      2,
+      2
     ]
   },
   "1211": {
@@ -1052,8 +1052,8 @@
     "point": [
       7,
       11,
-      13,
-      13,
+      12,
+      12,
       0,
       0,
       0
