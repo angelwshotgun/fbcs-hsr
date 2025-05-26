@@ -42,6 +42,7 @@
 
 <script setup>
 import { ref, onMounted, watch } from "vue";
+import anime from "animejs";
 import Dialog from "primevue/dialog";
 
 const wheelCanvas = ref(null);
@@ -49,27 +50,44 @@ const showConfetti = ref(false);
 const namesText = ref(
   "Ali\nBeatriz\nCharles\nDiya\nEric\nFatima\nGabriel\nHanna"
 );
-const namesArray = ref(
-  namesText.value.split("\n").filter((name) => name.trim() !== "")
-);
+const namesArray = ref([]);
 const showWinnerDialog = ref(false);
 const winner = ref("");
 const spinTime = ref(5);
 let wheel = null;
+let idleAnimation = null;
 
 onMounted(() => {
-  initWheel();
+  updateNamesArray();
+  startIdleRotation();
 });
 
-watch(namesArray, initWheel, { deep: true });
+// Cập nhật khi danh sách thay đổi
+watch(namesArray, () => {
+  initWheel();
+  if (!idleAnimation) {
+    startIdleRotation(); // Chỉ khởi động lại nếu không đang quay nhanh
+  }
+}, { deep: true });
+
+function updateNamesArray() {
+  namesArray.value = namesText.value
+    .split("\n")
+    .filter((name) => name.trim() !== "");
+  initWheel();
+}
+
+function shuffleNames() {
+  namesArray.value = namesArray.value.sort(() => Math.random() - 0.5);
+  namesText.value = namesArray.value.join("\n");
+}
+
+function sortNames() {
+  namesArray.value = namesArray.value.sort();
+  namesText.value = namesArray.value.join("\n");
+}
 
 function initWheel() {
-  const canvas = wheelCanvas.value;
-  const ctx = canvas.getContext("2d");
-  const centerX = canvas.width / 2;
-  const centerY = canvas.height / 2;
-  const radius = Math.min(centerX, centerY) - 10;
-
   const colors = ["#3369e8", "#d50f25", "#eeb211", "#009925"];
 
   wheel = {
@@ -80,8 +98,6 @@ function initWheel() {
       endAngle: ((index + 1) / namesArray.value.length) * 2 * Math.PI,
     })),
     totalAngle: 0,
-    spinSpeed: 0,
-    spinAngleStart: 0,
   };
 
   drawWheel();
@@ -89,6 +105,7 @@ function initWheel() {
 
 function drawWheel() {
   const canvas = wheelCanvas.value;
+  if (!canvas || !wheel) return;
   const ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -110,92 +127,71 @@ function drawWheel() {
     ctx.translate(canvas.width / 2, canvas.height / 2);
     ctx.rotate((sector.startAngle + sector.endAngle) / 2 + wheel.totalAngle);
     ctx.textAlign = "right";
-
-    // Change text color for specific sectors
-    if (sector.color === "#eeb211" || sector.color === "#009925") {
-      ctx.fillStyle = "black";
-    } else {
-      ctx.fillStyle = "#fff";
-    }
-
+    ctx.fillStyle = (sector.color === "#eeb211" || sector.color === "#009925") ? "black" : "#fff";
     ctx.font = "bold 18px Arial";
     ctx.fillText(sector.label, canvas.width / 2 - 40, 0);
     ctx.restore();
   });
 
-  // Draw white circle in the center
+  // Vẽ trung tâm trắng
   ctx.beginPath();
   ctx.arc(canvas.width / 2, canvas.height / 2, 40, 0, 2 * Math.PI);
   ctx.fillStyle = "white";
   ctx.fill();
 }
 
-function updateNamesArray() {
-  namesArray.value = namesText.value
-    .split("\n")
-    .filter((name) => name.trim() !== "");
+function startIdleRotation() {
+  stopIdleRotation();
+  idleAnimation = anime({
+    targets: wheel,
+    totalAngle: `+=${Math.PI * 2}`,
+    duration: 20000,
+    easing: "linear",
+    loop: true,
+    update: drawWheel,
+  });
 }
 
-function shuffleNames() {
-  namesArray.value = namesArray.value.sort(() => Math.random() - 0.5);
-  namesText.value = namesArray.value.join("\n");
-}
-
-function sortNames() {
-  namesArray.value = namesArray.value.sort();
-  namesText.value = namesArray.value.join("\n");
+function stopIdleRotation() {
+  if (idleAnimation) {
+    idleAnimation.pause();
+    idleAnimation = null;
+  }
 }
 
 function spinWheel() {
-  if (wheel.spinSpeed > 0) return;
+  if (!wheel || namesArray.value.length === 0) return;
 
-  wheel.spinAngleStart = wheel.totalAngle;
-  wheel.spinSpeed = Math.random() * 10 + 20;
-  wheel.spinTime = 0;
-  wheel.maxSpinTime = spinTime.value * 1000; // Convert seconds to milliseconds
+  stopIdleRotation();
 
-  rotateWheel();
-}
+  const spins = Math.floor(Math.random() * 5) + 5;
+  const targetAngle = wheel.totalAngle + spins * Math.PI * 2 + Math.random() * Math.PI * 2;
 
-function rotateWheel() {
-  wheel.spinTime += 16; // Assuming 60 FPS (16ms per frame)
-
-  if (wheel.spinTime >= wheel.maxSpinTime) {
-    stopRotateWheel();
-    return;
-  }
-
-  // Easing function for smooth deceleration (cubic ease-out)
-  const spinProgress = wheel.spinTime / wheel.maxSpinTime;
-  const easedProgress = 1 - Math.pow(1 - spinProgress, 3); // Cubic easing-out function
-
-  // Calculate current spin speed based on eased progress
-  const spinSpeed = wheel.spinSpeed * (1 - easedProgress);
-
-  // Apply the spin movement
-  wheel.totalAngle += spinSpeed * 0.016; // 0.016 is roughly 1/60th of a second, assuming 60 FPS
-
-  drawWheel(); // Redraw the wheel with the new angle
-  requestAnimationFrame(rotateWheel); // Keep animating until the spin time is complete
+  anime({
+    targets: wheel,
+    totalAngle: targetAngle,
+    duration: spinTime.value * 1000,
+    easing: "easeOutExpo",
+    update: drawWheel,
+    complete: stopRotateWheel,
+  });
 }
 
 function stopRotateWheel() {
   const winningIndex =
     Math.floor(
-      wheel.sectors.length -
-        ((wheel.totalAngle % (2 * Math.PI)) / (2 * Math.PI)) *
-          wheel.sectors.length
+      wheel.sectors.length - ((wheel.totalAngle % (2 * Math.PI)) / (2 * Math.PI)) * wheel.sectors.length
     ) % wheel.sectors.length;
+
   showConfetti.value = true;
   winner.value = wheel.sectors[winningIndex].label;
+
   setTimeout(() => {
     showConfetti.value = false;
     showWinnerDialog.value = true;
-    // Reset spinSpeed to allow a new spin
-    wheel.spinSpeed = 0;
+    startIdleRotation(); // Quay chậm trở lại sau khi chọn người thắng
   }, 2000);
 }
-
 </script>
 
 <style scoped>

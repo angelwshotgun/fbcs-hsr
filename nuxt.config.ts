@@ -37,7 +37,9 @@ export default defineNuxtConfig({
     GITHUB_TOKEN: process.env.GITHUB_TOKEN,
     public: {
       // Client-side environment variables
-      GITHUB_TOKEN: process.env.GITHUB_TOKEN
+      GITHUB_TOKEN: process.env.GITHUB_TOKEN,
+      supabaseUrl: process.env.SUPABASE_URL,
+      supabaseAnonKey: process.env.SUPABASE_ANON_KEY,
     }
   },
   anime: {

@@ -1,57 +1,172 @@
 <template>
-  <div>
-    <Button
-      label="xd"
-      @click="store.deleteGame(`${id}`)"
-    />
+  <div class="container">
+    <h1>Tierlist</h1>
+    <div class="tierlist">
+      <template v-for="(tier, tierIndex) in tierlistData" :key="tier.name">
+        <div class="tier flex flex-row">
+          <div class="tier-label flex items-center justify-center" :style="{ backgroundColor: tier.color }">{{ tier.name }}</div>
+          <draggable 
+            class="items flex flex-row flex-wrap w-full" 
+            v-model="tier.items" 
+            :group="{ name: 'items', pull: true, put: true }"
+            item-key="name"
+            animation="200"
+            ghost-class="ghost-item"
+          >
+            <template #item="{ element }">
+              <div class="item">
+                <img v-tooltip="element.name" :src="element.img" :alt="element.name" />
+              </div>
+            </template>
+          </draggable>
+        </div>
+      </template>
+    </div>
+    <h2 class="mt-6 mb-2">Available Items</h2>
+    <div class="list">
+      <draggable 
+        class="items flex flex-row flex-wrap" 
+        v-model="unassignedItems" 
+        :group="{ name: 'items', pull: true, put: true }"
+        item-key="name"
+        animation="200"
+        ghost-class="ghost-item"
+      >
+        <template #item="{ element }">
+          <div class="item">
+            <img v-tooltip="element.name" :src="element.img" :alt="element.name" />
+          </div>
+        </template>
+      </draggable>
+    </div>
   </div>
 </template>
 
-<script setup>
-import { useStore } from "~/store/useStore";
+<script setup lang="ts">
+import { ref } from 'vue';
+import draggable from 'vuedraggable';
 
-const store = useStore();
-const route = useRoute();
-const id = route.params.id;
+const tierlistData = ref([
+  {
+    name: 'S',
+    color: '#ff7f7f',
+    items: [
+      { name: 'Item 1', img: 'https://tiermaker.com/images/template_images/2022/15556175/every-pokmon-ever-all-forms-updated-to-newest-pokmon-15556175/zzzzz-16740912010094cpng.png' },
+      { name: 'Item 2', img: 'https://tiermaker.com/images/template_images/2022/15556175/every-pokmon-ever-all-forms-updated-to-newest-pokmon-15556175/zzzzz-16740924800143bpng.png' },
+    ],
+  },
+  {
+    name: 'A',
+    color: '#ffbf7f',
+    items: [
+      { name: 'Item 4', img: 'https://tiermaker.com/images/template_images/2022/15556175/every-pokmon-ever-all-forms-updated-to-newest-pokmon-15556175/zzzzz-16740896870025dpng.png' },
+      { name: 'Item 5', img: 'https://tiermaker.com/images/template_images/2022/15556175/every-pokmon-ever-all-forms-updated-to-newest-pokmon-15556175/0012bpng.png' },
+    ],
+  },
+  {
+    name: 'B',
+    color: '#ffdf7f',
+    items: [],
+  },
+  {
+    name: 'C',
+    color: '#ffff7f',
+    items: [],
+  },
+  {
+    name: 'D',
+    color: '#bfff7f',
+    items: [],
+  },
+]);
 
-// Biến cờ để kiểm tra nếu đang rời khỏi trang
-let isLeavingPage = false;
+// Items that are not yet assigned to any tier
+const unassignedItems = ref([
+  { name: 'Item 3', img: 'https://tiermaker.com/images/template_images/2022/15556175/every-pokmon-ever-all-forms-updated-to-newest-pokmon-15556175/zzzzz-16740912010094cpng.png' },
+  { name: 'Item 6', img: 'https://tiermaker.com/images/template_images/2022/15556175/every-pokmon-ever-all-forms-updated-to-newest-pokmon-15556175/zzzzz-16740912010094cpng.png' },
+  { name: 'Item 7', img: 'https://tiermaker.com/images/template_images/2022/15556175/every-pokmon-ever-all-forms-updated-to-newest-pokmon-15556175/zzzzz-16740912010094cpng.png' },
+  { name: 'Item 8', img: 'https://tiermaker.com/images/template_images/2022/15556175/every-pokmon-ever-all-forms-updated-to-newest-pokmon-15556175/zzzzz-16740912010094cpng.png' },
+]);
+</script>
 
-// Chỉ gọi khi vào trang hoặc khi không phải rời khỏi
-if (process.client) {
-  onMounted(() => {
-    if (!isLeavingPage) {
-      store.initializeGame(`${id}`);
-      store.createGame(`${id}`);
-    }
-  });
-
-  // Đảm bảo `beforeunload` chỉ gọi `deleteGame` khi rời khỏi trang
-  const handleBeforeUnload = (event) => {
-    event.preventDefault();
-    store.deleteGame(`${id}`);
-    isLeavingPage = true; // Đặt cờ để không gọi lại `createGame`
-    event.returnValue = ''; // Một chuỗi trống cần thiết để kích hoạt thông báo
-  };
-
-  window.addEventListener('beforeunload', handleBeforeUnload);
-
-  onBeforeUnmount(() => {
-    window.removeEventListener('beforeunload', handleBeforeUnload);
-  });
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 100%;
 }
 
-// Hàm dọn dẹp
-onUnmounted(() => {
-  store.cleanup();
-  console.log('cleanup');
-});
+.tierlist {
+  background-color: #333;
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+  border-right-width: 0px;
+}
 
-// Gọi cập nhật dữ liệu khi trang được tải
-await store.updateGame(`${id}`, 'ban/bc1', {
-  img: "new-img",
-  name: "new-name",
-  path: "new-path",
-  point: [1, 1, 1, 1, 1, 1, 1]
-});
-</script>
+.tier {
+  background-color: #333;
+  border-width: 2px;
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+  border-color: black;
+  border-style: solid;
+}
+.tier:first-child {
+  background-color: #333;
+  border-top-width: 0px;
+  border-bottom-width: 0px;
+  border-color: black;
+  border-style: solid;
+}
+.tier:last-child {
+  background-color: #333;
+  border-bottom-width: 0px;
+  border-color: black;
+  border-style: solid;
+}
+.tier-label {
+  border-right: black 2px solid;
+}
+.tierlist,
+.list {
+  width: 80%;
+}
+
+.list {
+  background-color: #444;
+  border: 1px solid black;
+  min-height: 120px;
+}
+
+.items {
+  height: 100px;
+}
+
+.item {
+  cursor: move;
+  transition: transform 0.2s;
+}
+
+.item:hover {
+  transform: scale(1.05);
+}
+
+.item img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.tier-label {
+  width: 120px;
+  color: black;
+  font-size: 1.5rem;
+}
+
+.ghost-item {
+  opacity: 0.5;
+}
+</style>
