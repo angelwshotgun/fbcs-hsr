@@ -1,6 +1,6 @@
 <template>
   <ClientOnly v-if="store.$state.games[id]">
-    <div>
+    <div style="min-height: calc(100vh - 50px);">
       <!-- <video ref="videoPlayer" autoplay loop muted class="absolute top-0 left-0 w-full h-full object-cover -z-10">
         <source :src="urlVideo" type="video/mp4" />
         Your browser does not support the video tag.
@@ -13,7 +13,7 @@
           <button @click="nextTrack">Next</button>
         </div>
       </div> -->
-      <NuxtImg
+      <img
         v-if="viewData.name !== ''"
         :src="link + convertImg(viewData.name)"
         :style="{
@@ -26,31 +26,22 @@
           objectFit: 'cover',
           zIndex: 99,
         }"
+        loading="lazy"
       />
-      <div class="flex flex-col md:flex-row justify-between gap-1 p-3">
+      <img
+        v-for="img in listImg"
+        :key="img"
+        :src="link + img"
+        alt=""
+        class="hidden"
+      />
+      <div class="flex flex-col md:flex-row justify-between gap-1" style="min-height: calc(100vh - 50px);">
         <div class="w-2/5 flex flex-col gap-1">
           <div
             class="flex justify-between items-center bg-blue-500 h-10 rounded-md"
           >
             <label class="pl-2 text-white text-xl">{{ team1 }}</label>
-            <label class="pr-2 text-white text-xl">{{
-              store.$state.games[id].state.point.bluep.char[0] +
-              store.$state.games[id].state.point.bluep.char[1] +
-              store.$state.games[id].state.point.bluep.char[2] +
-              store.$state.games[id].state.point.bluep.char[3] +
-              store.$state.games[id].state.point.bluep.char[4] +
-              store.$state.games[id].state.point.bluep.char[5] +
-              store.$state.games[id].state.point.bluep.char[6] +
-              store.$state.games[id].state.point.bluep.char[7] +
-              store.$state.games[id].state.point.bluep.lc[0] +
-              store.$state.games[id].state.point.bluep.lc[1] +
-              store.$state.games[id].state.point.bluep.lc[2] +
-              store.$state.games[id].state.point.bluep.lc[3] +
-              store.$state.games[id].state.point.bluep.lc[4] +
-              store.$state.games[id].state.point.bluep.lc[5] +
-              store.$state.games[id].state.point.bluep.lc[6] +
-              store.$state.games[id].state.point.bluep.lc[7]
-            }}</label>
+            <label class="pr-2 text-white text-xl">{{ blueTotal }}</label>
           </div>
           <div class="grid grid-cols-3 gap-1">
             <SelectView
@@ -161,6 +152,13 @@
             severity="contrast"
             :outlined="true"
           />
+          <Button
+            label="Load Ảnh"
+            @click="loadAllImg()"
+            class="w-1/2"
+            severity="contrast"
+            :outlined="true"
+          />
           <div class="flex items-center justify-center gap-1">
             <TimerView class="ml-15" />
           </div>
@@ -179,24 +177,7 @@
           <div
             class="flex justify-between items-center bg-red-500 h-10 rounded-md"
           >
-            <label class="pl-2 text-white text-xl">{{
-              store.$state.games[id].state.point.redp.char[0] +
-              store.$state.games[id].state.point.redp.char[1] +
-              store.$state.games[id].state.point.redp.char[2] +
-              store.$state.games[id].state.point.redp.char[3] +
-              store.$state.games[id].state.point.redp.char[4] +
-              store.$state.games[id].state.point.redp.char[5] +
-              store.$state.games[id].state.point.redp.char[6] +
-              store.$state.games[id].state.point.redp.char[7] +
-              store.$state.games[id].state.point.redp.lc[0] +
-              store.$state.games[id].state.point.redp.lc[1] +
-              store.$state.games[id].state.point.redp.lc[2] +
-              store.$state.games[id].state.point.redp.lc[3] +
-              store.$state.games[id].state.point.redp.lc[4] +
-              store.$state.games[id].state.point.redp.lc[5] +
-              store.$state.games[id].state.point.redp.lc[6] +
-              store.$state.games[id].state.point.redp.lc[7]
-            }}</label>
+            <label class="pl-2 text-white text-xl">{{ redTotal }}</label>
             <label class="pr-2 text-white text-xl">{{ team2 }}</label>
           </div>
           <div class="grid grid-cols-3 gap-1">
@@ -353,6 +334,8 @@ const visible = ref(false);
 const route = useRoute();
 const store = useStore();
 const id = route.params.id;
+const toast = useToast();
+// const link = 'https://buoyant-volt-429100-f6.web.app/';
 const link = '/';
 const optionStage = [
   {
@@ -403,7 +386,48 @@ const viewData = computed(() => {
 const convertImg = (img) => {
   return `${img.replace('.png', '.avif')}`;
 };
+const listImg = ref([]);
+
+const loadAllImg = () => {
+  $fetch('/api/images').then((data) => {
+    listImg.value = data || [];
+    // Preload images using <link rel="preload"> for browser cache
+    if (typeof window !== 'undefined' && listImg.value.length) {
+      listImg.value.forEach(img => {
+        const href = link + img;
+        if (!document.querySelector(`link[rel='preload'][href='${href}']`)) {
+          const linkEl = document.createElement('link');
+          linkEl.rel = 'preload';
+          linkEl.as = 'image';
+          linkEl.href = href;
+          document.head.appendChild(linkEl);
+        }
+      });
+    }
+    toast.add({
+      severity: 'success',
+      summary: 'Load Ảnh Thành Công',
+      detail: `Đã tải ${listImg.value.length} ảnh`,
+      life: 3000,
+    });
+    setTimeout(() => {
+      listImg.value = [];
+    }, 1000);
+  });
+};
+
+const blueTotal = computed(() => {
+  const p = store.$state.games[id]?.state.point.bluep;
+  if (!p) return 0;
+  return p.char.reduce((a, b) => a + b, 0) + p.lc.reduce((a, b) => a + b, 0);
+});
+const redTotal = computed(() => {
+  const p = store.$state.games[id]?.state.point.redp;
+  if (!p) return 0;
+  return p.char.reduce((a, b) => a + b, 0) + p.lc.reduce((a, b) => a + b, 0);
+});
 </script>
+
 <style scoped>
 video {
   object-fit: cover;

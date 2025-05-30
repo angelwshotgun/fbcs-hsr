@@ -11,12 +11,12 @@
 
     <!-- Nội dung trang -->
     <SharedTopBar />
-    <div class="layout-main-container min-h-85vh">
-      <div class="layout-main">
+    <div class="layout-main-container" style="min-height: calc(100vh - 50px);">
+      <div class="layout-main px-2" style="min-height: calc(100vh - 50px);">
         <NuxtPage />
       </div>
     </div>
-    <SharedFootBar />
+    <!-- <SharedFootBar /> -->
     <div class="layout-mask animate-fadein" />
     <Toast />
   </div>

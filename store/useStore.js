@@ -87,44 +87,33 @@ export const useStore = defineStore("store", {
   actions: {
     async fetchGames() {
       try {
-        // Hủy tất cả các listeners cũ
         this.unsubscribeAll();
-        
         const gamesRef = ref(db, 'games');
-        
-        // Thiết lập realtime listener
         const unsubscribe = onValue(gamesRef, (snapshot) => {
           if (snapshot.exists()) {
             const games = snapshot.val();
-            
-            // Cập nhật games mới và loại bỏ những games đã bị xóa
             Object.entries(games).forEach(([gameId, gameData]) => {
               if (!this.deletedGames.has(gameId)) {
+                // Always replace the whole object for reactivity and sync
                 this.games[gameId] = {
                   ...createDefaultState(),
                   ...gameData
                 };
               }
             });
-
-            // Xóa những games không còn tồn tại trong database
             Object.keys(this.games).forEach(gameId => {
               if (!games[gameId] && !this.deletedGames.has(gameId)) {
                 delete this.games[gameId];
               }
             });
           } else {
-            // Nếu không có dữ liệu, reset về object rỗng
             this.games = {};
           }
         }, (error) => {
           console.error("Error fetching games:", error);
           throw error;
         });
-
-        // Lưu hàm unsubscribe
         unsubscribers.add(unsubscribe);
-        
       } catch (error) {
         console.error("Error in fetchGames:", error);
         throw error;

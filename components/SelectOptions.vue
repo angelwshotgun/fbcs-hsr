@@ -110,6 +110,7 @@
 
 <script setup>
 import { useStore } from '~/store/useStore';
+import { shallowRef, computed, watch, ref, onMounted } from 'vue';
 
 const route = useRoute();
 const store = useStore();
@@ -132,10 +133,17 @@ const props = defineProps({
 });
 
 const id = route.params.id;
-const characters = ref(props.characters);
-const light_cones = ref(props.light_cones);
-const light_cones34 = ref(props.light_cones34);
-const filterLightcones = ref();
+const characters = shallowRef(props.characters);
+const light_cones = shallowRef(props.light_cones);
+const light_cones34 = shallowRef(props.light_cones34);
+
+const filterLightcones = computed(() => {
+  // Nếu có light_cones34 thì gộp, nếu không thì chỉ lấy light_cones
+  if (light_cones34.value && Array.isArray(light_cones34.value)) {
+    return [...(light_cones.value || []), ...light_cones34.value];
+  }
+  return light_cones.value || [];
+});
 const char = ref();
 const lc = ref();
 const eiloidon = ref(0);
@@ -218,15 +226,14 @@ watch(time2, (newValue) => {
     isEndTimer2.value = true;
   }
 });
-watch(props, () => {
-  characters.value = props.characters;
-  light_cones.value = props.light_cones;
-  light_cones34.value = props.light_cones34;
-  // if (light_cones34.value && light_cones.value) {
-  //   const data = [...light_cones.value, ...light_cones34.value].map(item => ({...item}));
-  //   filterLightcones.value = data;
-  // }
-  filterLightcones.value = light_cones.value;
+watch(() => props.characters, (val) => {
+  characters.value = val;
+});
+watch(() => props.light_cones, (val) => {
+  light_cones.value = val;
+});
+watch(() => props.light_cones34, (val) => {
+  light_cones34.value = val;
 });
 onMounted(async () => {});
 const model = computed(() => {
@@ -318,6 +325,7 @@ const model1 = computed(() => {
   }
 });
 const selectCharacter = () => {
+  store.updateGameData(`${id}`, `state/data/name`, char.value.portrait);
   store.updateGameData(
     `${id}`,
     `${props.isLightCone ? 'lightcone' : 'character'}/${props.state}/img`,
@@ -374,7 +382,6 @@ const selectCharacter = () => {
     char.value.point[eiloidon.value]
   );
   store.updateGameData(`${id}`, `character/${props.lcstate}/e`, eiloidon.value);
-  store.updateGameData(`${id}`, `state/data/name`, char.value.portrait);
 };
 const changeEiloidon = () => {
   store.updateGameData(

@@ -26,9 +26,10 @@
         </div>
         <div v-else-if="model?.img == '' && !props.isBan">Picking...</div>
         <div :class="['flex', 'flex-col', 'h-100%']">
-          <NuxtImg
+          <img
             v-if="model?.img !== ''"
             :src="link + model?.img"
+            loading="lazy"
             :style="props.isBan ? 'filter: grayscale(100%);' : ''"
             :class="[
               props.isBan ? 'h-100%' : 'h-80%',
@@ -57,9 +58,10 @@
             </span>
           </label>
         </div>
-        <NuxtImg
+        <img
           v-if="!props.isBan && model2?.img !== ''"
           :src="link + model2?.img"
+          loading="lazy"
           :style="props.isBan ? 'filter: grayscale(100%);' : ''"
           :class="[
             'absolute',
@@ -102,9 +104,10 @@
             style="opacity: 0.5"
           />
         </div>
-        <NuxtImg
+        <img
           v-else
           :src="link + model?.img"
+          loading="lazy"
           :style="props.isBan ? 'filter: grayscale(100%);' : ''"
           class="object-contain h-100% w-auto"
         />
@@ -115,6 +118,7 @@
 
 <script setup>
 import { useStore } from "~/store/useStore";
+import { shallowRef, computed, ref, onMounted } from 'vue';
 
 const route = useRoute();
 const store = useStore();
@@ -189,6 +193,21 @@ const model = computed(() => {
       return null;
   }
 });
+const getModel = (type, key) => {
+  if (!store.$state.games[id]) return null;
+  switch (type) {
+    case 'ban':
+      return store.$state.games[id].ban[key] || null;
+    case 'character':
+      return store.$state.games[id].character[key] || null;
+    case 'lightcone':
+      return store.$state.games[id].lightcone[key] || null;
+    case 'point':
+      return store.$state.games[id].state.point[key] || null;
+    default:
+      return null;
+  }
+};
 const model1 = computed(() => {
   switch (props.state) {
     case "c1":
